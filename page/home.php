@@ -1,15 +1,5 @@
 <?php
-use \App\Table\Post;
+use App\App;
+App::setTitle('Accueil | '.App::DEFAULT_TITLE);
 ?>
-<p>Home Page in 'page/home.php'</p>
-
-<ul>
-    <?php foreach (Post::getAll() as $post) : ?>
-
-        <h2><a href="<?= $post->getUrl() ?>"><?= $post->title ?></a></h2>
-        <p><?= $post->getExcerpt(); ?></p>
-        <p><?= $post->getContent() ?></p>
-    
-    <?php endforeach; ?>
-
-</ul>
+<a href="index.php?p=loop">Voire tous les articles</a>

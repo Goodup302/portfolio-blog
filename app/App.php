@@ -12,9 +12,10 @@ class App
 
     const EXCERPT_LENGTH = 100;
     const PAGE_NOT_FOUND = 'Error 404 Page !';
+    const DEFAULT_TITLE = 'Portfolio Blog';
 
-
-    private  static $database;
+    private static $database;
+    private static $title = self::DEFAULT_TITLE;
 
     public static function getDatabase() {
         if (self::$database == null) {
@@ -26,5 +27,12 @@ class App
     public static function error404($message = self::PAGE_NOT_FOUND) {
         header("HTTP/1.0 404 Not Found");
         header("location:index.php?p=404&error=".$message);
+    }
+
+    public static function getTitle() {
+        return self::$title;
+    }
+    public static function setTitle($title) {
+        self::$title = $title;
     }
 }

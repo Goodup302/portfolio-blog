@@ -8,6 +8,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
         $post = Post::getById($_GET['id']);
         $author = User::getById($post->getAuthorId());
         if ($post) {
+            App::setTitle('Article: '.$post->title);
             ?>
             <h1><?= $post->title ?></h1>
             <p><?= $post->getLastDate() ?></p>
