@@ -2,6 +2,7 @@
 use \App\Table\Post;
 use \App\Table\Comment;
 use \App\Table\User;
+use App\App;
 
 if (isset($_GET['id']) && $_GET['id'] != null) {
         $post = Post::getById($_GET['id']);
@@ -35,9 +36,9 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             </ul>
             <?php
         } else {
-            echo "Cette article n'existe pas !";
+            App::error404("Cette article n'existe pas !");
         }
 } else {
-    echo "Aucun article selectionné !";
+    App::error404("Aucun article selectionné !");
 }
 ?>
