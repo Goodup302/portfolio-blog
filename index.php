@@ -1,8 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: PC-PRO
- * Date: 15/11/2018
- * Time: 15:24
- */
+
 echo 'Hello World : Routing';
+
+//require_once 'public/index.php';

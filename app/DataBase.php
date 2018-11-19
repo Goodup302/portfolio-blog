@@ -45,4 +45,9 @@ class DataBase
         }
         return $result;
     }
+    public function prepareUpdate($statement, $args) {
+        var_dump($args);
+        $request = $this->getPDO()->prepare($statement);
+        return $request->execute($args);
+    }
 }

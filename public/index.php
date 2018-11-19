@@ -5,7 +5,6 @@ require_once '../app/Autoloader.php';
 \App\Autoloader::register();
 
 
-$db = new DataBase('blog');
 
 if (isset($_GET['p'])) {
     $page = $_GET['p'];
