@@ -1,13 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * UserTable: PC-PRO
- * Date: 19/11/2018
- * Time: 11:56
- */
 
 namespace App\Table;
-use App\App;
+use Core\Table\Table;
 
 class CommentTable extends Table
 {

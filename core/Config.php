@@ -6,7 +6,7 @@
  * Time: 09:09
  */
 
-namespace App;
+namespace Core;
 
 
 class Config
@@ -14,16 +14,16 @@ class Config
     private $settings = array();
     private static $_instance;
 
-    public static function getInstance() {
+    public static function getInstance($file) {
         if (is_null(self::$_instance)) {
-            self::$_instance = new self();
+            self::$_instance = new self($file);
         }
         return self::$_instance;
     }
 
-    public function __construct()
+    public function __construct($file)
     {
-        $this->settings = require_once('../config.php');
+        $this->settings = require($file);
     }
     public function get($key)
     {

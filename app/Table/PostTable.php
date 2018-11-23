@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Table;
-use App\App;
-use App\Config;
+use Core\Table\Table;
+use Core\Config;
 
 class PostTable extends Table
 {

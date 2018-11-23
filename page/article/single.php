@@ -8,7 +8,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
         $post = $app->getTable('Post')->getById($_GET['id']);
         $author = $app->getTable('User')->getById($post->getAuthorId());
         if ($post) {
-            $app->setTitle('Article: '.$post->title);
+            $app->setTitle('article: '.$post->title);
             ?>
             <h1><?= $post->title ?></h1>
             <p><?= $post->getLastDate() ?></p>

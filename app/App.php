@@ -1,10 +1,11 @@
 <?php
-
-namespace App;
+use Core\Config;
+use Core\DataBase;
 
 
 class App
 {
+    private $configFile = ROOT . '/config.php';
     private $database;
     private $title;
 
@@ -17,6 +18,14 @@ class App
         return self::$_instance;
     }
 
+    public static function load() {
+        session_start();
+        require_once ROOT . '/app/Autoloader.php';
+        App\Autoloader::register();
+        require_once ROOT . '/core/Autoloader.php';
+        Core\Autoloader::register();
+    }
+
     public function getTable($name) {
         $class_name = "App\\Table\\".ucfirst($name).'Table';
         return new $class_name($this->getDatabase());
@@ -24,12 +33,12 @@ class App
 
     public function __construct()
     {
-        $this->title = Config::getInstance()->get('default_title');
+        $this->title = Config::getInstance($this->configFile)->get('default_title');
     }
 
     public function getDatabase() {
         if (is_null($this->database)) {
-            $config = Config::getInstance();
+            $config = Config::getInstance($this->configFile);
             $this->database = new DataBase(
                 $config->get('db_name'),
                 $config->get('db_host'),
@@ -42,7 +51,7 @@ class App
 
     public function error404($message = null) {
         if (is_null($message)) {
-            $message = $this->config->get('default_title');
+            $message = Config::getInstance($this->configFile)->get('default_title');
         }
         header("HTTP/1.0 404 Not Found");
         header("location:index.php?p=404&error=".$message);
@@ -52,6 +61,6 @@ class App
         return $this->title;
     }
     public function setTitle($title) {
-        $this->title = $title . ' | ' . Config::getInstance()->get('default_title');
+        $this->title = $title . ' | ' . Config::getInstance($this->configFile)->get('default_title');
     }
 }

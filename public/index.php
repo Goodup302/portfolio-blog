@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
-require_once '../app/Autoloader.php';
-\App\Autoloader::register();
-
+define('ROOT', dirname(__DIR__));
+require_once ROOT . '/app/App.php';
+App::load();
 
 $app = App::getInstance();
 //$config = Config::getInstance();

@@ -6,7 +6,7 @@
  * Time: 11:59
  */
 
-namespace App\Table;
+namespace Core\Table;
 
 class Table
 {
