@@ -6,12 +6,7 @@ require_once '../app/Autoloader.php';
 
 
 $app = App::getInstance();
-$config = Config::getInstance();
-
-$post = $app->getTable('Post');
-var_dump($post);
-$post = $app->getTable('User');
-var_dump($post);
+//$config = Config::getInstance();
 
 
 if (isset($_GET['p'])) {
@@ -21,9 +16,6 @@ if (isset($_GET['p'])) {
 }
 
 ob_start();
-if ($page === 'home') {
-    //require_once '';
-}
 require_once '../page/'.$page.'.php';
 $content = ob_get_clean();
 

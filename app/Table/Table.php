@@ -7,14 +7,15 @@
  */
 
 namespace App\Table;
-use App\App;
 
 class Table
 {
     protected $table;
+    protected $db;
 
-    public function __construct()
+    public function __construct(\App\DataBase $db = null)
     {
+        $this->db = $db;
         if (is_null($this->table)) {
             $array = explode('\\', get_class($this));
             $class_name = end($array);
@@ -24,9 +25,9 @@ class Table
     }
 
     public function getAll(){
-        return App::getInstance()->getDatabase()->query('SELECT * FROM ' . $this->table, get_class($this));
+        return $this->db->query('SELECT * FROM ' . $this->table, get_class($this));
     }
     public function getById($id){
-        return App::getInstance()->getDatabase()->prepare('SELECT * FROM ' . $this->table .' WHERE id = ?', get_class($this), [$id], true);
+        return $this->db->prepare('SELECT * FROM ' . $this->table .' WHERE id = ?', get_class($this), [$id], true);
     }
 }

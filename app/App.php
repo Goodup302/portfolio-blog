@@ -19,7 +19,7 @@ class App
 
     public function getTable($name) {
         $class_name = "App\\Table\\".ucfirst($name).'Table';
-        return new $class_name;
+        return new $class_name($this->getDatabase());
     }
 
     public function __construct()
