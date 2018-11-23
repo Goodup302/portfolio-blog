@@ -29,25 +29,23 @@ class DataBase
         return $this->pdo;
     }
 
-    public function query($statement, $className) {
-        $request = $this->getPDO()->query($statement);
-        return $request->fetchAll(PDO::FETCH_CLASS, $className);
-    }
-
-    public function prepare($statement, $className, $args, $isSingle = false) {
-        $request = $this->getPDO()->prepare($statement);
-        $request->execute($args);
-        $request->setFetchMode(PDO::FETCH_CLASS, $className);
+    public function query($statement, $className = null, $args = null, $isSingle = false) {
+        if (!is_null($args)) {
+            $request = $this->getPDO()->prepare($statement);
+            $request->execute($args);
+        } else {
+            $request = $this->getPDO()->query($statement);
+        }
+        //
+        if (!is_null($className)) {
+            $request->setFetchMode(PDO::FETCH_CLASS, $className);
+        }
+        //
         if ($isSingle) {
             $result = $request->fetch();
         } else {
             $result = $request->fetchAll();
         }
         return $result;
-    }
-    public function prepareUpdate($statement, $args) {
-        var_dump($args);
-        $request = $this->getPDO()->prepare($statement);
-        return $request->execute($args);
     }
 }

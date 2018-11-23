@@ -7,13 +7,14 @@
  */
 
 namespace Core\Table;
+use \Core\DataBase;
 
 class Table
 {
     protected $table;
     protected $db;
 
-    public function __construct(\App\DataBase $db = null)
+    public function __construct(DataBase $db = null)
     {
         $this->db = $db;
         if (is_null($this->table)) {
@@ -25,7 +26,7 @@ class Table
     }
 
     public function getAll(){
-        return $this->db->query('SELECT * FROM ' . $this->table, get_class($this));
+        return $this->db->query('SELECT * FROM ' . $this->table, str_replace('Table', 'Entity', get_class($this)));
     }
     public function getById($id){
         return $this->db->prepare('SELECT * FROM ' . $this->table .' WHERE id = ?', get_class($this), [$id], true);
