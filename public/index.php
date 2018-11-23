@@ -22,15 +22,15 @@ if ($page === 'home') {
 
 
 } else if ($page === 'loop') {
-    require_once ROOT.'/page/article/loop.php';
+    require_once ROOT . '/page/posts/loop.php';
 
 
 } else if ($page === 'single') {
-    require_once ROOT.'/page/article/single.php';
+    require_once ROOT . '/page/posts/single.php';
 
 
 } else if ($page === '404') {
-    require_once ROOT.'/page/error/404.php';
+    require_once ROOT . '/page/errors/404.php';
 
 
 }

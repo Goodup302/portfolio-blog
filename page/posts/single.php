@@ -8,7 +8,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
         $post = $app->getTable('Post')->getById($_GET['id']);
         $author = $app->getTable('User')->getById($post->getAuthorId());
         if ($post) {
-            $app->setTitle('article: '.$post->title);
+            $app->setTitle('posts: '.$post->title);
             ?>
             <h1><?= $post->title ?></h1>
             <p><?= $post->getLastDate() ?></p>
@@ -37,9 +37,9 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             </ul>
             <?php
         } else {
-            $app->error404("Cette article n'existe pas !");
+            $app->error404("Cette posts n'existe pas !");
         }
 } else {
-    $app->error404("Aucun article selectionné !");
+    $app->error404("Aucun posts selectionné !");
 }
 ?>
