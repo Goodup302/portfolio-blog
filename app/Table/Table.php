@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: PC-PRO
+ * UserTable: PC-PRO
  * Date: 19/11/2018
  * Time: 11:59
  */
@@ -11,22 +11,22 @@ use App\App;
 
 class Table
 {
-    protected static $table;
+    protected $table;
 
-    private static function getTable(){
-        if (static::$table == null) {
-            $class_name = explode('\\', get_call_calss());
-            static::$table = strtolower(end($class_name));
-        } else {
-
+    public function __construct()
+    {
+        if (is_null($this->table)) {
+            $array = explode('\\', get_class($this));
+            $class_name = end($array);
+            //
+            $this->table = strtolower(str_replace('Table', '', $class_name));
         }
-        return static::$table;
     }
 
-    public static function getAll(){
-        return App::getDatabase()->query('SELECT * FROM ' . static::getTable(), get_called_class());
+    public function getAll(){
+        return App::getInstance()->getDatabase()->query('SELECT * FROM ' . $this->table, get_class($this));
     }
-    public static function getById($id){
-        return App::getDatabase()->prepare('SELECT * FROM ' . static::getTable() .' WHERE id = ?', get_called_class(), [$id], true);
+    public function getById($id){
+        return App::getInstance()->getDatabase()->prepare('SELECT * FROM ' . $this->table .' WHERE id = ?', get_class($this), [$id], true);
     }
 }

@@ -5,10 +5,13 @@ require_once '../app/Autoloader.php';
 \App\Autoloader::register();
 
 
+$app = App::getInstance();
 $config = Config::getInstance();
-var_dump($config);
 
-
+$post = $app->getTable('Post');
+var_dump($post);
+$post = $app->getTable('User');
+var_dump($post);
 
 
 if (isset($_GET['p'])) {

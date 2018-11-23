@@ -1,14 +1,15 @@
 <?php
 use App\App;
+use App\Config;
 
-App::setTitle('Page introuvable');
+$app->setTitle('Page introuvable');
 ?>
 <p>
     <?php
     if (isset($_GET['error']) && $_GET['error'] != null) {
         echo $_GET['error'];
     } else {
-        echo App::PAGE_NOT_FOUND;
+        echo Config::getInstance()->get('page_not_found');
     }
     ?>
 </p>

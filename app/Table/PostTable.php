@@ -2,10 +2,10 @@
 
 namespace App\Table;
 use App\App;
+use App\Config;
 
-class Post extends Table
+class PostTable extends Table
 {
-    protected static $table = 'post';
 
     public function getUrl() {
         return 'index.php?p=single&id='. $this->id;
@@ -17,7 +17,7 @@ class Post extends Table
         if (strlen($this->excerpt) > 0 || $forceExcerpt == true) {
             return $this->excerpt;
         } else {
-            return substr($this->content, 0, APP::EXCERPT_LENGTH);
+            return substr($this->content, 0, Config::getInstance()->get('excerpt_length'));
         }
     }
     public function getLastDate() {

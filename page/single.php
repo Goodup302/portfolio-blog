@@ -1,14 +1,14 @@
 <?php
-use \App\Table\Post;
-use \App\Table\Comment;
-use \App\Table\User;
+use \App\Table\PostTable;
+use \App\Table\CommentTable;
+use \App\Table\UserTable;
 use App\App;
 
 if (isset($_GET['id']) && $_GET['id'] != null) {
-        $post = Post::getById($_GET['id']);
-        $author = User::getById($post->getAuthorId());
+        $post = $app->getTable('Post')->getById($_GET['id']);
+        $author = $app->getTable('User')->getById($post->getAuthorId());
         if ($post) {
-            App::setTitle('Article: '.$post->title);
+            $app->setTitle('Article: '.$post->title);
             ?>
             <h1><?= $post->title ?></h1>
             <p><?= $post->getLastDate() ?></p>
@@ -25,8 +25,8 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             <p>Auteur: <?= $author->username ?></p>
 
             <ul>
-                <?php foreach (Comment::getComments($_GET['id'], true) as $comment) :
-                    $author = User::getById($comment->user_id);
+                <?php foreach ($app->getTable('Comment')->getComments($_GET['id'], true) as $comment) :
+                    $author = $app->getTable('User')->getById($comment->user_id);
                 ?>
                     <li>
                         <span><?= $author->username ?></span>
@@ -37,9 +37,9 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             </ul>
             <?php
         } else {
-            App::error404("Cette article n'existe pas !");
+            $app->error404("Cette article n'existe pas !");
         }
 } else {
-    App::error404("Aucun article selectionné !");
+    $app->error404("Aucun article selectionné !");
 }
 ?>

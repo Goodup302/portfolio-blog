@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: PC-PRO
+ * UserTable: PC-PRO
  * Date: 23/11/2018
  * Time: 09:09
  */
@@ -27,7 +27,7 @@ class Config
     }
     public function get($key)
     {
-        if (isset($this->settings[$key])) {
+        if (!isset($this->settings[$key])) {
             return null;
         }
         return $this->settings[$key];
