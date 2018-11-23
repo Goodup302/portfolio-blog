@@ -5,34 +5,48 @@ namespace App;
 
 class App
 {
-    const DB_NAME = 'blog';
-    const DB_USER = 'root';
-    const DB_PASS = 'root';
-    const DB_HOST = '127.0.0.1';
+    private $database;
+    private $title;
+    private $config;
 
-    const EXCERPT_LENGTH = 100;
-    const PAGE_NOT_FOUND = 'Error 404 Page !';
-    const DEFAULT_TITLE = 'Portfolio Blog';
 
-    private static $database;
-    private static $title = self::DEFAULT_TITLE;
-
-    public static function getDatabase() {
-        if (self::$database == null) {
-            self::$database = new DataBase(self::DB_NAME, self::DB_HOST, self::DB_USER, self::DB_PASS);
+    private static $_instance;
+    public static function getInstance() {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new self();
         }
-        return self::$database;
+        return self::$_instance;
     }
 
-    public static function error404($message = self::PAGE_NOT_FOUND) {
+    public function __construct()
+    {
+
+        $this->config = Config::getInstance();
+        $this->title = $this->config->get('default_title');
+    }
+
+    public function getDatabase() {
+        if (is_null($this->database)) {
+            $this->database = new DataBase(
+                $this->config->get('db_name'),
+                $this->config->get('db_host'),
+                $this->config->get('db_user'),
+                $this->config->get('db_pass')
+            );
+        }
+        return $this->database;
+    }
+
+    public function error404($message = 'none') {
+        $this->config->get('default_title');
         header("HTTP/1.0 404 Not Found");
         header("location:index.php?p=404&error=".$message);
     }
 
-    public static function getTitle() {
-        return self::$title;
+    public function getTitle() {
+        return $this->title;
     }
-    public static function setTitle($title) {
-        self::$title = $title;
+    public function setTitle($title) {
+        $this->title = $title;
     }
 }

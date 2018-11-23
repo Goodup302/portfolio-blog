@@ -5,6 +5,11 @@ require_once '../app/Autoloader.php';
 \App\Autoloader::register();
 
 
+$config = Config::getInstance();
+var_dump($config);
+
+
+
 
 if (isset($_GET['p'])) {
     $page = $_GET['p'];
