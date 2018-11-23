@@ -8,9 +8,8 @@ $app->setTitle('Tous les articles');
 <ul>
     <?php foreach ($app->getTable('Post')->getAll() as $post) : ?>
 
-        <h2><a href="<?= $post->getUrl() ?>"><?= $post->title ?></a></h2>
-        <p><?= $post->getExcerpt(); ?></p>
-        <p><?= $post->getContent() ?></p>
+        <h2><a href="<?= $post->url ?>"><?= $post->title ?></a></h2>
+        <p><?= $post->getExcerpt() ?></p>
 
     <?php endforeach; ?>
 

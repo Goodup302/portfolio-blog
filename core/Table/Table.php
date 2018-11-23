@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * UserTable: PC-PRO
- * Date: 19/11/2018
- * Time: 11:59
- */
 
 namespace Core\Table;
 use \Core\DataBase;
@@ -26,9 +20,21 @@ class Table
     }
 
     public function getAll(){
-        return $this->db->query('SELECT * FROM ' . $this->table, str_replace('Table', 'Entity', get_class($this)));
+        return $this->db->query(
+            'SELECT * FROM ' . $this->table,
+            $this->getEntityName()
+        );
     }
     public function getById($id){
-        return $this->db->prepare('SELECT * FROM ' . $this->table .' WHERE id = ?', get_class($this), [$id], true);
+        return $this->db->query(
+            'SELECT * FROM ' . $this->table .' WHERE id = ?',
+            $this->getEntityName(),
+            [$id],
+            true
+        );
+    }
+
+    public function getEntityName() {
+        return str_replace('Table', 'Entity', get_class($this));
     }
 }

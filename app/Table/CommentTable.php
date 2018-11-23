@@ -5,20 +5,29 @@ use Core\Table\Table;
 
 class CommentTable extends Table
 {
-    public function getComments($postId, $validate = false) {
+    public function getComments($postId, $validate = false){
         if ($validate) {
-            $query = 'SELECT * FROM ' . $this->table .' WHERE post_id = ? AND validate = true';
+            $where = ' AND validate = true';
         } else {
-            $query = 'SELECT * FROM ' . $this->table .' WHERE post_id = ?';
+            $where = '';
         }
-        return App::getInstance()->getDatabase()->prepare($query, get_class($this), [$postId]);
+        return $this->db->query(
+            'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where,
+            $this->getEntityName(),
+            [$postId]
+        );
     }
+
     public function add($postId, $userId, $content, $validate = false) {
         $query = '
             INSERT INTO ' . $this->table .'
             (post_id, user_id, content, validate)
             VALUES(?, ?, ?, ?);
         ';
-        return App::getInstance()->getDatabase()->prepareUpdate($query, array($postId, $userId, $content, intval($validate)));
+        return $this->db->query(
+            $query,
+            null,
+            array($postId, $userId, $content, intval($validate))
+        );
     }
 }

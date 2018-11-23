@@ -25,7 +25,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             <p>Auteur: <?= $author->username ?></p>
 
             <ul>
-                <?php foreach ($app->getTable('Comment')->getComments($_GET['id'], true) as $comment) :
+                <?php foreach ($app->getTable('Comment')->getComments($_GET['id'], false) as $comment) :
                     $author = $app->getTable('User')->getById($comment->user_id);
                 ?>
                     <li>

@@ -1,6 +1,5 @@
 <?php
-use App\App;
-use App\Config;
+use Core\Config;
 
 $app->setTitle('Page introuvable');
 ?>
@@ -9,7 +8,7 @@ $app->setTitle('Page introuvable');
     if (isset($_GET['error']) && $_GET['error'] != null) {
         echo $_GET['error'];
     } else {
-        echo Config::getInstance()->get('page_not_found');
+        echo Config::getInstance(CONFIG_FILE)->get('page_not_found');
     }
     ?>
 </p>
