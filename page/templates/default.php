@@ -1,4 +1,7 @@
-
+<?php
+$user = $app->getTable('User');
+$dbuser = new \Core\Auth\DBAuth(App::getInstance()->getDatabase());
+?>
 
 <!DOCTYPE HTML>
 <html lang="fr">
@@ -9,7 +12,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-
+    <nav>
+        <h1><?= $app->getTitle() ?></h1>
+        <?php
+        if ($dbuser->isLogged()) {
+            echo '<span>Bienvenue '.$user->getById($dbuser->getUserId())->username.'</span>';
+        }
+        ?>
+    </nav>
     <?= $content ?>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

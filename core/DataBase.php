@@ -29,16 +29,21 @@ class DataBase
         return $this->pdo;
     }
 
-    public function query($statement, $className = null, $args = null, $isSingle = false) {
+    public function query($statement, $className = null, $args = null, $isSingle = false, $return = true) {
         if (!is_null($args)) {
             $request = $this->getPDO()->prepare($statement);
             $request->execute($args);
         } else {
             $request = $this->getPDO()->query($statement);
         }
+        if (!$return) {
+            return $request->rowCount();
+        }
         //
         if (!is_null($className)) {
             $request->setFetchMode(PDO::FETCH_CLASS, $className);
+        } else {
+            $request->setFetchMode(PDO::FETCH_OBJ);
         }
         //
         if ($isSingle) {

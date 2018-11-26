@@ -34,6 +34,48 @@ class Table
         );
     }
 
+    public function insert($id){
+        return $this->db->query(
+            'SELECT * FROM ' . $this->table .' WHERE id = ?',
+            $this->getEntityName(),
+            [$id],
+            true,
+            false
+        );
+    }
+
+    public function update($id, $data){
+        $sql_parts = [];
+        $attributes = [];
+        foreach ($data as $key => $value) {
+            $sql_parts[] = "$key = ?";
+            $attributes[] = $value;
+        }
+        $attributes[] = $id;
+        $sql_parts = implode(', ', $sql_parts);
+
+        echo 'UPDATE '.$this->table.' SET '.$sql_parts.' WHERE id = ?';
+        var_dump($attributes);
+
+        return $this->db->query(
+            'UPDATE '.$this->table.' SET '.$sql_parts.' WHERE id = ?',
+            null,
+            $attributes,
+            null,
+            false
+        );
+    }
+
+    public function delete($id){
+        return $this->db->query(
+            'SELECT * FROM ' . $this->table .' WHERE id = ?',
+            $this->getEntityName(),
+            [$id],
+            true,
+            false
+        );
+    }
+
     public function getEntityName() {
         return str_replace('Table', 'Entity', get_class($this));
     }
