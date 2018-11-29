@@ -22,7 +22,7 @@ if ($user->admin) {
         <tr>
             <th scope="col">Titre</th>
             <th scope="col">Auteur</th>
-            <th scope="col">date</th>
+            <th scope="col">Dernière modification</th>
             <th scope="col">Action</th>
         </tr>
     </thead>

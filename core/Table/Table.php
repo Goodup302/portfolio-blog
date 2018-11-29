@@ -34,12 +34,33 @@ class Table
         );
     }
 
-    public function insert($data){
-        return $this->db->query(
+    public function idExist($id){
+        return boolval($this->db->query(
             'SELECT * FROM ' . $this->table .' WHERE id = ?',
-            $this->getEntityName(),
-            [0],
+            null,
+            [$id],
             true,
+            false
+        ));
+    }
+
+    public function insert($data){
+        $sql_index = [];
+        $sql_entry = [];
+        $attributes = [];
+        foreach ($data as $key => $value) {
+            $sql_index[] = "$key";
+            $sql_entry[] = "?";
+            $attributes[] = $value;
+        }
+        $sql_index = implode(', ', $sql_index);
+        $sql_entry = implode(', ', $sql_entry);
+
+        return $this->db->query(
+            "INSERT INTO $this->table ( $sql_index ) VALUES( $sql_entry )",
+            null,
+            $attributes,
+            null,
             false
         );
     }
@@ -53,9 +74,6 @@ class Table
         }
         $attributes[] = $id;
         $sql_parts = implode(', ', $sql_parts);
-
-        echo 'UPDATE '.$this->table.' SET '.$sql_parts.' WHERE id = ?';
-        var_dump($attributes);
 
         return $this->db->query(
             'UPDATE '.$this->table.' SET '.$sql_parts.' WHERE id = ?',

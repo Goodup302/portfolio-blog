@@ -18,7 +18,7 @@ class Form
         echo '<div class="form-group">';
         echo "<label>$label</label>";
         if ($type == 'textarea') {
-            echo "<textarea class='form-control' name='$name'>$value</textarea>";
+            echo "<textarea class='form-control' style='height: 200px;' name='$name'>$value</textarea>";
         } else {
             echo "<input class='form-control' type='$type' name='$name' value='$value'>";
         }

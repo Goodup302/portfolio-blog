@@ -23,9 +23,7 @@ if (!empty($_POST)) {
 $form = new Form($_POST);
 ?>
 <div class="col-md-12">
-    <div class="d-flex justify-content-center">
-        <?= $alert->show(); ?>
-    </div>
+    <?= $alert->show(); ?>
     <form method="post">
         <?= $form->input('login', 'Login', 'text') ?>
         <?= $form->input('password', 'Password', 'password') ?>
