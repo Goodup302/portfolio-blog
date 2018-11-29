@@ -15,6 +15,7 @@ if (isset($_POST) && $_POST != null) {
             "title" => $_POST['title'],
             "excerpt" => $_POST['excerpt'],
             "content" => $_POST['content'],
+            "image" => $_POST['image'],
             "lastdate" => date('Y-m-d H:i:s')
         );
         $postTable->insert($args);
@@ -32,6 +33,7 @@ $form = new Form($_POST);
         <h2>Ajouter un article</h2>
         <form method="post">
             <?= $form->input('title', 'Titre', 'text') ?>
+            <?= $form->input('image', 'Url image', 'url') ?>
             <?= $form->input('excerpt', 'Extrait', 'text') ?>
             <?= $form->input('content', 'Contenu', 'textarea') ?>
 

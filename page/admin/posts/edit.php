@@ -25,6 +25,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
                     "title" => $_POST['title'],
                     "excerpt" => $_POST['excerpt'],
                     "content" => $_POST['content'],
+                    "image" => $_POST['image'],
                     "lastdate" => date('Y-m-d H:i:s')
                 );
                 $postTable->update($_GET['id'], $args);
@@ -37,6 +38,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             <div class="col-md-12">
                 <form method="post">
                     <?= $form->input('title', 'Titre', 'text', $post->title) ?>
+                    <?= $form->input('image', 'Url image', 'url') ?>
                     <?= $form->input('excerpt', 'Extrait', 'text', $post->excerpt) ?>
                     <?= $form->input('content', 'Contenu', 'textarea', $post->content) ?>
 
