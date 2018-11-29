@@ -5,7 +5,7 @@ namespace Core\HTML;
 class Form
 {
     private $data;
-    public function __construct($data) {
+    public function __construct($data = null) {
         $this->data = $data;
     }
 
@@ -14,17 +14,26 @@ class Form
             $value = $this->data[$name];
         }
 
-
-        echo '<div class="form-group">';
-        echo "<label>$label</label>";
+        //input
         if ($type == 'textarea') {
-            echo "<textarea class='form-control' style='height: 200px;' name='$name'>$value</textarea>";
+            $input = "<textarea class='form-control' style='height: 200px;' name='$name'>$value</textarea>";
         } else {
-            echo "<input class='form-control' type='$type' name='$name' value='$value'>";
+            $input = "<input class='form-control' type='$type' name='$name' value='$value'>";
         }
-        echo '</div>';
+
+        echo "
+            <div class='form-group'>
+                <label>$label</label>
+                $input
+            </div>
+        ";
     }
-    public function submit($name) {
-        echo "<button class='btn btn-primary' type='submit'>$name</button>";
+
+    public function addValue($id, $value) {
+        echo "<input  type='hidden' name='$id' value='$value'>";
+    }
+
+    public function submit($name, $type = 'primary') {
+        echo "<button class='btn btn-$type' type='submit'>$name</button>";
     }
 }

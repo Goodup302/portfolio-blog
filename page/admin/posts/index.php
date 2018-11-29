@@ -1,6 +1,8 @@
 <?php
 use \Core\Auth\DBAuth;
-
+use \Core\HTML\Form;
+use \Core\HTML\BootstrapStyle;
+use \Core\HTML\Button;
 
 $auth = new DBAuth(App::getInstance()->getDatabase());
 $user = $app->getTable('User')->getById($auth->getUserId());
@@ -10,36 +12,51 @@ if ($user->admin) {
 } else {
     $posts = $app->getTable('Post')->getByUserId($auth->getUserId());
 }
+$form = new Form();
 ?>
 
 
+<div class="col-md-12">
+    <h2>Liste des articles</h2>
+    <?=
+    (new Button('Ajouter un article','button', BootstrapStyle::success))
+        ->setUrl('?p=post_add')
+        ->show();
+    ?>
+    <p></p>
+</div>
 
-<h2>Liste des articles</h2>
-
-<a href="admin.php?p=post_add" type="button" role="button" class="btn btn-primary btn-success">Ajouter un article</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Auteur</th>
-            <th scope="col">Dernière modification</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php foreach ($posts as $post) :
-            $author = $app->getTable('User')->getById($post->user_id); ?>
+<div class="col-md-12">
+    <table class="table">
+        <thead>
             <tr>
-                <td><?= $post->title ?></td>
-                <td><?= $author->username ?></td>
-                <td><?= $post->lastdate ?></td>
-                <td>
-                    <a href="admin.php?p=post_edit&id=<?= $post->id ?>">Modifier</a>
-                    |
-                    <a href="admin.php?p=post_delete&id=<?= $post->id ?>">Supprimer</a>
-                </td>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Dernière modification</th>
+                <th scope="col">Action</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            <?php foreach ($posts as $post) :
+                $author = $app->getTable('User')->getById($post->user_id); ?>
+                <tr>
+                    <td><?= $post->title ?></td>
+                    <td><?= $author->username ?></td>
+                    <td><?= $post->lastdate ?></td>
+                    <td>
+                        <?=
+                        (new Button('Modifier','button'))
+                            ->setUrl("?p=post_edit&id=$post->id")
+                            ->show();
+                        ?>
+                        <form method="post" action="?p=post_delete" style="display: inline;">
+                            <?= $form->addValue('id', $post->id) ?>
+                            <?= $form->submit('Supprimer', BootstrapStyle::danger) ?>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

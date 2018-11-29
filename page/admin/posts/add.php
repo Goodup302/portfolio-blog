@@ -15,6 +15,7 @@ if (isset($_POST) && $_POST != null) {
     );
     $postTable = App::getInstance()->getTable('Post');
     $postTable->insert($args);
+    header('location:admin.php?p=post_edit&id='.App::getInstance()->getDatabase()->getLastId());
 }
 
 //Html

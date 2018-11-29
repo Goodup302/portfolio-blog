@@ -21,7 +21,7 @@ class Table
 
     public function getAll(){
         return $this->db->query(
-            'SELECT * FROM ' . $this->table,
+            "SELECT * FROM $this->table ORDER BY id DESC",
             $this->getEntityName()
         );
     }
@@ -86,8 +86,8 @@ class Table
 
     public function delete($id){
         return $this->db->query(
-            'SELECT * FROM ' . $this->table .' WHERE id = ?',
-            $this->getEntityName(),
+            'DELETE FROM ' . $this->table .' WHERE id = ?',
+            null,
             [$id],
             true,
             false

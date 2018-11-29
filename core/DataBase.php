@@ -53,4 +53,8 @@ class DataBase
         }
         return $result;
     }
+
+    public function getLastId() {
+        return $this->getPDO()->lastInsertId();
+    }
 }

@@ -2,6 +2,7 @@
 use \Core\HTML\Form;
 use \Core\HTML\Alert;
 use \Core\Auth\DBAuth;
+use \Core\HTML\BootstrapStyle;
 
 $auth = new DBAuth(App::getInstance()->getDatabase());
 
@@ -9,13 +10,13 @@ if ($auth->isLogged()) {
     header("location:admin.php");
 }
 
-$alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', Alert::info);
+$alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', BootstrapStyle::info);
 if (!empty($_POST)) {
     $status = $auth->login($_POST['login'], $_POST['password']);
     if ($status === true) {
         header("location:admin.php");
     } else {
-        $alert = new Alert($status, Alert::warning);
+        $alert = new Alert($status, BootstrapStyle::warning);
     }
 }
 

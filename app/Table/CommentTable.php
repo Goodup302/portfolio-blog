@@ -12,7 +12,7 @@ class CommentTable extends Table
             $where = '';
         }
         return $this->db->query(
-            'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where,
+            'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where.' ORDER BY id DESC',
             $this->getEntityName(),
             [$postId]
         );
