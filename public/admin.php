@@ -43,4 +43,4 @@ if ($page === 'posts') {
 
 }
 $content = ob_get_clean();
-require_once( ROOT.'/page/templates/admin.php');
+require_once( ROOT.'/page/templates/default.php');

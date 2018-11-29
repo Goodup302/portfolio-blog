@@ -12,4 +12,14 @@ class PostTable extends Table
             [$id]
         );
     }
+
+    public function titleExist($title){
+        return boolval($this->db->query(
+            'SELECT * FROM ' . $this->table .' WHERE title = ?',
+            null,
+            [$title],
+            true,
+            false
+        ));
+    }
 }
