@@ -20,14 +20,14 @@ class DBAuth {
             true
         );
         if ($user) {
-            if ($user->validate === true) {
+            if (boolval($user->validate) === true) {
                 $_SESSION['auth'] = $user->id;
                 return true;
             } else {
-                echo 'Veuillez valider votre compte (Renvoyer le mail de confirmation)';
+                return 'Veuillez valider votre compte (Renvoyer le mail de confirmation)';
             }
         }
-        return false;
+        return 'Les informations rentrées ne sont pas correct';
     }
 
     public function isLogged() {

@@ -34,11 +34,11 @@ class Table
         );
     }
 
-    public function insert($id){
+    public function insert($data){
         return $this->db->query(
             'SELECT * FROM ' . $this->table .' WHERE id = ?',
             $this->getEntityName(),
-            [$id],
+            [0],
             true,
             false
         );
