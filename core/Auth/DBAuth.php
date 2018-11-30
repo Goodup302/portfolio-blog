@@ -40,4 +40,7 @@ class DBAuth {
         }
         return false;
     }
+    public function signOut() {
+        $_SESSION['auth'] = null;
+    }
 }

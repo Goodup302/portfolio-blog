@@ -9,7 +9,7 @@ $user = $app->getTable('User')->getById($auth->getUserId());
 
 ?>
 <div class="col-md-12">
-    <a href="admin.php">Retour</a>
+    <a href="?p=posts">Retour</a>
     <h2>Editer l'article</h2>
 </div>
 <?php
@@ -38,7 +38,7 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
             <div class="col-md-12">
                 <form method="post">
                     <?= $form->input('title', 'Titre', 'text', $post->title) ?>
-                    <?= $form->input('image', 'Url image', 'url') ?>
+                    <?= $form->input('image', 'Url image', 'url', $post->image) ?>
                     <?= $form->input('excerpt', 'Extrait', 'text', $post->excerpt) ?>
                     <?= $form->input('content', 'Contenu', 'textarea', $post->content) ?>
 

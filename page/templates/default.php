@@ -13,6 +13,27 @@ $dbuser = new \Core\Auth\DBAuth(App::getInstance()->getDatabase());
 </head>
 <body>
 
+
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand d-flex flex-column text-center align-items-center site_title" href="#">
+            <img src="images/logo.svg" width="150" class="text-center" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_navbar_target">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_navbar_target">
+            <div class="navbar-nav header_menu w-100 justify-content-around">
+                <a class="nav-item nav-link" href="index.php?p=home">Accueil</a>
+                <a class="nav-item nav-link" href="index.php?p=loop">Article</a>
+                <a class="nav-item nav-link" href="index.php?p=contact">Contact</a>
+                <a class="nav-item nav-link" href="index.php?p=about">Â propos</a>
+                <a class="nav-item nav-link" href="index.php?p=auth">Connection</a>
+                <a class="nav-item nav-link" href="index.php?p=auth&disconnect=true">Se déconnecter</a>
+            </div>
+        </div>
+    </nav>
+
+
     <nav class="col-md-12 d-flex">
         <h1><?= $app->getTitle() ?></h1>
         <?php
@@ -21,6 +42,9 @@ $dbuser = new \Core\Auth\DBAuth(App::getInstance()->getDatabase());
         }
         ?>
     </nav>
+
+
+
     <div class="container">
         <div class="row">
             <?= $content ?>

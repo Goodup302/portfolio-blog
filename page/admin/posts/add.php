@@ -29,7 +29,7 @@ if (isset($_POST) && $_POST != null) {
 $form = new Form($_POST);
 ?>
     <div class="col-md-12">
-        <a href="admin.php">Retour</a>
+        <a href="?p=posts">Retour</a>
         <h2>Ajouter un article</h2>
         <form method="post">
             <?= $form->input('title', 'Titre', 'text') ?>

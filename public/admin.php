@@ -19,13 +19,17 @@ if (!$auth->isLogged()) {
 if (isset($_GET['p'])) {
     $page = $_GET['p'];
 } else {
-    $page = 'posts';
+    $page = 'home';
 }
 
 $app->setTitle('Administration');
 
 ob_start();
-if ($page === 'posts') {
+if ($page === 'home') {
+    require_once ROOT . '/page/admin/index.php';
+
+
+} else if ($page === 'posts') {
     require_once ROOT . '/page/admin/posts/index.php';
 
 

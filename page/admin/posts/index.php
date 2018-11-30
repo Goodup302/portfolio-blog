@@ -17,6 +17,7 @@ $form = new Form();
 
 
 <div class="col-md-12">
+    <a href="admin.php">Retour</a>
     <h2>Liste des articles</h2>
     <?=
     (new Button('Ajouter un article','button', BootstrapStyle::success))
