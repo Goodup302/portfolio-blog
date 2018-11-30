@@ -28,7 +28,7 @@ ob_start();
 if ($page === 'home') {
     require_once ROOT . '/page/admin/index.php';
 
-
+//Posts CRUD
 } else if ($page === 'posts') {
     require_once ROOT . '/page/admin/posts/index.php';
 
@@ -43,6 +43,18 @@ if ($page === 'home') {
 
 } else if ($page === 'post_delete') {
     require_once ROOT . '/page/admin/posts/delete.php';
+
+// Comments CRUD
+} else if ($page === 'comments') {
+    require_once ROOT . '/page/admin/comments/index.php';
+
+
+} else if ($page === 'comment_valid') {
+    require_once ROOT . '/page/admin/comments/valid.php';
+
+
+} else if ($page === 'comment_delete') {
+    require_once ROOT . '/page/admin/comments/delete.php';
 
 
 }

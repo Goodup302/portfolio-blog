@@ -17,17 +17,4 @@ class CommentTable extends Table
             [$postId]
         );
     }
-
-    public function add($postId, $userId, $content, $validate = false) {
-        $query = '
-            INSERT INTO ' . $this->table .'
-            (post_id, user_id, content, validate)
-            VALUES(?, ?, ?, ?);
-        ';
-        return $this->db->query(
-            $query,
-            null,
-            array($postId, $userId, $content, intval($validate))
-        );
-    }
 }

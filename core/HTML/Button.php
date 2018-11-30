@@ -9,6 +9,7 @@ class Button
     private $type;
     private $style;
     private $url;
+    private $args;
 
     public function __construct($name = null, $type = null, $style = BootstrapStyle::primary)
     {
@@ -22,11 +23,16 @@ class Button
         return $this;
     }
 
+    public function setArgs($args){
+        $this->args = $args;
+        return $this;
+    }
+
     public function show(){
         if (empty($this->url)) {
-            echo "<button class='$this->style' type='$this->type'>$this->name</button>";
+            echo "<button class='$this->style' type='$this->type' $this->args>$this->name</button>";
         } else {
-            echo "<a href='$this->url' class='$this->style' role='button'>$this->name</a>";
+            echo "<a href='$this->url' class='$this->style' role='button' $this->args>$this->name</a>";
         }
     }
 }
