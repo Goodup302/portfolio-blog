@@ -7,13 +7,20 @@ use Core\Config;
 
 class AppController extends \App\Controller\AppController
 {
+
+    protected $user;
+
     public function __construct()
     {
+        $this->loadModel('User');
         parent::__construct();
         $auth = new DBAuth(App::getInstance()->getDatabase());
         if (!$auth->isLogged()) {
             $this->errorAuth();
+        } else {
+            $this->user = $this->User->getById($auth->getUserId());
         }
+
     }
 
     public function home() {
