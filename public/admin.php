@@ -22,8 +22,6 @@ if (isset($_GET['p'])) {
     $page = 'home';
 }
 
-$app->setTitle('Administration');
-
 ob_start();
 if ($page === 'home') {
     require_once ROOT . '/page/admin/index.php';

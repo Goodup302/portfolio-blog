@@ -1,15 +1,24 @@
 <?php
 
 namespace App\Controller\Admin;
+use \App;
+use Core\Auth\DBAuth;
+use Core\Config;
 
 class AppController extends \App\Controller\AppController
 {
     public function __construct()
     {
+        parent::__construct();
         $auth = new DBAuth(App::getInstance()->getDatabase());
         if (!$auth->isLogged()) {
             $this->errorAuth();
         }
+    }
+
+    public function home() {
+        $this->setTitle('Accueil Administration');
+        $this->render('admin/index');
     }
 
     public function errorAuth($message = null) {

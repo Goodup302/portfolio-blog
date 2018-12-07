@@ -13,27 +13,52 @@ if (isset($_GET['p'])) {
     $page = 'home';
 }
 
-
+//Front Page
 if ($page === 'home') {
     (new \App\Controller\AppController())->home();
+} else if ($page === 'about') {
+    (new \App\Controller\AppController())->about();
+} else if ($page === 'contact') {
+    (new \App\Controller\AppController())->contact();
 
 
 
-
+//Front Post Page
 } else if ($page === 'loop') {
     (new \App\Controller\PostController())->loop();
 } else if ($page === 'single') {
     (new \App\Controller\PostController())->single();
 
+
+
+// Admin HOME
+} else if ($page === 'admin') {
+    (new \App\Controller\Admin\AppController())->home();
+
+// Admin post CRUD
+} else if ($page === 'admin_posts') {
+    (new \App\Controller\Admin\PostController())->loop();
+} else if ($page === 'admin_posts_edit') {
+    (new \App\Controller\Admin\PostController())->edit();
+} else if ($page === 'admin_posts_add') {
+    (new \App\Controller\Admin\PostController())->add();
+} else if ($page === 'admin_posts_delete') {
+    (new \App\Controller\Admin\PostController())->delete();
+
+// Admin comment CRUD
+} else if ($page === 'admin_comments') {
+    (new \App\Controller\Admin\CommentController())->loop();
+} else if ($page === 'admin_comments_valid') {
+    (new \App\Controller\Admin\CommentController())->edit();
+} else if ($page === 'admin_comments_delete') {
+    (new \App\Controller\Admin\CommentController())->add();
+
+
+
+
 } else if ($page === '404') {
-    $controller->error404();
+    (new \App\Controller\AppController())->error404();
 } else if ($page === 'auth') {
-    $controller->auth();
+    (new \App\Controller\UserController())->auth();
 
-
-
-} else if ($page === '404') {
-    $controller->error404();
-} else if ($page === 'auth') {
-    $controller->auth();
 }

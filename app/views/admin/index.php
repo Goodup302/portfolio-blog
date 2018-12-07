@@ -1,5 +1,5 @@
 <?php
 use Core\HTML\Button;
 
-(new Button('Articles'))->setUrl('?p=posts')->show();
-(new Button('Commentaires'))->setUrl('?p=comments')->show();
+(new Button('Articles'))->setUrl('?p=admin_posts')->show();
+(new Button('Commentaires'))->setUrl('?p=admin_comments')->show();
