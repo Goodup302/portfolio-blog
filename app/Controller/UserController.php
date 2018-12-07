@@ -15,13 +15,13 @@ class UserController extends AppController
             $auth->signOut();
             $alert = new Alert('Vous venez de vous déconnecter', BootstrapStyle::info);
         } else {
-            if ($auth->isLogged()) { header("location:admin.php"); }
+            if ($auth->isLogged()) { header("location:index.php?p=admin"); }
 
             $alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', BootstrapStyle::info);
             if (!empty($_POST)) {
                 $status = $auth->login($_POST['login'], $_POST['password']);
                 if ($status === true) {
-                    header("location:admin.php");
+                    header("location:index.php?p=admin");
                 } else {
                     $alert = new Alert($status, BootstrapStyle::warning);
                 }

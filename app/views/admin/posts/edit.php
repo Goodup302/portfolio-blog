@@ -53,6 +53,6 @@ if (isset($_GET['id']) && $_GET['id'] != null) {
         (new Alert("Cette article n'existe pas ou plus", BootstrapStyle::warning))->show();
     }
 } else {
-    header('location:admin.php');
+    header('location:index.php');
 }
 ?>
