@@ -39,33 +39,30 @@ class PostController extends AppController
         $user = $this->User->getById($auth->getUserId());
 
         if (!empty($_POST['id'])) {
-            $postTable = App::getInstance()->getTable('Post');
+            $postTable = $this->Post;
             $post = $postTable->getById($_POST['id']);
             if ($user->canEditPost($post)) {
+                $this->Comment->deleteByPostId($_POST['id']);
                 $postTable->delete($_POST['id']);
             }
         }
-        header('location:index.php?p=admin_posts');
+        $this->loop();
     }
 
 
     public function add() {
         if (!empty($_POST)) {
             $postTable = $this->Post;
-            if (!$postTable->titleExist($_POST['title'])) {
-                $args = array(
-                    "user_id" => $this->user->id,
-                    "title" => $_POST['title'],
-                    "excerpt" => $_POST['excerpt'],
-                    "content" => $_POST['content'],
-                    "image" => $_POST['image'],
-                    "lastdate" => date('Y-m-d H:i:s')
-                );
-                $postTable->insert($args);
-                header('location:?p=admin_posts_edit&id=' . App::getInstance()->getDatabase()->getLastId());
-            } else {
-                (new Alert("Cette article existe déjà", BootstrapStyle::danger))->show();
-            }
+            $args = array(
+                "user_id" => $this->user->id,
+                "title" => $_POST['title'],
+                "excerpt" => $_POST['excerpt'],
+                "content" => $_POST['content'],
+                "image" => $_POST['image'],
+                "lastdate" => date('Y-m-d H:i:s')
+            );
+            $postTable->insert($args);
+            header("location:index.php?p=admin_posts_edit&id=".$postTable->getLastId());
         }
         $form = new Form($_POST);
         $this->render('admin/posts/add', compact('posts', 'form', 'user', 'auth'));
@@ -73,11 +70,14 @@ class PostController extends AppController
 
 
 
-    public function edit() {
-        if (!empty($_GET['id'])) {
-            $postTable = App::getInstance()->getTable('Post');
-            if ($postTable->idExist($_GET['id'])) {
-                $post = $postTable->getById($_GET['id']);
+    public function edit($id = null) {
+        if (is_null($id)) {
+            $id = $_GET['id'];
+        }
+        if (!empty($id)) {
+            $postTable = $this->Post;
+            if ($postTable->idExist($id)) {
+                $post = $postTable->getById($id);
                 if ($this->user->canEditPost($post)) {
                     if (!empty($_POST)) {
                         $args = array(
@@ -87,10 +87,10 @@ class PostController extends AppController
                             "image" => $_POST['image'],
                             "lastdate" => date('Y-m-d H:i:s')
                         );
-                        $postTable->update($_GET['id'], $args);
+                        $postTable->update($id, $args);
                     }
                     $form = new Form($_POST);
-                    $post = $postTable->getById($_GET['id']);
+                    $post = $postTable->getById($id);
                     $this->render('admin/posts/edit', compact('post', 'form'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
@@ -99,7 +99,7 @@ class PostController extends AppController
                 (new Alert("Cette article n'existe pas ou plus", BootstrapStyle::warning))->show();
             }
         } else {
-            header('location:index.php?p=admin_posts');
+            $this->loop();
         }
     }
 }

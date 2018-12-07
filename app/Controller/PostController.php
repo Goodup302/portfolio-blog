@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Core\Config;
 
 class PostController extends AppController
 {
@@ -40,16 +40,12 @@ class PostController extends AppController
 
 
     public function error404() {
-        $this->title = 'Page introuvable';
+        $this->setTitle('Page introuvable');
         if (isset($_GET['error']) && $_GET['error'] != null) {
             $error = $_GET['error'];
         } else {
             $error = Config::getInstance(CONFIG_FILE)->get('page_not_found');
         }
         $this->render('errors/404', compact('error'));
-    }
-    public function auth() {
-        $this->title = 'Accueil';
-        $this->render('home', compact('app'));
     }
 }

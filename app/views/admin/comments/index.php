@@ -6,19 +6,9 @@ use \Core\HTML\Popup;
 use \Core\HTML\Alert;
 use \App\Permission\PermissionMessage;
 
-$auth = new DBAuth(App::getInstance()->getDatabase());
-$user = $app->getTable('User')->getById($auth->getUserId());
-
-if ($user->admin) {
-    $comments = $app->getTable('Comment')->getAll();
-
-
-    $form = new Form();
-    ?>
-
-
+?>
     <div class="col-md-12">
-        <a href="admin.php">Retour</a>
+        <a href="index.php?p=admin">Retour</a>
         <h2>Liste des commentaires</h2>
         <p></p>
     </div>
@@ -46,13 +36,13 @@ if ($user->admin) {
                     <td><?= $comment->content ?></td>
                     <td>
                         <?php if (!$comment->validate) { ?>
-                            <form method="post" action="?p=comment_valid" style="display: inline;">
+                            <form method="post" action="?p=admin_comments_valid" style="display: inline;">
                                 <?= $form->addValue('id', $comment->id) ?>
                                 <?= $form->submit('Valider', BootstrapStyle::success) ?>
                             </form>
                         <?php } ?>
 
-                        <form method="post" action="?p=comment_delete" style="display: inline;">
+                        <form method="post" action="?p=admin_comments_delete" style="display: inline;">
                             <?= $form->addValue('id', $comment->id) ?>
                             <?= $form->submit('Supprimer', BootstrapStyle::danger) ?>
                         </form>
@@ -68,7 +58,3 @@ if ($user->admin) {
             </tbody>
         </table>
     </div>
-<?php
-} else {
-    (new Alert(PermissionMessage::PAGE_PERMISSION_DENIED, BootstrapStyle::danger))->show();
-}

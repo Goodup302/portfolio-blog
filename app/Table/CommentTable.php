@@ -17,4 +17,14 @@ class CommentTable extends Table
             [$postId]
         );
     }
+
+    public function deleteByPostId($id){
+        return $this->db->query(
+            'DELETE FROM ' . $this->table .' WHERE post_id = ?',
+            null,
+            [$id],
+            true,
+            false
+        );
+    }
 }

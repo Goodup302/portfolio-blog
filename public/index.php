@@ -49,9 +49,9 @@ if ($page === 'home') {
 } else if ($page === 'admin_comments') {
     (new \App\Controller\Admin\CommentController())->loop();
 } else if ($page === 'admin_comments_valid') {
-    (new \App\Controller\Admin\CommentController())->edit();
+    (new \App\Controller\Admin\CommentController())->valid();
 } else if ($page === 'admin_comments_delete') {
-    (new \App\Controller\Admin\CommentController())->add();
+    (new \App\Controller\Admin\CommentController())->delete();
 
 
 

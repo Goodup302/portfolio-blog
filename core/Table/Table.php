@@ -19,6 +19,10 @@ class Table
         }
     }
 
+    public function getLastId() {
+        return $this->db->getLastId();
+    }
+
     public function getAll(){
         return $this->db->query(
             "SELECT * FROM $this->table ORDER BY id DESC",

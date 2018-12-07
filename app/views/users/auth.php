@@ -1,10 +1,3 @@
-<?php
-use \Core\HTML\Form;
-use \Core\HTML\Alert;
-use \Core\Auth\DBAuth;
-use \Core\HTML\BootstrapStyle;
-
-?>
 <div class="col-md-12">
     <?= $alert->show(); ?>
     <form method="post">
