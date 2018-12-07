@@ -16,27 +16,15 @@ if (isset($_GET['p'])) {
 }
 
 
-ob_start();
 if ($page === 'home') {
-    require_once ROOT.'/page/home.php';
-
-
+    $controller = new \App\Controller\PostController();
+    $controller->home();
 } else if ($page === 'loop') {
-    require_once ROOT . '/page/posts/loop.php';
-
 
 } else if ($page === 'single') {
-    require_once ROOT . '/page/posts/single.php';
-
 
 } else if ($page === '404') {
-    require_once ROOT . '/page/errors/404.php';
-
 
 } else if ($page === 'auth') {
-    require_once ROOT . '/page/users/auth.php';
-
 
 }
-$content = ob_get_clean();
-require_once( ROOT.'/page/templates/default.php');
