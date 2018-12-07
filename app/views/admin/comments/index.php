@@ -8,7 +8,7 @@ use \App\Permission\PermissionMessage;
 
 ?>
     <div class="col-md-12">
-        <a href="index.php?p=admin">Retour</a>
+        <a href="<?= $returnurl ?>">Retour</a>
         <h2>Liste des commentaires</h2>
         <p></p>
     </div>

@@ -10,5 +10,12 @@
         <?= $form->input('excerpt', 'Extrait', 'text', $post->excerpt) ?>
         <?= $form->input('content', 'Contenu', 'textarea', $post->content) ?>
         <?= $form->submit('Modifier') ?>
+
+
+        <?php
+        if (!empty($commentsButton)) {
+            $commentsButton->show();
+        }
+        ?>
     </form>
 </div>

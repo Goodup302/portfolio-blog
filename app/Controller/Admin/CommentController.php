@@ -19,15 +19,20 @@ class CommentController extends AppController
     }
 
 
-    public function loop() {
-        if ($this->user->admin) {
-            $comments = $this->Comment->getAll();
-            $form = new Form();
-            $app = \App::getInstance();
-            $this->render('admin/comments/index', compact('app', 'comments', 'form'));
-        } else {
-            (new Alert(PermissionMessage::PAGE_PERMISSION_DENIED, BootstrapStyle::danger))->show();
+    public function loop($id = null) {
+        if (is_null($id) && !empty($_GET['id'])) {
+            $id = $_GET['id'];
         }
+        if (!empty($id)) {
+            $comments = $this->Comment->getComments($id);
+            $returnurl = 'index.php?p=admin_posts_edit&id='.$id;
+        } else {
+            $comments = $this->Comment->getAll();
+            $returnurl = 'index.php?p=admin';
+        }
+        $form = new Form();
+        $app = \App::getInstance();
+        $this->render('admin/comments/index', compact('app', 'comments', 'form', 'returnurl'));
     }
 
     public function valid() {

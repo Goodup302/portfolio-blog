@@ -16,22 +16,21 @@ class UserController extends AppController
             $auth->signOut();
             $alert = new Alert('Vous venez de vous déconnecter', BootstrapStyle::info);
         } else {
-            $adminController = new \App\Controller\Admin\AppController();
             if ($auth->isLogged()) {
-                $adminController->home();
+                (new \App\Controller\Admin\AppController())->home();
             }
-
             $alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', BootstrapStyle::info);
             if (!empty($_POST)) {
                 $status = $auth->login($_POST['login'], $_POST['password']);
                 if ($status === true) {
-                    $adminController->home();
+                    (new \App\Controller\Admin\AppController())->home();
                 } else {
                     $alert = new Alert($status, BootstrapStyle::warning);
                 }
             }
         }
+
         $form = new Form($_POST);
-        $this->render('users/auth', compact('form', 'auth', 'alert'));
+        $this->render('users/auth', compact('form', 'alert'));
     }
 }

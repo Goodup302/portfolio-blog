@@ -6,6 +6,7 @@ use \Core\Auth\DBAuth;
 use \Core\HTML\Form;
 use \App;
 use \Core\HTML\Alert;
+use Core\HTML\Button;
 use \Core\HTML\BootstrapStyle;
 
 class PostController extends AppController
@@ -24,11 +25,7 @@ class PostController extends AppController
         $auth = new DBAuth(App::getInstance()->getDatabase());
         $user = $this->User->getById($auth->getUserId());
 
-        if ($user->admin) {
-            $posts = $this->Post->getAll();
-        } else {
-            $posts = $this->Post->getByUserId($auth->getUserId());
-        }
+        $posts = $this->Post->getAll();
         $form = new Form();
         $app = App::getInstance();
         $this->render('admin/posts/index', compact('app', 'posts', 'form', 'user', 'auth'));
@@ -91,7 +88,12 @@ class PostController extends AppController
                     }
                     $form = new Form($_POST);
                     $post = $postTable->getById($id);
-                    $this->render('admin/posts/edit', compact('post', 'form'));
+                    $commentsNumber = $this->Comment->getComments($post->id, null, false);
+                    if ($commentsNumber > 0) {
+                        $commentsButton = new Button('Commentaires liés à cet article ('.$commentsNumber.')','button', BootstrapStyle::secondary);
+                        $commentsButton->setUrl("?p=admin_comments&id=$post->id");
+                    }
+                    $this->render('admin/posts/edit', compact('post', 'form', 'commentsButton'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
                 }

@@ -29,9 +29,11 @@ if ($page === 'home') {
 } else if ($page === 'single') {
     (new \App\Controller\PostController())->single();
 
+} else if ($page === 'auth') {
+    (new \App\Controller\UserController())->auth();
 
+// Admin
 
-// Admin HOME
 } else if ($page === 'admin') {
     (new \App\Controller\Admin\AppController())->home();
 
@@ -55,10 +57,9 @@ if ($page === 'home') {
 
 
 
-
+// ERROR
 } else if ($page === '404') {
     (new \App\Controller\AppController())->error404();
-} else if ($page === 'auth') {
-    (new \App\Controller\UserController())->auth();
+
 
 }

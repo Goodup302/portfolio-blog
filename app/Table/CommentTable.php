@@ -5,17 +5,29 @@ use Core\Table\Table;
 
 class CommentTable extends Table
 {
-    public function getComments($postId, $validate = false){
+    public function getComments($postId, $validate = false, $result = true){
         if ($validate) {
             $where = ' AND validate = true';
         } else {
             $where = '';
         }
-        return $this->db->query(
-            'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where.' ORDER BY id DESC',
-            $this->getEntityName(),
-            [$postId]
-        );
+        $query = 'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where.' ORDER BY id DESC';
+        if ($result) {
+            return $this->db->query(
+                $query,
+                $this->getEntityName(),
+                [$postId]
+            );
+        } else {
+            return $this->db->query(
+                $query,
+                null,
+                [$postId],
+                null,
+                false
+            );
+        }
+
     }
 
     public function deleteByPostId($id){
