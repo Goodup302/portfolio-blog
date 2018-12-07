@@ -7,8 +7,6 @@ App::load();
 $app = App::getInstance();
 
 
-
-
 if (isset($_GET['p'])) {
     $page = $_GET['p'];
 } else {
@@ -17,14 +15,25 @@ if (isset($_GET['p'])) {
 
 
 if ($page === 'home') {
-    $controller = new \App\Controller\PostController();
-    $controller->home();
-} else if ($page === 'loop') {
+    (new \App\Controller\AppController())->home();
 
+
+
+
+} else if ($page === 'loop') {
+    (new \App\Controller\PostController())->loop();
 } else if ($page === 'single') {
+    (new \App\Controller\PostController())->single();
 
 } else if ($page === '404') {
-
+    $controller->error404();
 } else if ($page === 'auth') {
+    $controller->auth();
 
+
+
+} else if ($page === '404') {
+    $controller->error404();
+} else if ($page === 'auth') {
+    $controller->auth();
 }

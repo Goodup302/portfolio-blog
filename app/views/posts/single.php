@@ -1,45 +1,24 @@
-<?php
-use \App\Table\PostTable;
-use \App\Table\CommentTable;
-use \App\Table\UserTable;
-use App\App;
+ <div class="col-md-12">
+     <h1>Titre : <?= $post->title ?></h1>
+     <p>Date : <?= $post->getLastDate() ?></p>
 
-if (isset($_GET['id']) && $_GET['id'] != null) {
-        $post = $app->getTable('Post')->getById($_GET['id']);
-        $author = $app->getTable('User')->getById($post->getAuthorId());
-        if ($post) {
-            $app->setTitle('posts: '.$post->title);
-            ?>
-            <h1><?= $post->title ?></h1>
-            <p><?= $post->getLastDate() ?></p>
+     <?php
+     if (strlen($excerpt) > 0) {
+         echo '<p>Extrait: '.$excerpt.'</p>';
+     }
+     ?>
 
-            <?php
-            $excerpt = $post->getExcerpt(true);
-            if (strlen($excerpt) > 0) {
-                echo '<p>'.$excerpt.'</p>';
-            }
-            ?>
+     <p>Contenu: <?= $post->getContent() ?></p>
+     <p>Auteur: <?= $author->username ?></p>
 
-
-            <p><?= $post->getContent() ?></p>
-            <p>Auteur: <?= $author->username ?></p>
-
-            <ul>
-                <?php foreach ($app->getTable('Comment')->getComments($_GET['id'], false) as $comment) :
-                    $author = $app->getTable('User')->getById($comment->user_id);
-                ?>
-                    <li>
-                        <span><?= $author->username ?></span>
-                        <p><?= $comment->content ?></p>
-                    </li>
-
-                <?php endforeach; ?>
-            </ul>
-            <?php
-        } else {
-            $app->error404("Cette posts n'existe pas !");
-        }
-} else {
-    $app->error404("Aucun posts selectionné !");
-}
-?>
+     <ul>
+         <?php foreach ($comments as $comment) :
+             $author = $app->getTable('User')->getById($comment->user_id);
+             ?>
+             <li>
+                 <span><?= $author->username ?></span>
+                 <p><?= $comment->content ?></p>
+             </li>
+         <?php endforeach; ?>
+     </ul>
+ </div>

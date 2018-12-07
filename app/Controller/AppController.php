@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-
 use Core\Controller\Controller;
+use \App;
 
 class AppController extends Controller
 {
@@ -12,6 +12,14 @@ class AppController extends Controller
     public function __construct()
     {
         $this->viewPath = ROOT . '/app/views/';
-        var_dump($this->viewPath);
+    }
+
+    protected function loadModel($name) {
+        $this->$name = App::getInstance()->getTable($name);
+    }
+
+    public function home() {
+        $this->setTitle('Accueil');
+        $this->render('home');
     }
 }

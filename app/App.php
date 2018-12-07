@@ -6,8 +6,6 @@ use Core\DataBase;
 class App
 {
     private $database;
-    private $title;
-
 
     private static $_instance;
     public static function getInstance() {
@@ -54,19 +52,5 @@ class App
         }
         header("HTTP/1.0 404 Not Found");
         header("location:index.php?p=404&errors=".$message);
-    }
-    public function errorAuth($message = null) {
-        if (is_null($message)) {
-            $message = Config::getInstance(CONFIG_FILE)->get('default_title');
-        }
-        header("HTTP/1.0 403 Forbidden");
-        header("location:index.php");
-    }
-
-    public function getTitle() {
-        return $this->title;
-    }
-    public function setTitle($title) {
-        $this->title = $title . ' | ' . Config::getInstance(CONFIG_FILE)->get('default_title');
     }
 }
