@@ -1,49 +1,80 @@
 <!DOCTYPE HTML>
-<html lang="fr">
+<html class="no-js" lang="fr">
 <head>
     <title>{{ title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body id="top">
 
 
-    <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand d-flex flex-column text-center align-items-center site_title" href="#">
-            <img src="images/logo.svg" width="150" class="text-center" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_navbar_target">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="main_navbar_target">
-            <div class="navbar-nav header_menu w-100 justify-content-around">
-                <a class="nav-item nav-link" href="index.php?p=home">Accueil</a>
-                <a class="nav-item nav-link" href="index.php?p=loop">Article</a>
-                <a class="nav-item nav-link" href="index.php?p=contact">Contact</a>
-                <a class="nav-item nav-link" href="index.php?p=about">Â propos</a>
-                <a class="nav-item nav-link" href="index.php?p=auth">Connection</a>
-                <a class="nav-item nav-link" href="index.php?p=auth&disconnect=true">Se déconnecter</a>
-            </div>
-        </div>
-    </nav>
+    <!-- header
+    ================================================== -->
+    <header class="s-header header">
+
+        <div class="header__logo">
+            <a class="logo" href="index.html">
+                <img src="images/logo.svg" alt="Homepage">
+            </a>
+        </div> <!-- end header__logo -->
 
 
-    <nav class="col-md-12 d-flex">
+        <nav class="header__nav-wrap">
+            <h2 class="header__nav-heading h6">Navigate to</h2>
+            <ul class="header__nav">
+                <li class="current"><a href="index.php?p=home" title="">Accueil</a></li>
+                <li><a href="index.php?p=loop" title="">Article</a></li>
+                <li><a href="index.php?p=about" title="">Â propos</a></li>
+                <li><a href="index.php?p=contact" title="">Contact</a></li>
+                <li><a href="index.php?p=auth" title="">Connection</a></li>
+                <li><a href="index.php?p=auth&disconnect=true" title="">Se déconnecter</a></li>
+            </ul> <!-- end header__nav -->
+        </nav> <!-- end header__nav-wrap -->
+    </header> <!-- s-header -->
 
-    </nav>
 
+    <section class="s-content">
 
-
-    <div class="container">
-        <div class="row">
+        <div class="row entries-wrap wide">
             {% block content %}
             {% endblock %}
         </div>
-    </div>
+
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
