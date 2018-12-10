@@ -13,15 +13,6 @@ class Controller
     private $loader;
     private $twig;
 
-    protected function render($view, $args = []) {
-        ob_start();
-        extract($args);
-        extract(['title' => $this->title]);
-        require_once $this->getFile($view);
-        $content = ob_get_clean();
-        require_once( $this->viewPath . 'templates/'. $this->template . '.php');
-    }
-
     protected function twigRender($view, $args = []) {
         if (empty($this->loader)) {
             $this->loader = new \Twig_Loader_Filesystem($this->viewPath);
