@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Core\Controller\Controller;
 use \App;
+use Core\Config;
 
 class AppController extends Controller
 {
@@ -35,5 +36,18 @@ class AppController extends Controller
        $this->setTitle('Accueil | Test');
        $name = 'Julien';
        $this->twigRender('test', compact('name'));
+    }
+
+
+    public function error404($error = null) {
+        $this->setTitle('Page introuvable');
+        if (empty($error)) {
+            if (!empty($_GET['error'])) {
+                $error = $_GET['error'];
+            } else {
+                $error = Config::getInstance(CONFIG_FILE)->get('page_not_found');
+            }
+        }
+        $this->twigRender('errors/404', compact('error'));
     }
 }

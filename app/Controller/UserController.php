@@ -29,8 +29,7 @@ class UserController extends AppController
                 }
             }
         }
-
         $form = new Form($_POST);
-        $this->render('users/auth', compact('form', 'alert'));
+        $this->twigRender('users/auth', compact('form', 'alert'));
     }
 }

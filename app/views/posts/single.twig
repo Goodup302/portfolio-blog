@@ -1,0 +1,23 @@
+{% extends template %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h1>Titre : {{ post.title }}</h1>
+        <p>Date : {{ post.getLastDate() }}</p>
+        <p>Extrait: {{ post.excerpt }}</p>
+
+
+        <p>Contenu: {{ post.getContent() }}</p>
+        <p>Auteur: {{ author.username }}</p>
+
+        <ul>
+
+            {% for comment in comments %}
+                <li>
+                    <span>{{ comment.author.username }}</span>
+                    <p>{{ comment.content }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

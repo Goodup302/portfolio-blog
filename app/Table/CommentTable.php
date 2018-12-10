@@ -6,10 +6,9 @@ use Core\Table\Table;
 class CommentTable extends Table
 {
     public function getComments($postId, $validate = false, $result = true){
+        $where = '';
         if ($validate) {
             $where = ' AND validate = true';
-        } else {
-            $where = '';
         }
         $query = 'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where.' ORDER BY id DESC';
         if ($result) {
@@ -27,7 +26,6 @@ class CommentTable extends Table
                 false
             );
         }
-
     }
 
     public function deleteByPostId($id){

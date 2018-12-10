@@ -1,0 +1,15 @@
+{% extends template %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h1>Tout les articles</h1>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
+                    <p>{{ post.getExcerpt() }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

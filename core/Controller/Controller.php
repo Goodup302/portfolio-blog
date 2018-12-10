@@ -21,7 +21,7 @@ class Controller
 
         $loader = new \Twig_Loader_Filesystem($this->viewPath);
         $twig = new \Twig_Environment($loader, array(
-            'cache' => false, // $this->viewPath . 'tmp'
+            'cache' => false, // $this->viewPath . 'temp'
             'debug' => true
         ));
         $twig->addGlobal('title', $this->title);
