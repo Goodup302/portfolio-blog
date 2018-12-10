@@ -20,18 +20,20 @@ class AppController extends Controller
 
     public function home() {
         $this->setTitle('Accueil');
-        $this->render('home');
+        $this->twigRender('home');
+    }
+    public function contact() {
+        $this->setTitle('Contact');
+        $this->twigRender('contact');
+    }
+    public function about() {
+        $this->setTitle('À propos');
+        $this->twigRender('about');
     }
 
     public function test() {
-       /* $this->setTitle('Accueil');
-        $this->render('home');*/
-
-
-        $loader = new \Twig_Loader_Filesystem($this->viewPath);
-        $twig = new \Twig_Environment($loader, array(
-            'cache' => false, // $this->viewPath . 'tmp'
-        ));
-        echo $twig->render('test.twig');
+       $this->setTitle('Accueil | Test');
+       $name = 'Julien';
+       $this->twigRender('test', compact('name'));
     }
 }

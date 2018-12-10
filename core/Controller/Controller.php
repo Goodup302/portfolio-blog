@@ -17,6 +17,18 @@ class Controller
         require_once( $this->viewPath . 'templates/'. $this->template . '.php');
     }
 
+    public function twigRender($view, $args = []) {
+
+        $loader = new \Twig_Loader_Filesystem($this->viewPath);
+        $twig = new \Twig_Environment($loader, array(
+            'cache' => false, // $this->viewPath . 'tmp'
+            'debug' => true
+        ));
+        $twig->addGlobal('title', $this->title);
+        $twig->addGlobal('template', 'templates/'. $this->template . '.twig');
+        echo $twig->render($view.'.twig', $args);
+    }
+
     protected function setTitle($title) {
         $this->title = $title;
     }
