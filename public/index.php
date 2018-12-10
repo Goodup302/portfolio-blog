@@ -20,7 +20,8 @@ if ($page === 'home') {
     (new \App\Controller\AppController())->about();
 } else if ($page === 'contact') {
     (new \App\Controller\AppController())->contact();
-
+} else if ($page === 'test') {
+    (new \App\Controller\AppController())->test();
 
 
 //Front Post Page

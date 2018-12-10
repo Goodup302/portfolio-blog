@@ -22,4 +22,16 @@ class AppController extends Controller
         $this->setTitle('Accueil');
         $this->render('home');
     }
+
+    public function test() {
+       /* $this->setTitle('Accueil');
+        $this->render('home');*/
+
+
+        $loader = new \Twig_Loader_Filesystem($this->viewPath);
+        $twig = new \Twig_Environment($loader, array(
+            'cache' => false, // $this->viewPath . 'tmp'
+        ));
+        echo $twig->render('test.twig');
+    }
 }
