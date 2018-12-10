@@ -19,32 +19,30 @@ class CommentController extends AppController
     }
 
 
-    public function loop($id = null) {
-        if (is_null($id) && !empty($_GET['id'])) {
-            $id = $_GET['id'];
+    public function loop($filterid = null) {
+        if (is_null($filterid) && !empty($_GET['id'])) {
+            $filterid = $_GET['id'];
         }
-        if (!empty($id)) {
-            $comments = $this->Comment->getComments($id);
-            $returnurl = 'index.php?p=admin_posts_edit&id='.$id;
+        if (!empty($filterid)) {
+            $comments = $this->Comment->getComments($filterid);
+            $returnurl = 'index.php?p=admin_posts_edit&id='.$filterid;
+            $post = $this->Post->getById($filterid);
         } else {
             $comments = $this->Comment->getAll();
             $returnurl = 'index.php?p=admin';
         }
-        $form = new Form();
-        $app = \App::getInstance();
-        $this->render('admin/comments/index', compact('app', 'comments', 'form', 'returnurl'));
+        $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));
     }
 
     public function valid() {
         if ($this->user->admin) {
             if (!empty($_POST['id'])) {
-                $commentTable = $this->Comment;
-                if ($commentTable->idExist($_POST['id'])) {
-                    $commentTable->update($_POST['id'], array("validate" => 1));
+                if ($this->Comment->idExist($_POST['id'])) {
+                    $this->Comment->update($_POST['id'], array("validate" => 1));
                 }
             }
         }
-        $this->loop();
+        header("location:index.php?p=admin_comments&id=".$_POST['filterid']);
     }
 
     public function delete() {
@@ -56,6 +54,6 @@ class CommentController extends AppController
                 }
             }
         }
-        $this->loop();
+        header("location:index.php?p=admin_comments&id=".$_POST['filterid']);
     }
 }

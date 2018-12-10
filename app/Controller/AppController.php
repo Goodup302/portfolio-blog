@@ -9,6 +9,7 @@ use Core\Config;
 class AppController extends Controller
 {
     protected $template = 'default';
+    protected $componentPath = 'component/';
 
     public function __construct()
     {

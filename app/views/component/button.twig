@@ -1,0 +1,3 @@
+{% macro show(name, style, url) %}
+    <a href='{{ url }}' class='btn btn-{{ style|default('primary') }}' role='button'>{{ name }}</a>
+{% endmacro %}

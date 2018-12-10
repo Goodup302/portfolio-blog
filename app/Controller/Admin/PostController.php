@@ -3,10 +3,8 @@
 namespace App\Controller\Admin;
 
 use \Core\Auth\DBAuth;
-use \Core\HTML\Form;
 use \App;
 use \Core\HTML\Alert;
-use Core\HTML\Button;
 use \Core\HTML\BootstrapStyle;
 
 class PostController extends AppController
@@ -22,19 +20,13 @@ class PostController extends AppController
 
     public function loop() {
         $this->setTitle('Tous les articles');
-        $auth = new DBAuth(App::getInstance()->getDatabase());
-        $user = $this->User->getById($auth->getUserId());
-
         $posts = $this->Post->getAll();
-        $form = new Form();
-        $app = App::getInstance();
-        $this->render('admin/posts/index', compact('app', 'posts', 'form', 'user', 'auth'));
+        $this->twigRender('admin/posts/index', compact('posts'));
     }
 
     public function delete() {
         $auth = new DBAuth(App::getInstance()->getDatabase());
         $user = $this->User->getById($auth->getUserId());
-
         if (!empty($_POST['id'])) {
             $postTable = $this->Post;
             $post = $postTable->getById($_POST['id']);
@@ -61,8 +53,7 @@ class PostController extends AppController
             $postTable->insert($args);
             header("location:index.php?p=admin_posts_edit&id=".$postTable->getLastId());
         }
-        $form = new Form($_POST);
-        $this->render('admin/posts/add', compact('posts', 'form', 'user', 'auth'));
+        $this->twigRender('admin/posts/add');
     }
 
 
@@ -86,14 +77,9 @@ class PostController extends AppController
                         );
                         $postTable->update($id, $args);
                     }
-                    $form = new Form($_POST);
                     $post = $postTable->getById($id);
-                    $commentsNumber = $this->Comment->getComments($post->id, null, false);
-                    if ($commentsNumber > 0) {
-                        $commentsButton = new Button('Commentaires liés à cet article ('.$commentsNumber.')','button', BootstrapStyle::secondary);
-                        $commentsButton->setUrl("?p=admin_comments&id=$post->id");
-                    }
-                    $this->render('admin/posts/edit', compact('post', 'form', 'commentsButton'));
+                    $commentsnumber = $this->Comment->getComments($post->id, null, false);
+                    $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
                 }

@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Entity;
-use Core\Entity\Entity;
 
-class CommentEntity extends Entity
+class CommentEntity extends AuthorEntity
 {
-    public function getAuthor() {
-        if (empty($this->author)) {
-            $this->author = \App::getInstance()->getTable('User')->getById($this->user_id);
+    public function getPost() {
+        if (empty($this->post)) {
+            $this->post = \App::getInstance()->getTable('Post')->getById($this->post_id);
         }
-        return $this->author;
+        return $this->post;
     }
 }

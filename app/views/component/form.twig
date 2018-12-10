@@ -1,0 +1,24 @@
+{% macro input(name, label, type, value) %}
+    <div class='form-group'>
+        <label>{{ label }}</label>
+        <input class='form-control' type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" />
+    </div>
+{% endmacro %}
+
+
+{% macro textarea(name, label, value, height) %}
+    <div class='form-group'>
+        <label>{{ label }}</label>
+        <textarea class='form-control' style='height: {{ height|default(200) }}px;' name='{{ name }}'>{{ value }}</textarea>
+    </div>
+{% endmacro %}
+
+
+{% macro value(id, value) %}
+    <input  type='hidden' name='{{ id }}' value='{{ value }}'>
+{% endmacro %}
+
+
+{% macro submit(name, style) %}
+    <button class='btn btn-{{ style|default('primary') }}' type='submit'>{{ name }}</button>
+{% endmacro %}

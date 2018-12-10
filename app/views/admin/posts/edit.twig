@@ -1,0 +1,25 @@
+{% extends template %}
+
+{% block content %}
+    {% import component~'button.twig' as Button %}
+    {% import component~'form.twig' as form %}
+
+    <div class="col-md-12">
+        <a href="index.php?p=admin_posts">Retour</a>
+        <h2>Editer l'article</h2>
+    </div>
+
+    <div class="col-md-12">
+        <form method="post">
+            {{ form.input('title', 'Titre', 'text', post.title) }}
+            {{ form.input('image', 'Url image', 'url', post.image) }}
+            {{ form.input('excerpt', 'Extrait', 'text', post.excerpt) }}
+            {{ form.textarea('content', 'Contenu', post.content) }}
+            {{ form.submit('Modifier') }}
+
+            {% if commentsnumber > 0 %}
+                {{ Button.show('Commentaires liés à cet article ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

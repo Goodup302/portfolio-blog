@@ -1,0 +1,7 @@
+{% extends template %}
+
+{% block content %}
+    {% import component~'button.twig' as Button %}
+    {{ Button.show('Articles', 'primary', '?p=admin_posts') }}
+    {{ Button.show('Commentaires', 'primary', '?p=admin_comments') }}
+{% endblock %}

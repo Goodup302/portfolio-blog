@@ -4,10 +4,10 @@ namespace App\Controller\Admin;
 use \App;
 use Core\Auth\DBAuth;
 use Core\Config;
+use Core\HTML\Button;
 
 class AppController extends \App\Controller\AppController
 {
-
     protected $user;
 
     public function __construct()
@@ -25,7 +25,7 @@ class AppController extends \App\Controller\AppController
 
     public function home() {
         $this->setTitle('Accueil Administration');
-        $this->render('admin/index');
+        $this->twigRender('admin/index');
     }
 
     public function errorAuth($message = null) {
