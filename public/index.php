@@ -1,66 +1,46 @@
 <?php
-define('ROOT', dirname(__DIR__));
-define('CONFIG_FILE', ROOT . '/config.php');
+use \App\Controller\AppController;
+use \App\Controller\PostController;
+use \App\Controller\UserController;
+use \App\Controller\Admin;
+require_once '../app/App.php';
 
-require_once ROOT . '/app/App.php';
-App::load();
-$app = App::getInstance();
+switch (App::load()) {
+    //Front Page
+    case 'home':
+        (new AppController())->home(); break;
+    case 'about':
+        (new AppController())->about(); break;
+    case 'contact':
+        (new AppController())->contact(); break;
+    case '404':
+        (new AppController())->error404(); break;
+    case 'auth':
+        (new UserController())->auth(); break;
 
+    //Front Post Page
+    case 'loop':
+        (new PostController())->loop(); break;
+    case 'single':
+        (new PostController())->single(); break;
 
-if (isset($_GET['p'])) {
-    $page = $_GET['p'];
-} else {
-    $page = 'home';
-}
-
-//Front Page
-if ($page === 'home') {
-    (new \App\Controller\AppController())->home();
-} else if ($page === 'about') {
-    (new \App\Controller\AppController())->about();
-} else if ($page === 'contact') {
-    (new \App\Controller\AppController())->contact();
-} else if ($page === 'test') {
-    (new \App\Controller\AppController())->test();
-
-
-//Front Post Page
-} else if ($page === 'loop') {
-    (new \App\Controller\PostController())->loop();
-} else if ($page === 'single') {
-    (new \App\Controller\PostController())->single();
-
-} else if ($page === 'auth') {
-    (new \App\Controller\UserController())->auth();
-
-// Admin
-
-} else if ($page === 'admin') {
-    (new \App\Controller\Admin\AppController())->home();
-
-// Admin post CRUD
-} else if ($page === 'admin_posts') {
-    (new \App\Controller\Admin\PostController())->loop();
-} else if ($page === 'admin_posts_edit') {
-    (new \App\Controller\Admin\PostController())->edit();
-} else if ($page === 'admin_posts_add') {
-    (new \App\Controller\Admin\PostController())->add();
-} else if ($page === 'admin_posts_delete') {
-    (new \App\Controller\Admin\PostController())->delete();
-
-// Admin comment CRUD
-} else if ($page === 'admin_comments') {
-    (new \App\Controller\Admin\CommentController())->loop();
-} else if ($page === 'admin_comments_valid') {
-    (new \App\Controller\Admin\CommentController())->valid();
-} else if ($page === 'admin_comments_delete') {
-    (new \App\Controller\Admin\CommentController())->delete();
-
-
-
-// ERROR
-} else if ($page === '404') {
-    (new \App\Controller\AppController())->error404();
-
-
+    //Admin
+    case 'admin':
+        (new Admin\AppController())->home(); break;
+    //Post CRUD
+    case 'admin_posts':
+        (new Admin\PostController())->loop(); break;
+    case 'admin_posts_edit':
+        (new Admin\PostController())->edit(); break;
+    case 'admin_posts_add':
+        (new Admin\PostController())->add(); break;
+    case 'admin_posts_delete':
+        (new Admin\PostController())->delete(); break;
+    //Comment CRUD
+    case 'admin_comments':
+        (new Admin\CommentController())->loop(); break;
+    case 'admin_comments_valid':
+        (new Admin\CommentController())->valid(); break;
+    case 'admin_comments_delete':
+        (new Admin\CommentController())->delete(); break;
 }

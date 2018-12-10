@@ -13,6 +13,7 @@ class AppController extends Controller
     public function __construct()
     {
         $this->viewPath = ROOT . '/app/views/';
+        $this->setTitle(App::getInstance()->title);
     }
 
     protected function loadModel($name) {
@@ -31,13 +32,6 @@ class AppController extends Controller
         $this->setTitle('À propos');
         $this->twigRender('about');
     }
-
-    public function test() {
-       $this->setTitle('Accueil | Test');
-       $name = 'Julien';
-       $this->twigRender('test', compact('name'));
-    }
-
 
     public function error404($error = null) {
         $this->setTitle('Page introuvable');
