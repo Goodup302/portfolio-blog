@@ -1,0 +1,30 @@
+{% extends template %}
+
+{% block content %}
+    {% import component~'button.twig' as Button %}
+    {% import component~'form.twig' as form %}
+
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+            <div class="col-md-12">
+                <a href="index.php?p=admin_posts">Retour</a><br>
+                {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
+                <h2>Editer l'article</h2>
+            </div>
+
+            <div class="col-md-12">
+                <form method="post">
+                    {{ form.input('title', 'Titre', 'text', post.title) }}
+                    {{ form.input('image', 'Url image', 'url', post.image) }}
+                    {{ form.input('excerpt', 'Extrait', 'text', post.excerpt) }}
+                    {{ form.textarea('content', 'Contenu', post.content) }}
+                    {{ form.submit('Modifier') }}
+
+                    {% if commentsnumber > 0 %}
+                        {{ Button.show('Commentaires liés à cet article ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

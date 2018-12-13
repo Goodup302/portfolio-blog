@@ -1,42 +1,42 @@
 <?php
-define('ROOT', dirname(__DIR__));
-define('CONFIG_FILE', ROOT . '/config.php');
+use \App\Controller\AppController;
+use \App\Controller\PostController;
+use \App\Controller\UserController;
+use \App\Controller\Admin;
+require_once '../app/App.php';
 
-require_once ROOT . '/app/App.php';
-App::load();
-$app = App::getInstance();
+switch (App::load()) {
+    //Front Page
+    case 'home':
+        (new AppController())->home(); break;
+    case '404':
+        (new AppController())->error404(); break;
+    case 'auth':
+        (new UserController())->auth(); break;
 
+    //Front Post Page
+    case 'loop':
+        (new PostController())->loop(); break;
+    case 'single':
+        (new PostController())->single(); break;
 
-
-
-if (isset($_GET['p'])) {
-    $page = $_GET['p'];
-} else {
-    $page = 'home';
+    //Admin
+    case 'admin':
+        (new Admin\AppController())->home(); break;
+    //Post CRUD
+    case 'admin_posts':
+        (new Admin\PostController())->loop(); break;
+    case 'admin_posts_edit':
+        (new Admin\PostController())->edit(); break;
+    case 'admin_posts_add':
+        (new Admin\PostController())->add(); break;
+    case 'admin_posts_delete':
+        (new Admin\PostController())->delete(); break;
+    //Comment CRUD
+    case 'admin_comments':
+        (new Admin\CommentController())->loop(); break;
+    case 'admin_comments_valid':
+        (new Admin\CommentController())->valid(); break;
+    case 'admin_comments_delete':
+        (new Admin\CommentController())->delete(); break;
 }
-
-
-ob_start();
-if ($page === 'home') {
-    require_once ROOT.'/page/home.php';
-
-
-} else if ($page === 'loop') {
-    require_once ROOT . '/page/posts/loop.php';
-
-
-} else if ($page === 'single') {
-    require_once ROOT . '/page/posts/single.php';
-
-
-} else if ($page === '404') {
-    require_once ROOT . '/page/errors/404.php';
-
-
-} else if ($page === 'auth') {
-    require_once ROOT . '/page/users/auth.php';
-
-
-}
-$content = ob_get_clean();
-require_once( ROOT.'/page/templates/default.php');

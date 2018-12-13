@@ -14,8 +14,8 @@ Use:
 ===
 $('#form_id').ajaxchimp(options);
 
-- Form should have one <input> element with attribute 'type=email'
-- Form should have one label element with attribute 'for=email_input_id' (used to display error/success message)
+- PostForm should have one <input> element with attribute 'type=email'
+- PostForm should have one label element with attribute 'for=email_input_id' (used to display error/success message)
 - All options are optional.
 
 Options:

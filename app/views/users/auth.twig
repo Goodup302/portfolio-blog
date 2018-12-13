@@ -1,0 +1,21 @@
+{% extends template %}
+
+{% block content %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+            {{ alert.show() }}
+
+            {% import component~'form.twig' as form %}
+
+            <div class="col-md-12">
+                <form method="post">
+                    {{ form.input('login', 'Login', 'text') }}
+                    {{ form.input('password', 'Password', 'password') }}
+                    {{ form.submit('Se connecter') }}
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Entity;
-use Core\Entity\Entity;
 use Core\Config;
 
-class PostEntity extends Entity
+class PostEntity extends AuthorEntity
 {
     public function getUrl() {
         return 'index.php?p=single&id='. $this->id;

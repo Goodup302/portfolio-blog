@@ -7,7 +7,7 @@ class Alert
 {
     private $message;
     private $type;
-    public function __construct($message, $type) {
+    public function __construct($message, $type = 'primary') {
         $this->message = $message;
         $this->type = $type;
     }

@@ -1,0 +1,47 @@
+{% extends template %}
+
+{% block content %}
+    {% import component~'button.twig' as Button %}
+    {% import component~'form.twig' as form %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+            <div class="col-md-12">
+                <a href="?p=admin">Retour</a>
+                <h2>Liste des articles</h2>
+                {{ Button.show('Ajouter un article', 'success', '?p=admin_posts_add') }}
+                <p></p>
+            </div>
+
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Dernière modification</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.author.username }}</td>
+                            <td>{{ post.lastdate }}</td>
+                            <td>
+                                {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
+                                {{ Button.show('Modifier', null, '?p=admin_posts_edit&id='~post.id) }}
+                                <form method="post" action="?p=admin_posts_delete" style="display: inline;">
+                                    {{ form.value('id', post.id) }}
+                                    {{ form.submit('Supprimer', 'danger') }}
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -24,7 +24,7 @@ class DBAuth {
                 $_SESSION['auth'] = $user->id;
                 return true;
             } else {
-                return 'Veuillez valider votre compte (Renvoyer le mail de confirmation)';
+                return 'Veuillez valider votre compte';
             }
         }
         return 'Les informations rentrées ne sont pas correct';

@@ -1,0 +1,21 @@
+{% extends template %}
+
+{% block content %}
+    {% import component~'form.twig' as form %}
+
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+            <div class="col-md-12">
+                <a href="?p=admin_posts">Retour</a>
+                <h2>Ajouter un article</h2>
+                <form method="post">
+                    {{ form.input('title', 'Titre', 'text') }}
+                    {{ form.input('image', 'Url image', 'url') }}
+                    {{ form.input('excerpt', 'Extrait', 'text') }}
+                    {{ form.textarea('content', 'Contenu') }}
+                    {{ form.submit('Ajouter') }}
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
