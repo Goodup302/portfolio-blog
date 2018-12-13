@@ -59,19 +59,7 @@
                     <form name="cForm" id="cForm" class="contact-form" method="post" action="">
                         <fieldset>
 
-                            <div>
-                                <input name="cName" id="cName" class="full-width" placeholder="Nom et Prenom*" value="" type="text" required>
-                            </div>
-
-                            <div class="form-field">
-                                <input name="cEmail" id="cEmail" class="full-width" placeholder="Email*" value="" type="text" required>
-                            </div>
-
-                            <div class="message form-field">
-                                <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Message*" required></textarea>
-                            </div>
-
-                            <button type="submit" class="submit btn btn--primary btn--large full-width">Envoyer</button>
+                            {{ contactform.show() }}
 
                         </fieldset>
                     </form>

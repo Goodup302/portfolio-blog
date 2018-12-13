@@ -6,6 +6,7 @@ use Core\Controller\Controller;
 use \App;
 use Core\Config;
 use Core\Auth\DBAuth;
+use App\Form\ContactForm;
 
 class AppController extends Controller
 {
@@ -26,7 +27,11 @@ class AppController extends Controller
 
     public function home() {
         $this->setTitle('Accueil');
-        $this->twigRender('home');
+        $contactform = new ContactForm($_POST);
+        if ($contactform->isPost() && $contactform->isValid()) {
+            $contactform->sendMail();
+        }
+        $this->twigRender('home', compact('contactform'));
     }
 
     public function error404($error = null) {
