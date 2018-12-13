@@ -1,23 +1,116 @@
 {% extends template %}
 
 {% block content %}
-    <div class="col-md-12">
-        <h1>Titre : {{ post.title }}</h1>
-        <p>Date : {{ post.getLastDate() }}</p>
-        <p>Extrait: {{ post.excerpt }}</p>
+    <section class="s-content s-content--top-padding s-content--narrow">
+            <article class="row entry format-standard">
+                <div class="entry__media col-full">
+                    <div class="entry__post-thumb">
+                        <img src="{{ post.image }}" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                    </div>
+                </div>
+
+                <div class="entry__header col-full">
+                    <h1 class="entry__header-title display-1">
+                        {{ post.title }}
+                    </h1>
+                    <ul class="entry__header-meta">
+                        <li class="date">{{ post.getLastDate() }}</li>
+                        <li class="byline">
+                            Par
+                            <span>{{ post.getAuthor().username }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-full entry__main">
+                    <blockquote>
+                        <p>{{ post.getExcerpt(true) }}</p>
+                    </blockquote>
+                    {{ post.getContent()|raw }}
+                </div> <!-- s-entry__main -->
+            </article> <!-- end entry/article -->
 
 
-        <p>Contenu: {{ post.getContent() }}</p>
-        <p>Auteur: {{ author.username }}</p>
+            <div class="comments-wrap">
 
-        <ul>
+                <div id="comments" class="row">
+                    <div class="col-full">
 
-            {% for comment in comments %}
-                <li>
-                    <span>{{ comment.author.username }}</span>
-                    <p>{{ comment.content }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+                        <h3 class="h2">{{ commentsnumber }} Commentaire(s)</h3>
+
+                        <!-- START commentlist -->
+                        <ol class="commentlist">
+                            {% for comment in comments %}
+                                <li class="depth-1 comment">
+
+                                    <div class="comment__avatar">
+                                        <img class="avatar" src="https://yt3.ggpht.com/-w2NWY7dxOtw/AAAAAAAAAAI/AAAAAAAAADE/1TD_s74q4lE/s288-mo-c-c0xffffffff-rj-k-no/photo.jpg" alt="" width="50" height="50">
+                                    </div>
+
+                                    <div class="comment__content">
+
+                                        <div class="comment__info">
+                                            <div class="comment__author">{{ comment.author.username }}</div>
+
+                                            <div class="comment__meta">
+                                                <div class="comment__time">{{ comment.getdate() }}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment__text">
+                                            <p>{{ comment.content }}</p>
+                                        </div>
+
+                                    </div>
+
+                                </li> <!-- end comment level 1 -->
+
+                            {% endfor %}
+
+                        </ol>
+                        <!-- END commentlist -->
+
+                    </div> <!-- end col-full -->
+                </div> <!-- end comments -->
+
+                <div class="row comment-respond">
+
+                    <!-- START respond -->
+                    <div id="respond" class="col-full">
+
+                        <h3 class="h2">Ajouter un commentaire<span>Merci de remplir tous les champs ci dessous</span></h3>
+
+                        <form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
+                            <fieldset>
+
+                                <div class="form-field">
+                                    <input name="cName" id="cName" class="full-width" placeholder="Your Name*" value="" type="text">
+                                </div>
+
+                                <div class="form-field">
+                                    <input name="cEmail" id="cEmail" class="full-width" placeholder="Your Email*" value="" type="text">
+                                </div>
+
+                                <div class="form-field">
+                                    <input name="cWebsite" id="cWebsite" class="full-width" placeholder="Website" value="" type="text">
+                                </div>
+
+                                <div class="message form-field">
+                                    <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message*"></textarea>
+                                </div>
+
+                                <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Envoyer" type="submit">
+
+                            </fieldset>
+                        </form> <!-- end form -->
+
+                    </div>
+                    <!-- END respond-->
+
+                </div> <!-- end comment-respond -->
+
+            </div> <!-- end comments-wrap -->
+
+
+    </section>
 {% endblock %}

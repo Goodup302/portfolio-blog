@@ -29,9 +29,9 @@ class PostController extends AppController
             if ($post) {
                 $this->setTitle('posts: '.$post->title);
                 $author = $this->User->getById($post->getAuthorId());
-                $comments = $this->Comment->getComments($_GET['id'], false);
-                $excerpt = $post->getExcerpt(true);
-                $this->twigRender('posts/single', compact('post', 'author', 'comments', 'excerpt'));
+                $comments = $this->Comment->getComments($_GET['id'], true);
+                $commentsnumber = $this->Comment->getComments($_GET['id'], true, false);
+                $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber'));
             } else {
                 $this->error404("Cette article n'existe pas ou plus !");
             }

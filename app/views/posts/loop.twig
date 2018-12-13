@@ -1,15 +1,31 @@
 {% extends template %}
 
 {% block content %}
-    <div class="col-md-12">
-        <h1>Tout les articles</h1>
-        <ul>
-            {% for post in posts %}
-                <li>
-                    <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
-                    <p>{{ post.getExcerpt() }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <section class="s-content">
+        <div class="row entries-wrap wide">
+                <h1>Tout les articles</h1>
+                <div class="entries">
+                    {% for post in posts %}
+                        <article class="col-block">
+
+                            <div class="item-entry" data-aos="zoom-in">
+                                <div class="item-entry__thumb">
+                                    <a href="{{ post.url }}" class="item-entry__thumb-link">
+                                        <img src="{{ post.image }}">
+                                    </a>
+                                </div>
+
+                                <div class="item-entry__text">
+                                    <h1 class="item-entry__title"><a href="{{ post.url }}">{{ post.title }}</a></h1>
+                                    <div class="item-entry__date">
+                                        <span>{{ post.getLastdate() }}</span>
+                                    </div>
+                                </div>
+                            </div> <!-- item-entry -->
+
+                        </article> <!-- end article -->
+                    {% endfor %}
+                </div>
+        </div>
+    </section>
 {% endblock %}

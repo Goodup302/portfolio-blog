@@ -10,4 +10,9 @@ class CommentEntity extends AuthorEntity
         }
         return $this->post;
     }
+
+    public function getdate() {
+        $date = date_create($this->date);
+        return 'Ajouté le '.date_format($date, 'd/m/Y').' à '.date_format($date, 'H:i');
+    }
 }

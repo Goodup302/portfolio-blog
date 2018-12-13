@@ -3,59 +3,63 @@
 {% block content %}
     {% import component~'button.twig' as Button %}
     {% import component~'form.twig' as form %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+                <div class="col-md-12">
+                    <a href="{{ returnurl }}">Retour</a>
+                    <h2>
+                        Liste des commentaires {% if filterid > 0 %}lié à l'article : {{ post.title }}{% endif %}
+                    </h2>
+                    <p></p>
+                </div>
 
-    <div class="col-md-12">
-        <a href="{{ returnurl }}">Retour</a>
-        <h2>
-            Liste des commentaires {% if filterid > 0 %}lié à l'article : {{ post.title }}{% endif %}
-        </h2>
-        <p></p>
-    </div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Auteur</th>
+                            <th scope="col">Article</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Contenu</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
 
-    <div class="col-md-12">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Auteur</th>
-                <th scope="col">Article</th>
-                <th scope="col">Date de création</th>
-                <th scope="col">Contenu</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.author.username }}</td>
+                                <td>{{ comment.post.title }}</td>
+                                <td>{{ comment.date }}</td>
+                                <td>{{ comment.content }}</td>
+                                <td>
+                                    {% if comment.validate == false %}
+                                        <form method="post" action="?p=admin_comments_valid" style="display: inline;">
+                                            {{ form.value('id', comment.id) }}
+                                            {{ form.value('filterid', filterid) }}
+                                            {{ form.submit('Valider', 'success') }}
+                                        </form>
+                                    {% endif %}
 
-            <tbody>
-            {% for comment in comments %}
-                <tr>
-                    <td>{{ comment.author.username }}</td>
-                    <td>{{ comment.post.title }}</td>
-                    <td>{{ comment.date }}</td>
-                    <td>{{ comment.content }}</td>
-                    <td>
-                        {% if comment.validate == false %}
-                            <form method="post" action="?p=admin_comments_valid" style="display: inline;">
-                                {{ form.value('id', comment.id) }}
-                                {{ form.value('filterid', filterid) }}
-                                {{ form.submit('Valider', 'success') }}
-                            </form>
-                        {% endif %}
+                                    <form method="post" action="?p=admin_comments_delete" style="display: inline;">
+                                        {{ form.value('id', comment.id) }}
+                                        {{ form.value('filterid', filterid) }}
+                                        {{ form.submit('Supprimer', 'danger') }}
+                                    </form>
 
-                        <form method="post" action="?p=admin_comments_delete" style="display: inline;">
-                            {{ form.value('id', comment.id) }}
-                            {{ form.value('filterid', filterid) }}
-                            {{ form.submit('Supprimer', 'danger') }}
-                        </form>
+                                    {#                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                Ouvrir
+                                                            </button>
+                                                            <?php
+                                                            (new Popup('comment-content-popup'.$comment->id, 'sdfsdfsd'))->showButton();
+                                                            ?>#}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </section>
 
-{#                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Ouvrir
-                        </button>
-                        <?php
-                        (new Popup('comment-content-popup'.$comment->id, 'sdfsdfsd'))->showButton();
-                        ?>#}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
 {% endblock %}

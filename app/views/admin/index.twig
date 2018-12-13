@@ -2,6 +2,14 @@
 
 {% block content %}
     {% import component~'button.twig' as Button %}
-    {{ Button.show('Articles', 'primary', '?p=admin_posts') }}
-    {{ Button.show('Commentaires', 'primary', '?p=admin_comments') }}
+
+
+    <section class="s-content s-content--top-padding s-content--narrow">
+        <div class="row entries-wrap wide">
+            <div class="col-md-12">
+                {{ Button.show('Articles', 'primary', '?p=admin_posts') }}
+                {{ Button.show('Commentaires', 'primary', '?p=admin_comments') }}
+            </div>
+        </div>
+    </section>
 {% endblock %}
