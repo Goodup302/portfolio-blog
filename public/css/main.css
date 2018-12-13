@@ -2858,10 +2858,6 @@ body.search-is-visible {
   padding-bottom: 0;
 }
 
-.s-content--narrow .row {
-  max-width: 1000px;
-}
-
 .s-content--top-padding {
   padding-top: 16.2rem;
 }

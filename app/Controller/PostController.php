@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-use Core\Config;
+use App\Form\CommentForm;
 
 class PostController extends AppController
 {
@@ -25,13 +25,19 @@ class PostController extends AppController
 
     public function single() {
         if (!empty($_GET['id'])) {
+            $commentform = new CommentForm($_POST);
+            if ($commentform->isPost()) {
+                if ($commentform->isValid() == true) {
+                    var_dump($commentform);
+                }
+            }
             $post = $this->Post->getById($_GET['id']);
             if ($post) {
                 $this->setTitle('Article | '.$post->title);
                 $author = $this->User->getById($post->getAuthorId());
                 $comments = $this->Comment->getComments($_GET['id'], true);
                 $commentsnumber = $this->Comment->getComments($_GET['id'], true, false);
-                $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber'));
+                $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber', 'commentform'));
             } else {
                 $this->error404("Cette article n'existe pas ou plus !");
             }

@@ -9,7 +9,7 @@
 {% macro textarea(name, label, value, height) %}
     <div class='form-group'>
         <label>{{ label }}</label>
-        <textarea class='form-control' style='height: {{ height|default(200) }}px;' name='{{ name }}'>{{ value }}</textarea>
+        <textarea class='full-width' style='height: {{ height|default(200) }}px;' name='{{ name }}'>{{ value }}</textarea>
     </div>
 {% endmacro %}
 

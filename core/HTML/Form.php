@@ -9,21 +9,27 @@ class Form
         $this->data = $data;
     }
 
-    public function input($name, $label, $type, $value = null) {
+    public function input($name, $label, $type, $value = null, $placeholder = '', $attrs = '') {
         if (is_null($value) && isset($this->data[$name])) {
             $value = $this->data[$name];
         }
 
         //input
         if ($type == 'textarea') {
-            $input = "<textarea class='form-control' style='height: 200px;' name='$name'>$value</textarea>";
+            $input = "<textarea class='full-width' placeholder='$placeholder' style='height: 200px;' name='$name' $attrs>$value</textarea>";
         } else {
-            $input = "<input class='form-control' type='$type' name='$name' value='$value'>";
+            $input = "<input class='full-width' placeholder='$placeholder' type='$type' name='$name' value='$value' $attrs>";
+        }
+
+        //label
+        $label = '';
+        if (!empty($label)) {
+            $label = "<label>$label</label>";
         }
 
         echo "
             <div class='form-group'>
-                <label>$label</label>
+                $label
                 $input
             </div>
         ";
@@ -34,6 +40,6 @@ class Form
     }
 
     public function submit($name, $type = 'primary') {
-        echo "<button class='btn btn-$type' type='submit'>$name</button>";
+        echo "<button class='btn btn-$type submit btn btn--primary btn--large full-width' type='submit'>$name</button>";
     }
 }
