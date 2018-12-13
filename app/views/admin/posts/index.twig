@@ -29,6 +29,7 @@
                             <td>{{ post.author.username }}</td>
                             <td>{{ post.lastdate }}</td>
                             <td>
+                                {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
                                 {{ Button.show('Modifier', null, '?p=admin_posts_edit&id='~post.id) }}
                                 <form method="post" action="?p=admin_posts_delete" style="display: inline;">
                                     {{ form.value('id', post.id) }}

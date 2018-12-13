@@ -28,14 +28,6 @@ class AppController extends Controller
         $this->setTitle('Accueil');
         $this->twigRender('home');
     }
-    public function contact() {
-        $this->setTitle('Contact');
-        $this->twigRender('contact');
-    }
-    public function about() {
-        $this->setTitle('À propos');
-        $this->twigRender('about');
-    }
 
     public function error404($error = null) {
         $this->setTitle('Page introuvable');

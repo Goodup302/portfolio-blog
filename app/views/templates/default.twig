@@ -16,7 +16,7 @@
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <!-- CSS
     ================================================== -->
     <link rel="stylesheet" href="css/base.css">
@@ -37,30 +37,43 @@
 
     <!-- header
     ================================================== -->
+
     <header class="s-header header">
 
-        <div class="header__logo">
-            <a class="logo" href="index.html">
-                <img src="images/logo.svg" alt="Homepage">
-            </a>
-        </div> <!-- end header__logo -->
+        <div class="header__search">
 
+            <form role="search" method="get" class="header__search-form" action="#">
+                <label>
+                    <span class="hide-content">Search for:</span>
+                    <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                </label>
+                <input type="submit" class="search-submit" value="Search">
+            </form>
 
+            <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+
+        </div>  <!-- end header__search -->
+
+        <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
         <nav class="header__nav-wrap">
+
             <h2 class="header__nav-heading h6">Navigate to</h2>
+
             <ul class="header__nav">
                 <li class="current"><a href="index.php?p=home" title="">Accueil</a></li>
                 <li><a href="index.php?p=loop" title="">Article</a></li>
-                <li><a href="index.php?p=about" title="">Â propos</a></li>
-                <li><a href="index.php?p=contact" title="">Contact</a></li>
-                {% if logged == true %}
+                {% if logged %}
                     <li><a href="index.php?p=admin" title="">Administration</a></li>
                     <li><a href="index.php?p=auth&disconnect=true" title="">Se déconnecter</a></li>
                 {% else %}
                     <li><a href="index.php?p=auth" title="">Connection</a></li>
                 {% endif %}
             </ul> <!-- end header__nav -->
+
+            <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
         </nav> <!-- end header__nav-wrap -->
+
     </header> <!-- s-header -->
 
     {% block content %}
@@ -69,8 +82,7 @@
     <!-- s-footer
 ================================================== -->
     <footer class="s-footer">
-
-        <div class="s-footer__main">
+{#        <div class="s-footer__main">
             <div class="row">
 
                 <div class="col-six tab-full s-footer__about">
@@ -100,34 +112,33 @@
                 </div> <!-- end s-footer__subscribe -->
 
             </div>
-        </div> <!-- end s-footer__main -->
-
+        </div> <!-- end s-footer__main -->#}
         <div class="s-footer__bottom">
             <div class="row">
-
                 <div class="col-six">
                     <ul class="footer-social">
                         <li>
-                            <a href="#0"><i class="fab fa-facebook"></i></a>
+                            <a target="_blank" href="https://www.facebook.com/julienfernendes"><i class="fab fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#0"><i class="fab fa-twitter"></i></a>
+                            <a target="_blank" href="https://github.com/Goodup302"><i class="fab fa-github"></i></a>
                         </li>
                         <li>
-                            <a href="#0"><i class="fab fa-youtube"></i></a>
+                            <a target="_blank" href="https://www.youtube.com/channel/UCk7e908iaAlD0O1reOOqXNg"><i class="fab fa-youtube"></i></a>
                         </li>
                         <li>
-                            <a href="#0"><i class="fab fa-pinterest"></i></a>
+                            <a target="_blank" href="https://twitter.com/JulienF85923276"><i class="fab fa-twitter-square"></i></a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="col-six">
                     <div class="s-footer__copyright">
-                        <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</span>
+                        <span>
+                            Copyright &copy; <script>document.write(new Date().getFullYear());</script>
+                            Tous les droits sont réservés. <i class="fa fa-heart" aria-hidden="true"></i>
+                            By <a target="_blank" href="http://goodup302.fr/">GoodUp302</a>
+                        </span>
                     </div>
                 </div>
 

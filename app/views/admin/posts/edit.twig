@@ -7,7 +7,8 @@
     <section class="s-content s-content--top-padding s-content--narrow">
         <div class="row entries-wrap wide">
             <div class="col-md-12">
-                <a href="index.php?p=admin_posts">Retour</a>
+                <a href="index.php?p=admin_posts">Retour</a><br>
+                {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
                 <h2>Editer l'article</h2>
             </div>
 

@@ -9,10 +9,6 @@ switch (App::load()) {
     //Front Page
     case 'home':
         (new AppController())->home(); break;
-    case 'about':
-        (new AppController())->about(); break;
-    case 'contact':
-        (new AppController())->contact(); break;
     case '404':
         (new AppController())->error404(); break;
     case 'auth':

@@ -2,10 +2,84 @@
 
 {% block content %}
     <section class="s-content s-content--top-padding s-content--narrow">
-        <div class="row entries-wrap wide">
-            <div class="col-md-12">
 
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <img src="images/visage1.jpg" style="height: 150px; border-radius: 100%;" alt="">
+                <h1 class="display-1 display-1--with-line-sep">Julien FENANDES</h1>
+                <p class="lead">
+                    Je suis un étudiant passionné en informatique,
+                    depuis quelques années je me consacre au développement.
+                    Je vais vous présenter mes compétences.</p>
             </div>
         </div>
-    </section>
+
+        <div class="row">
+            <div class="col-full s-content__main">
+                <p>
+                    <img src="images/thumbs/about/about-1000.jpg" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                </p>
+
+                <h2>Présentation</h2>
+
+                <p>
+                    Bonjour, je m’appelle Julien Fernandes j’ai 19 ans. Je suis en contrat d’apprentissage avec OpenClassrooms, je suis la formation « Développeur d'application - PHP / Symfony ».
+                    Je suis un étudiant passionné en informatique, depuis quelques années je me consacre au développement en autodidacte dans les langages suivant PHP, JavaScript, CSS, HTML, VB.NET.
+                    J’ai aussi comme passion le modélisme (voiture radiocommandée, drone, etc…)
+                </p>
+                <a href="files/cv.pdf" download> - Télécharger mon CV - </a>
+
+                <hr>
+
+                <div class="row block-1-2 block-tab-full">
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">LE WEB HTML/CSS/PHP</h4>
+                        SKRIPT</h4>
+                        <p>
+                            Je crée des sites responsive avec des Frameworks CSS comme Bootstrap ou Materialize, puis je fais aussi des sites dynamiques grâce a PHP.
+                        </p></div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">LES LOGICIELS VB.NET/C#</h4></h4>
+                        <p>
+                            Grâce au Framework .NET et le langage Visual Basic de Microsoft, la création de logiciels complexes avec de belles interfaces devient plus simple.
+                        </p>
+                    </div>
+
+                    <div class="col-block">
+                        <h4 class="quarter-top-margin">PLUGINS Minecraft JAVA/SKRIPT</h4>
+                        <p>
+                            Skript est une API java dédiée au plug-in pour serveur minecraft, grâce à elle je peux développer plus rapidement.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h4>Me contacter</h4>
+                    <form name="cForm" id="cForm" class="contact-form" method="post" action="">
+                        <fieldset>
+
+                            <div>
+                                <input name="cName" id="cName" class="full-width" placeholder="Nom et Prenom*" value="" type="text" required>
+                            </div>
+
+                            <div class="form-field">
+                                <input name="cEmail" id="cEmail" class="full-width" placeholder="Email*" value="" type="text" required>
+                            </div>
+
+                            <div class="message form-field">
+                                <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Message*" required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit btn btn--primary btn--large full-width">Envoyer</button>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section> <!-- end s-content -->
 {% endblock %}
