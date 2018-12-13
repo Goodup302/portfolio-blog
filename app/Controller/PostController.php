@@ -27,7 +27,7 @@ class PostController extends AppController
         if (!empty($_GET['id'])) {
             $post = $this->Post->getById($_GET['id']);
             if ($post) {
-                $this->setTitle('posts: '.$post->title);
+                $this->setTitle('Article | '.$post->title);
                 $author = $this->User->getById($post->getAuthorId());
                 $comments = $this->Comment->getComments($_GET['id'], true);
                 $commentsnumber = $this->Comment->getComments($_GET['id'], true, false);

@@ -53,8 +53,12 @@
                 <li><a href="index.php?p=loop" title="">Article</a></li>
                 <li><a href="index.php?p=about" title="">Â propos</a></li>
                 <li><a href="index.php?p=contact" title="">Contact</a></li>
-                <li><a href="index.php?p=auth" title="">Connection</a></li>
-                <li><a href="index.php?p=auth&disconnect=true" title="">Se déconnecter</a></li>
+                {% if logged == true %}
+                    <li><a href="index.php?p=admin" title="">Administration</a></li>
+                    <li><a href="index.php?p=auth&disconnect=true" title="">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="index.php?p=auth" title="">Connection</a></li>
+                {% endif %}
             </ul> <!-- end header__nav -->
         </nav> <!-- end header__nav-wrap -->
     </header> <!-- s-header -->
@@ -70,9 +74,7 @@
             <div class="row">
 
                 <div class="col-six tab-full s-footer__about">
-
                     <h4>About Wordsmith</h4>
-
                     <p>Fugiat quas eveniet voluptatem natus. Placeat error temporibus magnam sunt optio aliquam. Ut ut occaecati placeat at.
                         Fuga fugit ea autem. Dignissimos voluptate repellat occaecati minima dignissimos mollitia consequatur.
                         Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa error
@@ -88,13 +90,10 @@
 
                     <div class="subscribe-form">
                         <form id="mc-form" class="group" novalidate="true">
-
+                            <label for="mc-email" class="subscribe-message"></label>
                             <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
 
                             <input type="submit" name="subscribe" value="Send">
-
-                            <label for="mc-email" class="subscribe-message"></label>
-
                         </form>
                     </div>
 
@@ -113,9 +112,6 @@
                         </li>
                         <li>
                             <a href="#0"><i class="fab fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#0"><i class="fab fa-instagram"></i></a>
                         </li>
                         <li>
                             <a href="#0"><i class="fab fa-youtube"></i></a>

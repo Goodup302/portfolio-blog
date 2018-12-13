@@ -5,16 +5,19 @@ namespace App\Controller;
 use Core\Controller\Controller;
 use \App;
 use Core\Config;
+use Core\Auth\DBAuth;
 
 class AppController extends Controller
 {
     protected $template = 'default';
     protected $componentPath = 'component/';
+    protected $tempFolder = 'temp';
 
     public function __construct()
     {
         $this->viewPath = ROOT . '/app/views/';
         $this->setTitle(App::getInstance()->title);
+        $this->auth = new DBAuth(App::getInstance()->getDatabase());
     }
 
     protected function loadModel($name) {
