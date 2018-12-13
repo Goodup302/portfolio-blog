@@ -48,7 +48,7 @@ class PostForm
 
             } else if ($type == InputType::TEXTAREA) {
                 if ($value != strip_tags($value)) {
-                    $this->error_message = "le champ '$name' est trop long";
+                    $this->error_message = "Certain des caractères ne sont pas accepté";
                     break;
                 }
                 if (strlen($value) > InputType::TEXTAREA_MAX_SIZE) {
@@ -64,7 +64,7 @@ class PostForm
 
 
             } else {
-                $this->error_message = "Erreur de type de champ";
+                $this->error_message = "Erreur inconnue";
             }
         }
         if (empty($this->error_message)) {

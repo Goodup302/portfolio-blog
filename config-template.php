@@ -6,5 +6,6 @@ return array(
     'db_pass' => 'root',
     'excerpt_length' => 100,
     'page_not_found' => 'Error 404 Page !',
-    'default_title' => 'Portfolio Blog'
+    'default_title' => 'Portfolio Blog',
+    'email' => 'localhost@localhost.com'
 );

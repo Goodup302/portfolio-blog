@@ -70,18 +70,16 @@
                     </div> <!-- end col-full -->
                 </div> <!-- end comments -->
 
-                <div class="row comment-respond">
-
-                    <!-- START respond -->
-                    <div id="respond" class="col-full">
-                        <h3 class="h2">Ajouter un commentaire<span>Merci de remplir tous les champs ci dessous</span></h3>
-                        <form method="post">
-                            {{ commentform.show() }}
-                        </form> <!-- end form -->
+                {% if logged %}
+                    <div class="row comment-respond">
+                        <div id="respond" class="col-full">
+                            <h3 class="h2">Ajouter un commentaire<span>Merci de remplir le champ ci dessous</span></h3>
+                            <form method="post">
+                                {{ commentform.show() }}
+                            </form>
+                        </div>
                     </div>
-                    <!-- END respond-->
-
-                </div> <!-- end comment-respond -->
+                {% endif %}
 
             </div> <!-- end comments-wrap -->
 
