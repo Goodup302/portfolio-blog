@@ -30,8 +30,8 @@ class ContactForm extends PostForm
         $message .= '<p>' . htmlspecialchars($content) . '</p>';
         $Mail = New Email($name.' vous contact', $sender);
         $result = $Mail->SendMail($receiver, 'Contact de ' . $name, $message);
-        if ($result) {
-            $this->error_message = "Le mail n'a pas pu ètre envoyé";
+        if (!$result) {
+            $this->error_message = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";
         }
     }
 }
