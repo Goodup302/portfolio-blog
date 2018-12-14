@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Form;
+namespace App\Form\AuthForm;
 use Core\Form\PostForm;
 use Core\Form\InputType;
 use Core\Config;
@@ -20,17 +20,7 @@ class RegisterForm extends PostForm
 
     public function __construct($post) {parent::__construct($post); $this->hasLabel = true;}
 
-    public function createUser() {
+    public function register() {
 
-    }
-
-    public function generateRandomID($length = 128) {
-        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$-_.+!*()";
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
     }
 }

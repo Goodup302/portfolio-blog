@@ -31,8 +31,15 @@ class PostForm
         return true;
     }
 
+    public function isValid()
+    {
+        if ($this->isPost() && $this->fieldsIsValid()) {
+            return true;
+        }
+        return false;
+    }
 
-    public function isValid() {
+    public function fieldsIsValid() {
         foreach ($this->data as $index => $item) {
             $value = $this->data[$index];
             $type = $this->inputModel[$index][1];
@@ -77,20 +84,22 @@ class PostForm
     }
 
     public function show() {
+        /* Show result message */
         if ($this->isPost()) {
             if (empty($this->error_message)) {
                 (new Alert($this->success_message, BootstrapStyle::success))->show();
-            } else {
+            } else if (!empty($this->success_message)) {
                 (new Alert($this->error_message, BootstrapStyle::danger))->show();
             }
 
         }
-
+        /* inject the fields if there is an error */
         if (empty($this->error_message)) {
             $form = new Form();
         } else {
             $form = new Form($_POST);
         }
+        /* Show all the fields */
         foreach ($this->inputModel as $id => $item) {
             $type = $this->inputModel[$id][1];
             $label = null;

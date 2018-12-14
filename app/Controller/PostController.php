@@ -33,7 +33,7 @@ class PostController extends AppController
                 $commentform = new CommentForm($_POST);
                 if ($commentform->isPost()) {
                     $auth = new DBAuth(App::getInstance()->getDatabase());
-                    if ($commentform->isValid() && $auth->isLogged()) {
+                    if ($commentform->fieldsIsValid() && $auth->isLogged()) {
                         $args = array(
                             "post_id" => $post->id,
                             "user_id" => $auth->getUserId(),

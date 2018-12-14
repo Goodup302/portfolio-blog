@@ -28,7 +28,7 @@ class AppController extends Controller
     public function home() {
         $this->setTitle('Accueil');
         $contactform = new ContactForm($_POST);
-        if ($contactform->isPost() && $contactform->isValid()) {
+        if ($contactform->isPost() && $contactform->fieldsIsValid()) {
             $contactform->sendMail();
         }
         $this->twigRender('home', compact('contactform'));

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Controller;
-
-use App\Form\LoginForm;
-use App\Form\RegisterForm;
+use App\Form\AuthForm\ConfirmForm;
+use App\Form\AuthForm\LoginForm;
+use App\Form\AuthForm\RegisterForm;
 use Core\Auth\DBAuth;
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;
@@ -22,11 +22,22 @@ class UserController extends AppController
 
             } else if ($action === 'register') {
                 $form = new RegisterForm($_POST);
-                $alert = new Alert('Vous venez de vous register', BootstrapStyle::info);
+                if ($form->isValid()) {
+                    $form->register();
+                }
 
+
+            } else if ($action === 'confirm') {
+                $form = new ConfirmForm($_POST);
+                if ($form->isValid()) {
+                    $form->sendConfirm();
+                }
 
             } else if ($action === 'login'){
                 $form = new LoginForm($_POST);
+                if ($form->isValid()) {
+
+                }
                 if ($auth->isLogged()) {
                     $status = true;
                 } else {

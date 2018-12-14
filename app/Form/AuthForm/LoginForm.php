@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\AuthForm;
 use Core\Form\PostForm;
 use Core\Form\InputType;
 use Core\Config;
