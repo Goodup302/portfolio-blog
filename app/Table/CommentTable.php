@@ -10,7 +10,7 @@ class CommentTable extends Table
         if ($validate) {
             $where = ' AND validate = true';
         }
-        $query = 'SELECT * FROM ' . $this->table .' WHERE post_id = ?'.$where.' ORDER BY id DESC';
+        $query = "SELECT * FROM {$this->table} WHERE post_id = ? {$where} ORDER BY id DESC";
         if ($result) {
             return $this->db->query(
                 $query,
@@ -30,7 +30,7 @@ class CommentTable extends Table
 
     public function deleteByPostId($id){
         return $this->db->query(
-            'DELETE FROM ' . $this->table .' WHERE post_id = ?',
+            "DELETE FROM {$this->table} WHERE post_id = ?",
             null,
             [$id],
             true,

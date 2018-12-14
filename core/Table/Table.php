@@ -25,13 +25,13 @@ class Table
 
     public function getAll(){
         return $this->db->query(
-            "SELECT * FROM $this->table ORDER BY id DESC",
+            "SELECT * FROM {$this->table} ORDER BY id DESC",
             $this->getEntityName()
         );
     }
     public function getById($id){
         return $this->db->query(
-            'SELECT * FROM ' . $this->table .' WHERE id = ?',
+            "SELECT * FROM {$this->table} WHERE id = ?",
             $this->getEntityName(),
             [$id],
             true
@@ -40,7 +40,7 @@ class Table
 
     public function idExist($id){
         return boolval($this->db->query(
-            'SELECT * FROM ' . $this->table .' WHERE id = ?',
+            "SELECT * FROM {$this->table} WHERE id = ?",
             null,
             [$id],
             true,
@@ -61,7 +61,7 @@ class Table
         $sql_entry = implode(', ', $sql_entry);
 
         return $this->db->query(
-            "INSERT INTO $this->table ( $sql_index ) VALUES( $sql_entry )",
+            "INSERT INTO {$this->table} ( $sql_index ) VALUES( $sql_entry )",
             null,
             $attributes,
             null,
@@ -80,7 +80,7 @@ class Table
         $sql_parts = implode(', ', $sql_parts);
 
         return $this->db->query(
-            'UPDATE '.$this->table.' SET '.$sql_parts.' WHERE id = ?',
+            "UPDATE {$this->table} SET {$sql_parts} WHERE id = ?",
             null,
             $attributes,
             null,
@@ -90,7 +90,7 @@ class Table
 
     public function delete($id){
         return $this->db->query(
-            'DELETE FROM ' . $this->table .' WHERE id = ?',
+            "DELETE FROM {$this->table} WHERE id = ?",
             null,
             [$id],
             true,
