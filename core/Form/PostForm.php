@@ -91,7 +91,6 @@ class PostForm
             } else if (!empty($this->success_message)) {
                 (new Alert($this->error_message, BootstrapStyle::danger))->show();
             }
-
         }
         /* inject the fields if there is an error */
         if (empty($this->error_message)) {
@@ -103,17 +102,19 @@ class PostForm
         foreach ($this->inputModel as $id => $item) {
             $type = $this->inputModel[$id][1];
             $label = null;
+            $placeholder = null;
             if ($this->hasLabel) {
                 $label = $item[0];
+            } else {
+                $placeholder = $item[0];
             }
             if ($type == InputType::TEXT || $type == InputType::PASSWORD) {
-                $form->input($id, $label, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXT_MAX_SIZE.'"');
+                $form->input($id, $label, $item[1], null, $placeholder, 'required maxlength="'.InputType::TEXT_MAX_SIZE.'"');
             } else if ($type == InputType::TEXTAREA) {
-                $form->input($id, $label, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXTAREA_MAX_SIZE.'"');
+                $form->input($id, $label, $item[1], null, $placeholder, 'required maxlength="'.InputType::TEXTAREA_MAX_SIZE.'"');
             } else {
-                $form->input($id, $label, $item[1], null, $item[0], 'required');
+                $form->input($id, $label, $item[1], null, $placeholder, 'required');
             }
-
         }
         $form->submit($this->submitName);
     }

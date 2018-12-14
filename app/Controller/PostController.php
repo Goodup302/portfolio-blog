@@ -14,7 +14,6 @@ class PostController extends AppController
         parent::__construct();
         $this->loadModel('Post');
         $this->loadModel('Comment');
-        $this->loadModel('User');
     }
 
 
@@ -44,7 +43,7 @@ class PostController extends AppController
                     }
                 }
                 //
-                $this->setTitle('Article | '.$post->title);
+                $this->setTitle('Article - '.$post->title);
                 $comments = $this->Comment->getComments($_GET['id'], true);
                 $commentsnumber = $this->Comment->getComments($_GET['id'], true, false);
                 $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber', 'commentform'));

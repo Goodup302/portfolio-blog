@@ -9,7 +9,7 @@ class Form
         $this->data = $data;
     }
 
-    public function input($name, $label, $type, $value = null, $placeholder = '', $attrs = '') {
+    public function input($name, $label = '', $type, $value = null, $placeholder = '', $attrs = '') {
         if (is_null($value) && isset($this->data[$name])) {
             $value = $this->data[$name];
         }
@@ -22,7 +22,6 @@ class Form
         }
 
         //label
-        $label = '';
         if (!empty($label)) {
             $label = "<label>$label</label>";
         }

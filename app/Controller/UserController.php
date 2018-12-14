@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\UserEntity;
 use App\Form\AuthForm\ConfirmForm;
 use App\Form\AuthForm\LoginForm;
 use App\Form\AuthForm\RegisterForm;
@@ -10,6 +11,12 @@ use Core\HTML\BootstrapStyle;
 
 class UserController extends AppController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->loadModel('User');
+    }
+
     public function auth() {
         $auth = new DBAuth(\App::getInstance()->getDatabase());
         $status = false;
@@ -21,6 +28,7 @@ class UserController extends AppController
 
 
             } else if ($action === 'register') {
+                $this->setTitle("S'enregistrer");
                 $form = new RegisterForm($_POST);
                 if ($form->isValid()) {
                     $form->register();
@@ -28,51 +36,69 @@ class UserController extends AppController
 
 
             } else if ($action === 'confirm') {
+                $this->setTitle("Renvoie confirmation");
                 $form = new ConfirmForm($_POST);
                 if ($form->isValid()) {
                     $form->sendConfirm();
                 }
 
             } else if ($action === 'login'){
+                $this->setTitle("Connection");
                 $form = new LoginForm($_POST);
                 if ($form->isValid()) {
-
-                }
-                if ($auth->isLogged()) {
-                    $status = true;
-                } else {
-                    $alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', BootstrapStyle::info);
-                    if (!empty($_POST)) {
-                        $status = $auth->login($_POST['login'], $_POST['password']);
-                        if ($status !== true) {
-                            $alert = new Alert($status, BootstrapStyle::warning);
-                        }
-                    }
-                }
-                if ($status === true) {
-                    header("location: index.php?p=admin");
-                    return;
+                    $form->login();
                 }
             } else {
-                header("location: index.php?p=auth&action=login");
+                $this->goToLogin();
             }
             $this->twigRender('users/auth', compact('alert', 'action', 'form'));
             return;
         }
-        header("location: index.php?p=auth&action=login");
+        $this->goToLogin();
     }
 
 
     public function activate() {
-        $auth = new DBAuth(\App::getInstance()->getDatabase());
-        $args = array(
-            "title" => $_POST['title'],
-            "excerpt" => $_POST['excerpt'],
-            "content" => $_POST['content'],
-            "image" => $_POST['image'],
-            "lastdate" => date('Y-m-d H:i:s')
-        );
-        $this->User->update($id, $args);
-        $this->twigRender('users/auth', compact('alert'));
+        if (!empty($_GET['key'])) {
+            $user = $this->User->getUserByKey($_GET['key']);
+            if ($user instanceof UserEntity && $user->validate == 0 && $user->validatekey === $_GET['key']) {
+                /* Validation on BDD */
+                $args = array("validate" => 1);
+                $this->User->update($user->id, $args);
+                $auth = new DBAuth(\App::getInstance()->getDatabase());
+                /* Connection */
+                $auth->setSessionId($user->id);
+                $alert = new Alert('Votre compte a été validé', BootstrapStyle::success);
+            }
+
+            $this->twigRender('users/auth', compact('alert'));
+        }
+        $this->goToLogin();
+
+    }
+
+    public function account() {
+        $this->setTitle('Mon compte');
+        if (!empty($_GET['key'])) {
+            $user = $this->User->getUserByKey($_GET['key']);
+            if ($user instanceof UserEntity && $user->validate == 0 && $user->validatekey === $_GET['key']) {
+                /* Validation on BDD */
+                $args = array("validate" => 1);
+                $this->User->update($user->id, $args);
+                $auth = new DBAuth(\App::getInstance()->getDatabase());
+                /* Connection */
+                $auth->setSessionId($user->id);
+                $alert = new Alert('Votre compte a été validé', BootstrapStyle::success);
+            }
+
+            $this->twigRender('users/auth', compact('alert'));
+        }
+        $this->goToLogin();
+
+    }
+
+    private function goToLogin() {
+        header("location: index.php?p=auth&action=login");
+
     }
 }

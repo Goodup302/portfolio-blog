@@ -17,7 +17,7 @@ class AppController extends Controller
     public function __construct()
     {
         $this->viewPath = ROOT . '/app/views/';
-        $this->setTitle(App::getInstance()->title);
+        $this->setPrefixTitle(Config::getInstance(CONFIG_FILE)->get('default_title'));
         $this->auth = new DBAuth(App::getInstance()->getDatabase());
     }
 

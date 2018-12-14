@@ -14,7 +14,6 @@ class PostController extends AppController
         parent::__construct();
         $this->loadModel('Post');
         $this->loadModel('Comment');
-        $this->loadModel('User');
     }
 
 
@@ -26,11 +25,10 @@ class PostController extends AppController
 
     public function delete() {
         $auth = new DBAuth(App::getInstance()->getDatabase());
-        $user = $this->User->getById($auth->getUserId());
         if (!empty($_POST['id'])) {
             $postTable = $this->Post;
             $post = $postTable->getById($_POST['id']);
-            if ($user->canEditPost($post)) {
+            if ($this->user->canEditPost($post)) {
                 $this->Comment->deleteByPostId($_POST['id']);
                 $postTable->delete($_POST['id']);
             }
@@ -40,6 +38,7 @@ class PostController extends AppController
 
 
     public function add() {
+        $this->setTitle('Ajouter un article');
         if (!empty($_POST)) {
             $postTable = $this->Post;
             $args = array(
@@ -59,6 +58,7 @@ class PostController extends AppController
 
 
     public function edit($id = null) {
+        $this->setTitle('Editer un article');
         if (is_null($id)) {
             $id = $_GET['id'];
         }

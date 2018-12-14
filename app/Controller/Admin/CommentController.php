@@ -15,7 +15,6 @@ class CommentController extends AppController
         parent::__construct();
         $this->loadModel('Post');
         $this->loadModel('Comment');
-        $this->loadModel('User');
     }
 
 
@@ -27,9 +26,11 @@ class CommentController extends AppController
             $comments = $this->Comment->getComments($filterid);
             $returnurl = 'index.php?p=admin_posts_edit&id='.$filterid;
             $post = $this->Post->getById($filterid);
+            $this->setTitle("Commentaires de l'article $post->title");
         } else {
             $comments = $this->Comment->getAll();
             $returnurl = 'index.php?p=admin';
+            $this->setTitle('Tous les commentaires');
         }
         $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));
     }

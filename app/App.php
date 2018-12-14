@@ -5,6 +5,7 @@ use Core\DataBase;
 
 class App
 {
+    const DEFAULT_PAGE = 'home';
     private $database;
     private $page;
 
@@ -37,7 +38,7 @@ class App
 
 
     public function getPageName() {
-        $this->page = 'home';
+        $this->page = self::DEFAULT_PAGE;
         if (!empty($_GET['p'])) {
             $this->page = $_GET['p'];
         }

@@ -13,6 +13,10 @@ switch (App::load()) {
         (new AppController())->error404(); break;
     case 'auth':
         (new UserController())->auth(); break;
+    case 'activate':
+        (new UserController())->activate(); break;
+    case 'account':
+        (new UserController())->account(); break;
 
     //Front Post Page
     case 'loop':
@@ -21,8 +25,6 @@ switch (App::load()) {
         (new PostController())->single(); break;
 
     //Admin
-    case 'activate':
-        (new UserController())->activate(); break;
     case 'admin':
         (new Admin\AppController())->home(); break;
     //Post CRUD

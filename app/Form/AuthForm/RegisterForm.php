@@ -18,7 +18,7 @@ class RegisterForm extends PostForm
         'password' => ['Mot de passe', InputType::PASSWORD]
     );
 
-    public function __construct($post) {parent::__construct($post); $this->hasLabel = true;}
+    public function __construct($post) {parent::__construct($post);}
 
     public function register() {
 

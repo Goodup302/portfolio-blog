@@ -14,17 +14,17 @@ class AppController extends \App\Controller\AppController
     {
         $this->loadModel('User');
         parent::__construct();
+        $this->setPrefixTitle('Administration');
         $auth = new DBAuth(App::getInstance()->getDatabase());
         if (!$auth->isLogged()) {
             $this->errorAuth();
         } else {
             $this->user = $this->User->getById($auth->getUserId());
         }
-
     }
 
     public function home() {
-        $this->setTitle('Accueil Administration');
+        $this->setTitle('Accueil');
         $this->twigRender('admin/index');
     }
 

@@ -21,7 +21,7 @@ class DBAuth {
         );
         if ($user) {
             if (boolval($user->validate) === true) {
-                $_SESSION['auth'] = $user->id;
+                $this->setSessionId($user->id);
                 return true;
             } else {
                 return 'Veuillez valider votre compte';
@@ -39,6 +39,10 @@ class DBAuth {
             return $_SESSION['auth'];
         }
         return false;
+    }
+
+    public function setSessionId($id) {
+        $_SESSION['auth'] = $id;
     }
     public function signOut() {
         $_SESSION['auth'] = null;

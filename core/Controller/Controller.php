@@ -2,6 +2,7 @@
 
 namespace Core\Controller;
 use Core\Auth\DBAuth;
+use Core\Config;
 use Twig_Extension_Debug;
 
 class Controller
@@ -10,7 +11,8 @@ class Controller
     protected $template;
     protected $componentPath;
     protected $tempFolder;
-    protected $title;
+    private $title;
+    private $prefixTitle;
     protected $auth;
 
     private $loader;
@@ -25,13 +27,16 @@ class Controller
             ));
             $this->twig->addExtension(new Twig_Extension_Debug());
         }
-        $args['title'] = $this->title;
+        $args['title'] = $this->prefixTitle.' | '.$this->title;
         $args['template'] = 'templates/'. $this->template . '.twig';
         $args['logged'] = $this->auth->isLogged();
         $args['component'] = $this->componentPath;
         echo $this->twig->render($view.'.twig', $args);
     }
 
+    protected function setPrefixTitle($prefix) {
+        $this->prefixTitle = $prefix;
+    }
     protected function setTitle($title) {
         $this->title = $title;
     }
