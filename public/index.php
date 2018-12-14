@@ -21,6 +21,8 @@ switch (App::load()) {
         (new PostController())->single(); break;
 
     //Admin
+    case 'activate':
+        (new UserController())->activate(); break;
     case 'admin':
         (new Admin\AppController())->home(); break;
     //Post CRUD
