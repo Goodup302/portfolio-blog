@@ -4,19 +4,13 @@
     <section class="s-content s-content--top-padding s-content--narrow">
         <div class="row entries-wrap wide">
             {{ alert.show() }}
-
-            {% import component~'form.twig' as form %}
             {% import component~'button.twig' as Button %}
 
             <div class="col-md-12">
                 <form action="index.php?p=auth&action={{ action }}" method="post">
-                    {{ form.input('login', 'Login', 'text') }}
-                    {{ form.input('password', 'Password', 'password') }}
+                    {{ form.show() }}
                     {% if action == "login" %}
-                        {{ form.submit('Se connecter') }}
                         {{ Button.show("S'enregistrer", 'primary', 'index.php?p=auth&action=register') }}
-                    {% elseif action == "register" %}
-                        {{ form.submit("S'enregistrer") }}
                     {% endif %}
                 </form>
             </div>

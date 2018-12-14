@@ -19,7 +19,7 @@ class ContactForm extends PostForm
     public function __construct($post) {parent::__construct($post);}
 
     public function sendMail() {
-        $receiver = Config::getInstance(CONFIG_FILE)->get('email');
+        $receiver = Config::getInstance(CONFIG_FILE)->get('contact_mail');
         $sender = $this->data['email'];
         $objet = $this->data['objet'];
         $name = $this->data['username'];

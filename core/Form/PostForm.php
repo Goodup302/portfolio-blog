@@ -14,6 +14,7 @@ class PostForm
     protected $submitName;
     protected $error_message;
     protected $success_message;
+    protected $hasLabel = false;
 
     public function __construct($post)
     {
@@ -36,7 +37,10 @@ class PostForm
             $value = $this->data[$index];
             $type = $this->inputModel[$index][1];
             $name = $this->inputModel[$index][0];
-            if ($type == InputType::TEXT) {
+
+            if ($type == InputType::NOFILTER) {
+
+            } else if ($type == InputType::TEXT) {
                 if ($value != strip_tags($value)) {
                     $this->error_message = "Certain des caractères ne sont pas accepté";
                     break;
@@ -61,10 +65,6 @@ class PostForm
                     $this->error_message = "le champ '$name' n'est pas valide";
                     break;
                 }
-
-
-            } else {
-                $this->error_message = "Erreur inconnue";
             }
         }
         if (empty($this->error_message)) {
@@ -93,12 +93,16 @@ class PostForm
         }
         foreach ($this->inputModel as $id => $item) {
             $type = $this->inputModel[$id][1];
-            if ($type == InputType::TEXT) {
-                $form->input($id, null, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXT_MAX_SIZE.'"');
+            $label = null;
+            if ($this->hasLabel) {
+                $label = $item[0];
+            }
+            if ($type == InputType::TEXT || $type == InputType::PASSWORD) {
+                $form->input($id, $label, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXT_MAX_SIZE.'"');
             } else if ($type == InputType::TEXTAREA) {
-                $form->input($id, null, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXTAREA_MAX_SIZE.'"');
+                $form->input($id, $label, $item[1], null, $item[0], 'required maxlength="'.InputType::TEXTAREA_MAX_SIZE.'"');
             } else {
-                $form->input($id, null, $item[1], null, $item[0], 'required');
+                $form->input($id, $label, $item[1], null, $item[0], 'required');
             }
 
         }

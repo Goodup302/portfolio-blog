@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\LoginForm;
+use App\Form\RegisterForm;
 use Core\Auth\DBAuth;
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;
@@ -15,14 +17,16 @@ class UserController extends AppController
             $action = $_GET['action'];
             if ($action === 'logout' && $auth->isLogged()) {
                 $auth->signOut();
-                $alert = new Alert('Vous venez de vous déconnecter', BootstrapStyle::info);
+                header("location: index.php?p=auth&action=login");
 
 
             } else if ($action === 'register') {
+                $form = new RegisterForm($_POST);
                 $alert = new Alert('Vous venez de vous register', BootstrapStyle::info);
 
 
             } else if ($action === 'login'){
+                $form = new LoginForm($_POST);
                 if ($auth->isLogged()) {
                     $status = true;
                 } else {
@@ -41,7 +45,7 @@ class UserController extends AppController
             } else {
                 header("location: index.php?p=auth&action=login");
             }
-            $this->twigRender('users/auth', compact('alert', 'action'));
+            $this->twigRender('users/auth', compact('alert', 'action', 'form'));
             return;
         }
         header("location: index.php?p=auth&action=login");
