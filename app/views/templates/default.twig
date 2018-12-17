@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <!-- CSS
     ================================================== -->
+    <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/main.css">
@@ -63,7 +64,7 @@
                 <li class="current"><a href="index.php?p=home" title="">Accueil</a></li>
                 <li><a href="index.php?p=loop" title="">Article</a></li>
                 {% if logged %}
-                    {% if logged_user %}
+                    {% if logged_user.admin %}
                         <li><a href="index.php?p=admin" title="">Administration</a></li>
                     {% endif %}
                     <li><a href="index.php?p=account" title="">Mon compte</a></li>

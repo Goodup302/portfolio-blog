@@ -41,6 +41,10 @@
                     <div class="col-full">
 
                         <h3 class="h2">{{ commentsnumber }} Commentaire(s)</h3>
+                        {% if not logged %}
+                            <h5 class="comment-connect">Connectez vous pour poster un commentaire | <a href="index.php?p=auth&action=login"><span>Se connecter</span></a></h5>
+
+                        {% endif %}
 
                         <!-- START commentlist -->
                         <ol class="commentlist">

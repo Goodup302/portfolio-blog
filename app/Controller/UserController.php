@@ -22,7 +22,7 @@ class UserController extends AppController
         $status = false;
         if (!empty($_GET['action'])) {
             $action = $_GET['action'];
-            if ($action === 'logout' && $auth->isLogged()) {
+            if ($auth->isLogged()) {
                 $auth->signOut();
                 header("location: index.php?p=auth&action=login");
 
@@ -80,7 +80,6 @@ class UserController extends AppController
     public function account() {
         $this->setTitle('Mon compte');
         $this->twigRender('users/account', compact('alert'));
-
     }
 
     private function goToLogin() {

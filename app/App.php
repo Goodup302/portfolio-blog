@@ -36,7 +36,6 @@ class App
         return self::getInstance()->getPageName();
     }
 
-
     public function getPageName() {
         $this->page = self::DEFAULT_PAGE;
         if (!empty($_GET['p'])) {
@@ -44,7 +43,6 @@ class App
         }
         return $this->page;
     }
-
 
     public function getTable($name) {
         $class_name = "App\\Table\\".ucfirst($name).'Table';

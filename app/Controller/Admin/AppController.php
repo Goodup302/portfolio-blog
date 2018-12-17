@@ -16,11 +16,13 @@ class AppController extends \App\Controller\AppController
         parent::__construct();
         $this->setPrefixTitle('Administration');
         $auth = new DBAuth(App::getInstance()->getDatabase());
-        if (!$auth->isLogged()) {
-            $this->errorAuth();
-        } else {
+        if ($auth->isLogged()) {
             $this->user = $this->User->getById($auth->getUserId());
+            if ($this->user->admin) {
+                return;
+            }
         }
+        $this->errorAuth();
     }
 
     public function home() {
