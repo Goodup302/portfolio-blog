@@ -3,10 +3,6 @@
 namespace App\Form\AuthForm;
 use Core\Form\PostForm;
 use Core\Form\InputType;
-use Core\Config;
-use Core\Form\Email;
-use App\Form\AuthForm\ConfirmForm;
-use App\Form\AuthForm\RegisterForm;
 use Core\Auth\DBAuth;
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;

@@ -34,14 +34,6 @@ class UserController extends AppController
                     $form->register();
                 }
 
-
-            } else if ($action === 'confirm') {
-                $this->setTitle("Renvoie confirmation");
-                $form = new ConfirmForm($_POST);
-                if ($form->isValid()) {
-                    $form->sendConfirm();
-                }
-
             } else if ($action === 'login'){
                 $this->setTitle("Connection");
                 $form = new LoginForm($_POST);

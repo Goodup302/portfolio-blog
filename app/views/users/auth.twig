@@ -17,8 +17,6 @@
                     {{ form.show() }}
                     {% if action == "login" %}
                         {{ Button.show("S'enregistrer", 'primary', 'index.php?p=auth&action=register') }}
-                    {% elseif action == "register" %}
-                        {{ Button.show("Renvoyer confirmation", 'primary', 'index.php?p=auth&action=confirm') }}
                     {% endif %}
                 </form>
             </div>
