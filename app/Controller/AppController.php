@@ -48,6 +48,7 @@ class AppController extends Controller
                 $error = Config::getInstance(CONFIG_FILE)->get('page_not_found');
             }
         }
+        header("HTTP/1.0 404 Not Found");
         $this->twigRender('errors/404', compact('error'));
     }
 }
