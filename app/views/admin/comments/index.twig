@@ -20,7 +20,6 @@
                             <th scope="col">Auteur</th>
                             <th scope="col">Article</th>
                             <th scope="col">Date de création</th>
-                            <th scope="col">Contenu</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -31,7 +30,6 @@
                                 <td>{{ comment.author.username }}</td>
                                 <td>{{ comment.post.title }}</td>
                                 <td>{{ comment.date }}</td>
-                                <td>{{ comment.content }}</td>
                                 <td>
                                     {% if comment.validate == false %}
                                         <form method="post" action="?p=admin_comments_valid" style="display: inline;">

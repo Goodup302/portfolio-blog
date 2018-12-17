@@ -7,12 +7,15 @@ use \App;
 use Core\Config;
 use Core\Auth\DBAuth;
 use App\Form\ContactForm;
+use Core\Entity\Entity;
 
 class AppController extends Controller
 {
     protected $template = 'default';
     protected $componentPath = 'component/';
     protected $tempFolder = 'temp';
+
+    protected $User;
 
     public function __construct()
     {
