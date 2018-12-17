@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 use App\Entity\UserEntity;
-use App\Form\AuthForm\ConfirmForm;
 use App\Form\AuthForm\LoginForm;
 use App\Form\AuthForm\RegisterForm;
 use Core\Auth\DBAuth;
@@ -19,7 +18,6 @@ class UserController extends AppController
 
     public function auth() {
         $auth = new DBAuth(\App::getInstance()->getDatabase());
-        $status = false;
         if (!empty($_GET['action'])) {
             $action = $_GET['action'];
             if ($auth->isLogged()) {

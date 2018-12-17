@@ -25,11 +25,9 @@ class LoginForm extends PostForm
         if ($auth->isLogged()) {
             $status = true;
         } else {
-            if (!empty($_POST)) {
-                $status = $auth->login($_POST['login'], $_POST['password']);
-                if ($status !== true) {
-                    $alert = new Alert($status, BootstrapStyle::warning);
-                }
+            $status = $auth->login($_POST['login'], $_POST['password']);
+            if ($status !== true) {
+                $this->setError($status);
             }
         }
         if ($status === true) {
