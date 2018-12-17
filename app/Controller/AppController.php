@@ -7,7 +7,6 @@ use \App;
 use Core\Config;
 use Core\Auth\DBAuth;
 use App\Form\ContactForm;
-use Core\Entity\Entity;
 
 class AppController extends Controller
 {
@@ -16,6 +15,12 @@ class AppController extends Controller
     protected $tempFolder = 'temp';
 
     protected $User;
+
+
+    protected $UserTable;
+    protected $CommentTable;
+    protected $PostTable;
+
 
     public function __construct()
     {
@@ -26,14 +31,17 @@ class AppController extends Controller
         if ($this->auth->isLogged()) {
             $this->logged_user = $this->User->getById($this->auth->getUserId());
         }
-
     }
 
-    protected function loadModel($name) {
-        $this->$name = App::getInstance()->getTable($name);
+    protected function loadModel($name)
+    {
+        $this->UserTable = App::getInstance()->getTable('User');
+        $this->CommentTable = App::getInstance()->getTable($name);
+        $this->PostTable = App::getInstance()->getTable($name);
     }
 
-    public function home() {
+    public function home()
+    {
         $this->setTitle('Accueil');
         $contactform = new ContactForm($_POST);
         if ($contactform->isPost() && $contactform->fieldsIsValid()) {
@@ -42,7 +50,8 @@ class AppController extends Controller
         $this->twigRender('home', compact('contactform'));
     }
 
-    public function error404($error = null) {
+    public function error404($error = null)
+    {
         $this->setTitle('Page introuvable');
         if (empty($error)) {
             if (!empty($_GET['error'])) {

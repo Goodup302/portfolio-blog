@@ -1,6 +1,9 @@
 <?php
 use Core\Config;
 use Core\DataBase;
+use App\Table\UserTable;
+use App\Table\PostTable;
+use App\Table\CommentTable;
 
 
 class App
@@ -10,19 +13,16 @@ class App
     private $page;
 
     private static $instance;
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$instance)) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    public function __construct()
+    public static function load()
     {
-        $this->title = Config::getInstance(CONFIG_FILE)->get('default_title');
-    }
-
-    public static function load() {
         define('ROOT', dirname(__DIR__));
         define('CONFIG_FILE', ROOT . '/config.php');
         session_start();
@@ -30,7 +30,8 @@ class App
         return self::getInstance()->getPageName();
     }
 
-    public function getPageName() {
+    public function getPageName()
+    {
         $this->page = self::DEFAULT_PAGE;
         if (!empty($_GET['p'])) {
             $this->page = $_GET['p'];
@@ -38,12 +39,27 @@ class App
         return $this->page;
     }
 
-    public function getTable($name) {
+    public function getTable($name)
+    {
         $class_name = "App\\Table\\".ucfirst($name).'Table';
         return new $class_name($this->getDatabase());
     }
 
-    public function getDatabase() {
+    public function userTable()
+    {
+        return new UserTable($this->getDatabase());
+    }
+    public function postTable()
+    {
+        return new UserTable($this->getDatabase());
+    }
+    public function commentTable()
+    {
+        return new CommentTable($this->getDatabase());
+    }
+
+    public function getDatabase()
+    {
         if (is_null($this->database)) {
             $config = Config::getInstance(CONFIG_FILE);
             $this->database = new DataBase(
@@ -56,7 +72,8 @@ class App
         return $this->database;
     }
 
-    public function error404($message = null) {
+    public function error404($message = null)
+    {
         if (is_null($message)) {
             $message = Config::getInstance(CONFIG_FILE)->get('default_title');
         }
