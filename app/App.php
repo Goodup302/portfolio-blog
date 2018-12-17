@@ -9,12 +9,12 @@ class App
     private $database;
     private $page;
 
-    private static $_instance;
+    private static $instance;
     public static function getInstance() {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new self();
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     public function __construct()
@@ -26,11 +26,7 @@ class App
         define('ROOT', dirname(__DIR__));
         define('CONFIG_FILE', ROOT . '/config.php');
         session_start();
-        //
         require_once ROOT . '/vendor/autoload.php';
-        App\Autoloader::register();
-        Core\Autoloader::register();
-        //
         return self::getInstance()->getPageName();
     }
 
