@@ -16,9 +16,11 @@ class AppController extends Controller
 
     public function __construct()
     {
+        $this->loadModel('User');
         $this->viewPath = ROOT . '/app/views/';
         $this->setPrefixTitle(Config::getInstance(CONFIG_FILE)->get('default_title'));
         $this->auth = new DBAuth(App::getInstance()->getDatabase());
+        $this->logged_user = $this->User->getById($this->auth->getUserId());
     }
 
     protected function loadModel($name) {

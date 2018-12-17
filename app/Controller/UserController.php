@@ -79,21 +79,7 @@ class UserController extends AppController
 
     public function account() {
         $this->setTitle('Mon compte');
-        if (!empty($_GET['key'])) {
-            $user = $this->User->getUserByKey($_GET['key']);
-            if ($user instanceof UserEntity && $user->validate == 0 && $user->validatekey === $_GET['key']) {
-                /* Validation on BDD */
-                $args = array("validate" => 1);
-                $this->User->update($user->id, $args);
-                $auth = new DBAuth(\App::getInstance()->getDatabase());
-                /* Connection */
-                $auth->setSessionId($user->id);
-                $alert = new Alert('Votre compte a été validé', BootstrapStyle::success);
-            }
-
-            $this->twigRender('users/auth', compact('alert'));
-        }
-        $this->goToLogin();
+        $this->twigRender('users/account', compact('alert'));
 
     }
 

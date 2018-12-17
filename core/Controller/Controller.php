@@ -14,6 +14,7 @@ class Controller
     private $title;
     private $prefixTitle;
     protected $auth;
+    protected $logged_user;
 
     private $loader;
     private $twig;
@@ -30,6 +31,9 @@ class Controller
         $args['title'] = $this->prefixTitle.' | '.$this->title;
         $args['template'] = 'templates/'. $this->template . '.twig';
         $args['logged'] = $this->auth->isLogged();
+        if ($args['logged']) {
+            $args['logged_user'] = $this->logged_user;
+        }
         $args['component'] = $this->componentPath;
         echo $this->twig->render($view.'.twig', $args);
     }
