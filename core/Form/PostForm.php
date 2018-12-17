@@ -16,6 +16,14 @@ class PostForm
     protected $success_message;
     protected $hasLabel = false;
 
+
+    public function setError($message) {
+        $this->error_message = $message;
+    }
+
+    public function setSuccess($message) {
+        $this->success_message = $message;
+    }
     public function __construct($post)
     {
         $this->data = $post;

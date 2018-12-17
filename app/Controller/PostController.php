@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Form\CommentForm;
 use Core\Auth\DBAuth;
 use \App;
+use Core\HTML\Alert;
+use Core\HTML\BootstrapStyle;
 
 class PostController extends AppController
 {
@@ -14,6 +16,7 @@ class PostController extends AppController
         parent::__construct();
         $this->loadModel('Post');
         $this->loadModel('Comment');
+        $this->loadModel('User');
     }
 
 
@@ -36,10 +39,19 @@ class PostController extends AppController
                         $args = array(
                             "post_id" => $post->id,
                             "user_id" => $auth->getUserId(),
-                            "content" => $commentform->getComment()
+                            "content" => $commentform->getComment(),
+                            "validate" => $this->logged_user->admin
                         );
-                        $this->Comment->insert($args);
-                        header("location:index.php?p=admin_comments&id=".$post->id);
+                        if ($this->Comment->insert($args)) {
+                            if ($this->logged_user->admin) {
+                                $commentform->setSuccess('Votre commentaire a été envoyé');
+                            } else {
+                                $commentform->setSuccess('Votre commentaire a été envoyé, il vas ètre soumis à une vérification');
+                            }
+                        } else {
+                            $commentform->setError('Une erreur est survenue lors de l\'envoi');
+                        }
+
                     }
                 }
                 //
