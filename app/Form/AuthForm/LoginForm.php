@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Form\AuthForm;
+use Core\Auth\Session;
 use Core\Form\PostForm;
 use Core\Form\InputType;
-use Core\Auth\DBAuth;
-use Core\HTML\Alert;
-use Core\HTML\BootstrapStyle;
 
 class LoginForm extends PostForm
 {
@@ -19,8 +17,8 @@ class LoginForm extends PostForm
 
     public function __construct($post) {parent::__construct($post);}
 
-    public function login() {
-        $auth = new DBAuth(\App::getInstance()->getDatabase());
+    public function login($auth)
+    {
         $status = false;
         if ($auth->isLogged()) {
             $status = true;

@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Form\AuthForm;
+use Core\Auth\Session;
 use Core\Form\PostForm;
 use Core\Form\InputType;
-use Core\Config;
-use Core\Form\Email;
 
 class RegisterForm extends PostForm
 {
@@ -18,9 +17,24 @@ class RegisterForm extends PostForm
         'password' => ['Mot de passe', InputType::PASSWORD]
     );
 
-    public function __construct($post) {parent::__construct($post);}
+    public function __construct($post)
+    {
+        parent::__construct($post);
+        var_dump($this->get('username'));
+    }
 
-    public function register() {
-
+    public function register(Session $auth)
+    {
+        $account = $auth->register(
+            $this->get('username'),
+            $this->get('login'),
+            $this->get('password'),
+            $this->get('email')
+        );
+        if ($account) {
+            $auth->sendMail();
+        } else {
+            $this->setError('Une erreur inconnue est survenue lors de la création du compte');
+        }
     }
 }

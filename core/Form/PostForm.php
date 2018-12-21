@@ -16,17 +16,24 @@ class PostForm
     protected $success_message;
     protected $hasLabel = false;
 
-
-    public function setError($message) {
-        $this->error_message = $message;
-    }
-
-    public function setSuccess($message) {
-        $this->success_message = $message;
-    }
     public function __construct($post)
     {
         $this->data = $post;
+    }
+
+    public function get($inputName)
+    {
+        return $_POST[$inputName];
+    }
+
+    public function setError($message)
+    {
+        $this->error_message = $message;
+    }
+
+    public function setSuccess($message)
+    {
+        $this->success_message = $message;
     }
 
     public function isPost()
@@ -47,15 +54,14 @@ class PostForm
         return false;
     }
 
-    public function fieldsIsValid() {
+    public function fieldsIsValid()
+    {
         foreach ($this->data as $index => $item) {
             $value = $this->data[$index];
             $type = $this->inputModel[$index][1];
             $name = $this->inputModel[$index][0];
 
-            if ($type == InputType::NOFILTER) {
-
-            } else if ($type == InputType::TEXT) {
+            if ($type == InputType::TEXT) {
                 if ($value != strip_tags($value)) {
                     $this->error_message = "Certain des caractères ne sont pas accepté";
                     break;
@@ -64,8 +70,7 @@ class PostForm
                     $this->error_message = "le champ '$name' est trop long";
                     break;
                 }
-
-            } else if ($type == InputType::TEXTAREA) {
+            } elseif ($type == InputType::TEXTAREA) {
                 if ($value != strip_tags($value)) {
                     $this->error_message = "Certain des caractères ne sont pas accepté";
                     break;
@@ -74,8 +79,7 @@ class PostForm
                     $this->error_message = "le champ '$name' est trop long";
                     break;
                 }
-
-            } else if ($type == InputType::EMAIL) {
+            } elseif ($type == InputType::EMAIL) {
                 if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->error_message = "le champ '$name' n'est pas valide";
                     break;
@@ -87,16 +91,15 @@ class PostForm
         } else {
             return false;
         }
-
-
     }
 
-    public function show() {
+    public function show()
+    {
         /* Show result message */
         if ($this->isPost()) {
             if (empty($this->error_message)) {
                 (new Alert($this->success_message, BootstrapStyle::success))->show();
-            } else if (!empty($this->success_message)) {
+            } elseif (!empty($this->success_message)) {
                 (new Alert($this->error_message, BootstrapStyle::danger))->show();
             }
         }
@@ -117,9 +120,23 @@ class PostForm
                 $placeholder = $item[0];
             }
             if ($type == InputType::TEXT || $type == InputType::PASSWORD) {
-                $form->input($id, $label, $item[1], null, $placeholder, 'required maxlength="'.InputType::TEXT_MAX_SIZE.'"');
-            } else if ($type == InputType::TEXTAREA) {
-                $form->input($id, $label, $item[1], null, $placeholder, 'required maxlength="'.InputType::TEXTAREA_MAX_SIZE.'"');
+                $form->input(
+                    $id,
+                    $label,
+                    $item[1],
+                    null,
+                    $placeholder,
+                    'required maxlength="' . InputType::TEXT_MAX_SIZE . '"'
+                );
+            } elseif ($type == InputType::TEXTAREA) {
+                $form->input(
+                    $id,
+                    $label,
+                    $item[1],
+                    null,
+                    $placeholder,
+                    'required maxlength="' . InputType::TEXTAREA_MAX_SIZE . '"'
+                );
             } else {
                 $form->input($id, $label, $item[1], null, $placeholder, 'required');
             }

@@ -5,7 +5,10 @@ use Core\Table\Table;
 
 class CommentTable extends Table
 {
-    public function getComments($postId, $validate = false, $result = true){
+    use DBinjection;
+
+    public function getComments($postId, $validate = false, $result = true)
+    {
         $where = '';
         if ($validate) {
             $where = ' AND validate = true';
@@ -28,7 +31,8 @@ class CommentTable extends Table
         }
     }
 
-    public function deleteByPostId($id){
+    public function deleteByPostId($id)
+    {
         return $this->db->query(
             "DELETE FROM {$this->table} WHERE post_id = ?",
             null,

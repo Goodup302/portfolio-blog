@@ -1,10 +1,10 @@
 <?php
+
 use Core\Config;
 use Core\DataBase;
 use App\Table\UserTable;
 use App\Table\PostTable;
 use App\Table\CommentTable;
-
 
 class App
 {
@@ -39,24 +39,15 @@ class App
         return $this->page;
     }
 
-    public function getTable($name)
+    public function getTable($name) : ?Core\Table\Table
     {
-        $class_name = "App\\Table\\".ucfirst($name).'Table';
+        $class_name = "App\\Table\\" . ucfirst($name) . 'Table';
         return new $class_name($this->getDatabase());
     }
 
-    public function userTable()
-    {
-        return new UserTable($this->getDatabase());
-    }
-    public function postTable()
-    {
-        return new UserTable($this->getDatabase());
-    }
-    public function commentTable()
-    {
-        return new CommentTable($this->getDatabase());
-    }
+    public function userTable() : App\Table\UserTable { return new UserTable(); }
+    public function postTable() : App\Table\PostTable { return new PostTable(); }
+    public function commentTable() : App\Table\CommentTable { return new CommentTable(); }
 
     public function getDatabase()
     {
@@ -78,6 +69,6 @@ class App
             $message = Config::getInstance(CONFIG_FILE)->get('default_title');
         }
         header("HTTP/1.0 404 Not Found");
-        header("location:index.php?p=404&errors=".$message);
+        header("location:index.php?p=404&errors=$message");
     }
 }

@@ -10,7 +10,9 @@ class Table
 
     public function __construct(DataBase $db = null)
     {
-        $this->db = $db;
+        if ($db != null) {
+            $this->db = $db;
+        }
         if (is_null($this->table)) {
             $array = explode('\\', get_class($this));
             $class_name = end($array);

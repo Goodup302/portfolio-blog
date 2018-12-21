@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use Core\Controller\Controller;
-use \App;
 use Core\Config;
-use Core\Auth\DBAuth;
+use Core\Auth\Session;
 use App\Form\ContactForm;
+use App\Table\UserTable;
+use App\Table\CommentTable;
+use App\Table\PostTable;
 
 class AppController extends Controller
 {
@@ -16,28 +18,22 @@ class AppController extends Controller
 
     protected $User;
 
-
-    protected $UserTable;
-    protected $CommentTable;
-    protected $PostTable;
-
+    protected $userTable;
+    protected $commentTable;
+    protected $postTable;
 
     public function __construct()
     {
-        $this->loadModel('User');
+        $this->userTable = new UserTable();
+        $this->commentTable = new CommentTable();
+        $this->postTable = new PostTable();
+
         $this->viewPath = ROOT . '/app/views/';
         $this->setPrefixTitle(Config::getInstance(CONFIG_FILE)->get('default_title'));
-        $this->auth = new DBAuth(App::getInstance()->getDatabase());
+        $this->auth = new Session();
         if ($this->auth->isLogged()) {
-            $this->logged_user = $this->User->getById($this->auth->getUserId());
+            $this->logged_user = $this->userTable->getById($this->auth->getUserId());
         }
-    }
-
-    protected function loadModel($name)
-    {
-        $this->UserTable = App::getInstance()->getTable('User');
-        $this->CommentTable = App::getInstance()->getTable($name);
-        $this->PostTable = App::getInstance()->getTable($name);
     }
 
     public function home()

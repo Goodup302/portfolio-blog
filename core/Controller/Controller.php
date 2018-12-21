@@ -1,7 +1,7 @@
 <?php
 
 namespace Core\Controller;
-use Core\Auth\DBAuth;
+use Core\Auth\Session;
 use Core\Config;
 use Twig_Extension_Debug;
 

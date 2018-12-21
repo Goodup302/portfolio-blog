@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CommentForm;
-use Core\Auth\DBAuth;
+use Core\Auth\Session;
 use \App;
 
 class PostController extends AppController
@@ -13,16 +13,12 @@ class PostController extends AppController
     public function __construct()
     {
         parent::__construct();
-        $this->loadModel('Post');
-        $this->loadModel('Comment');
-        $this->loadModel('User');
     }
-
 
     public function loop()
     {
         $this->setTitle('Tous les articles');
-        $posts = $this->Post->getAll();
+        $posts = $this->postTable->getAll();
         $this->twigRender('posts/loop', compact('posts'));
     }
 
@@ -30,12 +26,12 @@ class PostController extends AppController
     public function single()
     {
         if (!empty($_GET['id'])) {
-            $post = $this->Post->getById($_GET['id']);
+            $post = $this->postTable->getById($_GET['id']);
             if ($post) {
                 //Comment Form
                 $commentform = new CommentForm($_POST);
                 if ($commentform->isPost()) {
-                    $auth = new DBAuth(App::getInstance()->getDatabase());
+                    $auth = new Session(App::getInstance()->getDatabase());
                     if ($commentform->fieldsIsValid() && $auth->isLogged()) {
                         $args = array(
                             "post_id" => $post->id,
@@ -43,7 +39,7 @@ class PostController extends AppController
                             "content" => $commentform->getComment(),
                             "validate" => $this->logged_user->admin
                         );
-                        if ($this->Comment->insert($args)) {
+                        if ($this->commentTable->insert($args)) {
                             if ($this->logged_user->admin) {
                                 $commentform->setSuccess('Votre commentaire a été envoyé');
                             } else {
@@ -57,9 +53,9 @@ class PostController extends AppController
                     }
                 }
                 //
-                $this->setTitle('Article - '.$post->title);
-                $comments = $this->Comment->getComments($_GET['id'], true);
-                $commentsnumber = $this->Comment->getComments($_GET['id'], true, false);
+                $this->setTitle("Article - $post->title");
+                $comments = $this->commentTable->getComments($_GET['id'], true);
+                $commentsnumber = $this->commentTable->getComments($_GET['id'], true, false);
                 $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber', 'commentform'));
             } else {
                 $this->error404("Cette article n'existe pas ou plus !");
