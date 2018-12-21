@@ -22,6 +22,9 @@ class AppController extends Controller
     protected $commentTable;
     protected $postTable;
 
+    /**
+     * AppController constructor.
+     */
     public function __construct()
     {
         $this->userTable = new UserTable();
@@ -36,6 +39,9 @@ class AppController extends Controller
         }
     }
 
+    /**
+     * Home page controller
+     */
     public function home()
     {
         $this->setTitle('Accueil');
@@ -46,6 +52,10 @@ class AppController extends Controller
         $this->twigRender('home', compact('contactform'));
     }
 
+    /**
+     * Error 404 controller
+     * @param null $error
+     */
     public function error404($error = null)
     {
         $this->setTitle('Page introuvable');

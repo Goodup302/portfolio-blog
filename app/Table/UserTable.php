@@ -8,7 +8,8 @@ class UserTable extends Table
 {
     use DBinjection;
 
-    public function getUserByKey($key) {
+    public function getUserByKey($key)
+    {
         return $this->db->query(
             "SELECT * FROM {$this->table} WHERE validatekey = ?",
             $this->getEntityName(),
@@ -17,9 +18,10 @@ class UserTable extends Table
         );
     }
 
-    public function auth($login, $password) : UserEntity {
+    public function auth($login, $password)
+    {
         return $this->db->query(
-            "SELECT * FROM user where binary login = ? and binary password = ?",
+            "SELECT * FROM {$this->table} where binary login = ? and binary password = ?",
             $this->getEntityName(),
             array($login, $password),
             true

@@ -7,11 +7,6 @@ use \Core\HTML\BootstrapStyle;
 
 class PostController extends AppController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
 
     public function loop()
     {

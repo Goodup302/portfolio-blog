@@ -16,9 +16,8 @@ class ContactForm extends PostForm
         'message' => ['Message', InputType::TEXTAREA]
     );
 
-    public function __construct($post) {parent::__construct($post);}
-
-    public function sendMail() {
+    public function sendMail()
+    {
         $receiver = Config::getInstance(CONFIG_FILE)->get('contact_mail');
         $sender = $this->data['email'];
         $objet = $this->data['objet'];
@@ -28,7 +27,7 @@ class ContactForm extends PostForm
         $message = '<p>Sujet : ' . $objet . '<br />';
         $message .= 'Email : ' . $sender . '</p>';
         $message .= '<p>' . htmlspecialchars($content) . '</p>';
-        $Mail = New Email($name.' vous contact', $sender);
+        $Mail = new Email("$name vous contact", $sender);
         $result = $Mail->SendMail($receiver, 'Contact de ' . $name, $message);
         if (!$result) {
             $this->error_message = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";

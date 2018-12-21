@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Form\AuthForm;
+use App\Entity\UserEntity;
+use App\Table\UserTable;
 use Core\Auth\Session;
 use Core\Form\PostForm;
 use Core\Form\InputType;
 
 class LoginForm extends PostForm
 {
+    const LOGIN_ERROR = "Les identifiants rentré ne sont pas correctes";
+    const ACTIVATION_ERROR = "Votre compte n'est pas validé (Le mail de confirmation vous à été renvoyé)";
+
     protected $submitName = "Se connecter";
     protected $success_message = 'Connection effectuée avec success';
     protected $hasLabel = true;
@@ -15,22 +20,26 @@ class LoginForm extends PostForm
         'password' => ['Mot de passe', InputType::PASSWORD]
     );
 
-    public function __construct($post) {parent::__construct($post);}
-
-    public function login($auth)
+    /**
+     * Login management
+     */
+    public function login()
     {
-        $status = false;
-        if ($auth->isLogged()) {
-            $status = true;
-        } else {
-            $status = $auth->login($_POST['login'], $_POST['password']);
-            if ($status !== true) {
-                $this->setError($status);
+        $userTable = new UserTable();
+        $user = $userTable->auth(
+            $this->get('login'),
+            $this->get('password')
+        );
+        if ($user instanceof UserEntity) {
+            if (boolval($user->validate) === true) {
+                $session = new Session();
+                $session->setSessionId($user->id);
+            } else {
+                $this->setError(self::ACTIVATION_ERROR);
+                //Mail de confirmation
             }
-        }
-        if ($status === true) {
-            header("location: index.php?p=admin");
-            return;
+        } else {
+            $this->setError(self::LOGIN_ERROR);
         }
     }
 }

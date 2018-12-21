@@ -4,7 +4,6 @@ namespace Core\Auth;
 
 class Session {
 
-
     public function __construct()
     {
     }

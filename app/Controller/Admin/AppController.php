@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller\Admin;
-use \App;
 use Core\Auth\Session;
 use App\Entity\UserEntity;
 
@@ -19,7 +18,7 @@ class AppController extends \App\Controller\AppController
     {
         parent::__construct();
         $this->setPrefixTitle('Administration');
-        $auth = new Session(App::getInstance()->getDatabase());
+        $auth = new Session();
         if ($auth->isLogged() === true) {
             $this->user = $this->userTable->getById($auth->getUserId());
             if ($this->user->admin) {

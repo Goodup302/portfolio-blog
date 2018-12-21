@@ -4,12 +4,6 @@ namespace App\Controller\Admin;
 
 class CommentController extends AppController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     public function loop($filterid = null)
     {
         if (is_null($filterid) && !empty($_GET['id'])) {

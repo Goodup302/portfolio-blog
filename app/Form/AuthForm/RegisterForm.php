@@ -17,13 +17,7 @@ class RegisterForm extends PostForm
         'password' => ['Mot de passe', InputType::PASSWORD]
     );
 
-    public function __construct($post)
-    {
-        parent::__construct($post);
-        var_dump($this->get('username'));
-    }
-
-    public function register(Session $auth)
+    public function register()
     {
         $account = $auth->register(
             $this->get('username'),

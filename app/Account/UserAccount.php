@@ -3,17 +3,15 @@
 namespace App\UserAccount;
 
 use App\Table\UserTable;
-use Core\DataBase;
+use Core\Auth\Session;
 
 class UserAccount
 {
-    private $db;
-    public function __construct(DataBase $database)
+    private $session;
+    public function __construct()
     {
-        $this->db = $database;
+        $this->session = new Session();
     }
-
-    public static function
 
     public static function generateRandomID($length = 128)
     {
@@ -26,24 +24,9 @@ class UserAccount
         return $randomString;
     }
 
-    public function login($login, $password)
-    {
-        $usertable = new UserTable($this->db);
-        $user = $usertable->auth($login, $password);
-        if ($user) {
-            if (boolval($user->validate) === true) {
-                $this->setSessionId($user->id);
-                return true;
-            } else {
-                return 'Veuillez valider votre compte';
-            }
-        }
-        return 'Les informations rentrées ne sont pas correct';
-    }
-
     public static function create($username, $login, $password, $email)
     {
-        $userTable = new UserTable($this->db);
+        $userTable = new UserTable();
         $args = array(
             'username' => $username,
             'login' => $login,

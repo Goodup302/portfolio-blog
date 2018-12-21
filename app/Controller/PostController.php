@@ -4,16 +4,10 @@ namespace App\Controller;
 
 use App\Form\CommentForm;
 use Core\Auth\Session;
-use \App;
 
 class PostController extends AppController
 {
     protected $viewPath;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function loop()
     {
@@ -21,7 +15,6 @@ class PostController extends AppController
         $posts = $this->postTable->getAll();
         $this->twigRender('posts/loop', compact('posts'));
     }
-
 
     public function single()
     {
@@ -31,12 +24,12 @@ class PostController extends AppController
                 //Comment Form
                 $commentform = new CommentForm($_POST);
                 if ($commentform->isPost()) {
-                    $auth = new Session(App::getInstance()->getDatabase());
+                    $auth = new Session();
                     if ($commentform->fieldsIsValid() && $auth->isLogged()) {
                         $args = array(
                             "post_id" => $post->id,
                             "user_id" => $auth->getUserId(),
-                            "content" => $commentform->getComment(),
+                            "content" => $commentform->get('comment'),
                             "validate" => $this->logged_user->admin
                         );
                         if ($this->commentTable->insert($args)) {
