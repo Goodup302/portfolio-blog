@@ -21,17 +21,20 @@ class Table
         }
     }
 
-    public function getLastId() {
+    public function getLastId()
+    {
         return $this->db->getLastId();
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->db->query(
             "SELECT * FROM {$this->table} ORDER BY id DESC",
             $this->getEntityName()
         );
     }
-    public function getById($id){
+    public function getById($id)
+    {
         return $this->db->query(
             "SELECT * FROM {$this->table} WHERE id = ?",
             $this->getEntityName(),
@@ -40,7 +43,8 @@ class Table
         );
     }
 
-    public function idExist($id){
+    public function idExist($id)
+    {
         return boolval($this->db->query(
             "SELECT * FROM {$this->table} WHERE id = ?",
             null,
@@ -50,7 +54,8 @@ class Table
         ));
     }
 
-    public function insert($data){
+    public function insert($data)
+    {
         $sql_index = [];
         $sql_entry = [];
         $attributes = [];
@@ -71,7 +76,8 @@ class Table
         );
     }
 
-    public function update($id, $data){
+    public function update($id, $data)
+    {
         $sql_parts = [];
         $attributes = [];
         foreach ($data as $key => $value) {
@@ -90,7 +96,8 @@ class Table
         );
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         return $this->db->query(
             "DELETE FROM {$this->table} WHERE id = ?",
             null,
@@ -100,7 +107,8 @@ class Table
         );
     }
 
-    public function getEntityName() {
+    public function getEntityName()
+    {
         return str_replace('Table', 'Entity', get_class($this));
     }
 }

@@ -7,6 +7,8 @@ use Core\Form\Email;
 
 class ContactForm extends PostForm
 {
+    const ERROR_CONTACT = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";
+
     protected $submitName = 'Contacter';
     protected $success_message = 'Votre demande a été envoyée';
     protected $inputModel = array(
@@ -36,7 +38,7 @@ class ContactForm extends PostForm
         ;
         $result = $mail->send();
         if (!$result) {
-            $this->error_message = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";
+            $this->error_message = self::ERROR_CONTACT;
         }
     }
 }

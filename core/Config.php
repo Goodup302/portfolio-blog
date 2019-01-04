@@ -8,7 +8,8 @@ class Config
     private $settings = array();
     private static $instance;
 
-    public static function getInstance($file) {
+    public static function getInstance($file)
+    {
         if (is_null(self::$instance)) {
             self::$instance = new self($file);
         }
@@ -17,8 +18,9 @@ class Config
 
     public function __construct($file)
     {
-        $this->settings = require($file);
+        $this->settings = require_once $file;
     }
+
     public function get($key)
     {
         if (!isset($this->settings[$key])) {

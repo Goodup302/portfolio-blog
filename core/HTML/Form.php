@@ -5,11 +5,13 @@ namespace Core\HTML;
 class Form
 {
     private $data;
-    public function __construct($data = null) {
+    public function __construct($data = null)
+    {
         $this->data = $data;
     }
 
-    public function input($name, $label = '', $type, $value = null, $placeholder = '', $attrs = '') {
+    public function input($name, $label = '', $type = 'text', $value = null, $placeholder = '', $attrs = '')
+    {
         if (is_null($value) && isset($this->data[$name])) {
             $value = $this->data[$name];
         }
@@ -34,11 +36,13 @@ class Form
         ";
     }
 
-    public function addValue($id, $value) {
+    public function addValue($id, $value)
+    {
         echo "<input  type='hidden' name='$id' value='$value'>";
     }
 
-    public function submit($name, $type = 'primary') {
+    public function submit($name, $type = 'primary')
+    {
         echo "<button class='btn btn-$type submit btn btn--primary btn--large full-width' type='submit'>$name</button>";
     }
 }

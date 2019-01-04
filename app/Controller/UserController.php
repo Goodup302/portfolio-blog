@@ -12,6 +12,8 @@ use Core\HTML\BootstrapStyle;
 class UserController extends AppController
 {
 
+    const ACCOUNT_ALREADY_ACTIVATE = "Votre compte a déjà été activé";
+    const ACCCOUNT_ACTIVATION = "Votre compte vient d'ètre activé, vous ètes maintenant connecté";
     /**
      * Authentication management
      */
@@ -55,9 +57,9 @@ class UserController extends AppController
                 if ($user->validate == 0) {
                     $this->userTable->update($user->id, array("validate" => 1));
                     (new Session())->setSessionId($user->id);
-                    $alert = new Alert("Votre compte vient d'ètre activé, vous ètes maintenant connecté", BootstrapStyle::success);
+                    $alert = new Alert(self::ACCCOUNT_ACTIVATION, BootstrapStyle::success);
                 } else {
-                    $alert = new Alert('Votre compte a déjà été activé', BootstrapStyle::secondary);
+                    $alert = new Alert(self::ACCOUNT_ALREADY_ACTIVATE, BootstrapStyle::secondary);
                 }
             } else {
                 $this->goToLogin();

@@ -11,7 +11,7 @@ class LoginForm extends PostForm
 {
     const LOGIN_ERROR = "Les identifiants rentré ne sont pas correctes";
     const ACTIVATION_ERROR = "Votre compte n'est pas validé (Le mail de confirmation vous à été renvoyé)";
-    const ACTIVATION_MAIL_ERROR = "Votre compte n'est pas validé et nous n'avons pas pu envoyer le mail de confirmation";
+    const ACTIVATION_MAIL_ERROR = "Votre compte n'est pas validé, l'envoi du mail de confirmation a échoué";
 
     protected $submitName = "Se connecter";
     protected $success_message = 'Connection effectuée avec success';

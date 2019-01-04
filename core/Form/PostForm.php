@@ -1,6 +1,7 @@
 <?php
 
 namespace Core\Form;
+
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;
 use Core\HTML\Form;
@@ -82,6 +83,11 @@ class PostForm
             } elseif ($type == InputType::EMAIL) {
                 if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->error_message = "le champ '$name' n'est pas valide";
+                    break;
+                }
+            } elseif ($type == InputType::PASSWORD) {
+                if (strlen($value) > InputType::TEXT_MAX_SIZE) {
+                    $this->error_message = "le champ '$name' est trop long";
                     break;
                 }
             }

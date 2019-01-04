@@ -14,7 +14,7 @@ class CommentEntity
         return $this->post;
     }
 
-    public function getdate()
+    public function getDate()
     {
         $date = date_create($this->date);
         $day = date_format($date, 'd/m/Y');

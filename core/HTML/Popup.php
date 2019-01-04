@@ -8,27 +8,31 @@ class Popup
     private $title;
     private $content;
 
-    public function __construct($id, $title) {
+    public function __construct($id, $title)
+    {
         $this->id = $id;
         $this->title = $title;
     }
 
+//    public function addButton($name, $title)
+//    {
+//
+//    }
+//
+//    public function closeButton($name, $title)
+//    {
+//
+//    }
 
-    public function addButton($name, $title) {
-
-    }
-
-    public function closeButton($name, $title) {
-
-    }
-
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = $content;
     }
 
-    public function showButton() {
-        (new Button('Modifier','button'))
-            ->setArgs('data-toggle="modal" data-target="#'.$this->id.'"')
+    public function showButton()
+    {
+        (new Button('Modifier', 'button'))
+            ->setArgs('data-toggle="modal" data-target="#' . $this->id . '"')
             ->show();
         ?>
         <div class="modal fade" id="#<?= $this->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

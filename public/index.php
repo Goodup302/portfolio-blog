@@ -1,8 +1,10 @@
 <?php
+
 use \App\Controller\AppController;
 use \App\Controller\PostController;
 use \App\Controller\UserController;
 use \App\Controller\Admin;
+
 require_once '../app/App.php';
 
 switch (App::load()) {
