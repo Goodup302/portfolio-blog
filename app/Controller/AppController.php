@@ -16,7 +16,7 @@ class AppController extends Controller
     protected $componentPath = 'component/';
     protected $tempFolder = 'temp';
 
-    protected $User;
+    //protected $User;
 
     protected $userTable;
     protected $commentTable;
@@ -33,9 +33,8 @@ class AppController extends Controller
 
         $this->viewPath = ROOT . '/app/views/';
         $this->setPrefixTitle(Config::getInstance(CONFIG_FILE)->get('default_title'));
-        $this->auth = new Session();
-        if ($this->auth->isLogged()) {
-            $this->logged_user = $this->userTable->getById($this->auth->getUserId());
+        if (Session::isLogged()) {
+            $this->logged_user = $this->userTable->getById(Session::getUserId());
         }
     }
 

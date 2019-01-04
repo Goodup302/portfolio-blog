@@ -2,31 +2,27 @@
 
 namespace Core\Auth;
 
-class Session {
-
-    public function __construct()
-    {
-    }
-
-    public function isLogged()
+class Session
+{
+    public static function isLogged()
     {
         return isset($_SESSION['auth']);
     }
 
-    public function getUserId()
+    public static function getUserId()
     {
-        if ($this->isLogged()) {
+        if (self::isLogged()) {
             return $_SESSION['auth'];
         }
         return false;
     }
 
-    public function setSessionId($id)
+    public static function setSessionId($id)
     {
         $_SESSION['auth'] = $id;
     }
 
-    public function signOut()
+    public static function signOut()
     {
         $_SESSION['auth'] = null;
     }

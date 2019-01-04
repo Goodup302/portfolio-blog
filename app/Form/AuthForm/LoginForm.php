@@ -33,8 +33,7 @@ class LoginForm extends PostForm
         );
         if ($user instanceof UserEntity) {
             if (boolval($user->validate) === true) {
-                $session = new Session();
-                $session->setSessionId($user->id);
+                Session::setSessionId($user->id);
             } else {
                 $this->setError(self::ACTIVATION_ERROR);
                 //Mail de confirmation

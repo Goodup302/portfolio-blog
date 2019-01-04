@@ -2,6 +2,7 @@
 
 namespace Core\Controller;
 
+use Core\Auth\Session;
 use Twig_Extension_Debug;
 
 class Controller
@@ -12,7 +13,6 @@ class Controller
     protected $tempFolder;
     private $title;
     private $prefixTitle;
-    protected $auth;
     protected $logged_user;
 
     private $loader;
@@ -30,7 +30,7 @@ class Controller
         }
         $args['title'] = "{$this->prefixTitle} | {$this->title}";
         $args['template'] = "templates/{$this->template}.twig";
-        $args['logged'] = $this->auth->isLogged();
+        $args['logged'] = Session::isLogged();
         if ($args['logged']) {
             $args['logged_user'] = $this->logged_user;
         }

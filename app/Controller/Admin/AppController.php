@@ -18,9 +18,8 @@ class AppController extends \App\Controller\AppController
     {
         parent::__construct();
         $this->setPrefixTitle('Administration');
-        $auth = new Session();
-        if ($auth->isLogged() === true) {
-            $this->user = $this->userTable->getById($auth->getUserId());
+        if (Session::isLogged() === true) {
+            $this->user = $this->userTable->getById(Session::getUserId());
             if ($this->user->admin) {
                 return;
             }

@@ -24,11 +24,10 @@ class PostController extends AppController
                 //Comment Form
                 $commentform = new CommentForm($_POST);
                 if ($commentform->isPost()) {
-                    $auth = new Session();
-                    if ($commentform->fieldsIsValid() && $auth->isLogged()) {
+                    if ($commentform->fieldsIsValid() && Session::isLogged()) {
                         $args = array(
                             "post_id" => $post->id,
-                            "user_id" => $auth->getUserId(),
+                            "user_id" => Session::getUserId(),
                             "content" => $commentform->get('comment'),
                             "validate" => $this->logged_user->admin
                         );

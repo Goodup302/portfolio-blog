@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\UserEntity;
 use App\Form\AuthForm\LoginForm;
 use App\Form\AuthForm\RegisterForm;
+use App\Table\UserTable;
 use Core\Auth\Session;
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;
@@ -13,17 +14,16 @@ class UserController extends AppController
 {
 
     const ACCOUNT_ALREADY_ACTIVATE = "Votre compte a déjà été activé";
-    const ACCCOUNT_ACTIVATION = "Votre compte vient d'ètre activé, vous ètes maintenant connecté";
+    const ACCCOUNT_ACTIVATION = "Votre compte vient d'ètre activé";
     /**
      * Authentication management
      */
     public function auth()
     {
-        $auth = new Session();
         if (!empty($_GET['action'])) {
             $action = $_GET['action'];
             if ($action === 'logout') {
-                $auth->signOut();
+                Session::signOut();
                 $this->goToLogin();
             } elseif ($action === 'register') {
                 $this->setTitle("S'enregistrer");
@@ -36,10 +36,14 @@ class UserController extends AppController
                 $form = new LoginForm($_POST);
                 if ($form->isValid()) {
                     $form->login();
+                    if (Session::isLogged()) {
+                        $this->logged_user = (new UserTable())->getById(Session::getUserId());
+                    }
                 }
             } else {
                 $this->goToLogin();
             }
+            var_dump(Session::isLogged());
             $this->twigRender('users/auth', compact('alert', 'action', 'form'));
             return;
         }
@@ -56,7 +60,6 @@ class UserController extends AppController
             if ($user instanceof UserEntity && $user->validatekey === $_GET['key']) {
                 if ($user->validate == 0) {
                     $this->userTable->update($user->id, array("validate" => 1));
-                    (new Session())->setSessionId($user->id);
                     $alert = new Alert(self::ACCCOUNT_ACTIVATION, BootstrapStyle::success);
                 } else {
                     $alert = new Alert(self::ACCOUNT_ALREADY_ACTIVATE, BootstrapStyle::secondary);
@@ -75,8 +78,12 @@ class UserController extends AppController
      */
     public function account()
     {
-        $this->setTitle('Mon compte');
-        $this->twigRender('users/account', compact('alert'));
+        if (Session::isLogged()) {
+            $this->setTitle('Mon compte');
+            $this->twigRender('users/account', compact('alert'));
+        } else {
+            $this->goToLogin();
+        }
     }
 
     /**
