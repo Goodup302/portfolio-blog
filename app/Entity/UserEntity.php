@@ -13,7 +13,7 @@ class UserEntity extends Entity
         return boolval($this->admin);
     }
 
-    public function canEditPost($post)
+    public function canEditPost(PostEntity $post)
     {
         if ($this->getAdmin()) {
             return true;
@@ -27,13 +27,13 @@ class UserEntity extends Entity
     {
         $receiver = $this->email;
         $sender = Config::getInstance(CONFIG_FILE)->get('validation_mail');
-        $activation_url = Config::getInstance(CONFIG_FILE)->get('webroot')
-            ."index.php?p=activate&key={$this->validatekey}";
-        $objet = "Activation du compte : {$_SERVER['SERVER_NAME']}";
+        $key = urlencode($this->validatekey);
+        $url = Config::getInstance(CONFIG_FILE)->get('webroot') . "index.php?p=activate&key=$key";
+        $objet = "Activation du compte de {$_SERVER['SERVER_NAME']}";
         $message = "
             <p>
                 Nous vous confirmons votre inscription sur <b>{$_SERVER['SERVER_NAME']}</b><br>
-                veuillez <a target='_blank' href='$activation_url'>cliquer ici</a> pour valider votre compte
+                veuillez <a target='_blank' href='$url'>cliquer ici</a> pour valider votre compte
             </p>
         ";
         //
