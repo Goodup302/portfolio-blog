@@ -22,13 +22,19 @@ class ContactForm extends PostForm
         $sender = $this->data['email'];
         $objet = $this->data['objet'];
         $name = $this->data['username'];
-        $content = $this->data['message'];
+        $content = htmlspecialchars($this->data['message']);
+        $message = "
+            <p>
+                Sujet : $objet<br />Email : $sender
+            </p>
+            <p>$content</p>
+        ";
         //
-        $message = '<p>Sujet : ' . $objet . '<br />';
-        $message .= 'Email : ' . $sender . '</p>';
-        $message .= '<p>' . htmlspecialchars($content) . '</p>';
-        $Mail = new Email("$name vous contact", $sender);
-        $result = $Mail->SendMail($receiver, 'Contact de ' . $name, $message);
+        $mail = (new Email("$name vous contact", $sender, $receiver))
+            ->setObjet($objet)
+            ->setHtmlContent($message)
+        ;
+        $result = $mail->send();
         if (!$result) {
             $this->error_message = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";
         }

@@ -2,7 +2,6 @@
 
 namespace Core\Form;
 
-
 class Email
 {
 
@@ -15,19 +14,17 @@ class Email
     private $subject;
     private $htmlContent;
 
-    public function __construct($email_title, $email_sender)
+    public function __construct($email_title, $email_sender, $email_receiver)
     {
-        $this->header = "MIME-Version: 1.0\r\n";
-        $this->header .= 'From:"' . $email_title . '"<' . $email_sender . '>' . "\n";
-        $this->header .= 'Content-Type:text/html; charset="utf-8"' . "\n";
-        $this->header .= 'Content-Transfer-Encoding: 8bit';
-    }
-
-    public function setMail($sender, $receiver)
-    {
-        $this->sender = $sender;
-        $this->receiver = $receiver;
-        return $this;
+        $this->sender = $email_sender;
+        $this->receiver = $email_receiver;
+        $this->header = array(
+            "MIME-Version: 1.0",
+            "From: '$email_title' <{$this->sender}>",
+            "Content-Type:text/html; charset='utf-8'",
+            //"Reply-To: <{$this->receiver}>",
+            "Content-Transfer-Encoding: 8bit"
+        );
     }
 
     public function setObjet($subject)
@@ -36,7 +33,7 @@ class Email
         return $this;
     }
 
-    public function setContent($content)
+    public function setHtmlContent($content)
     {
         $this->htmlContent = "
 		<html>
@@ -50,6 +47,6 @@ class Email
 
     public function send()
     {
-        return mail($this->receiver, $this->subject, $this->htmlContent, $this->header);
+        return mail($this->receiver, $this->subject, $this->htmlContent, implode("\r\n", $this->header));
     }
 }

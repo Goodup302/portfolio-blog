@@ -51,10 +51,14 @@ class UserController extends AppController
     {
         if (!empty($_GET['key'])) {
             $user = $this->userTable->getUserByKey($_GET['key']);
-            if ($user instanceof UserEntity && $user->validate == 0 && $user->validatekey === $_GET['key']) {
-                $this->userTable->update($user->id, array("validate" => 1));
-                (new Session())->setSessionId($user->id);
-                $alert = new Alert('Votre compte a été validé', BootstrapStyle::success);
+            if ($user instanceof UserEntity && $user->validatekey === $_GET['key']) {
+                if ($user->validate == 0) {
+                    $this->userTable->update($user->id, array("validate" => 1));
+                    (new Session())->setSessionId($user->id);
+                    $alert = new Alert("Votre compte vient d'ètre activé, vous ètes maintenant connecté", BootstrapStyle::success);
+                } else {
+                    $alert = new Alert('Votre compte a déjà été activé', BootstrapStyle::secondary);
+                }
             } else {
                 $this->goToLogin();
             }

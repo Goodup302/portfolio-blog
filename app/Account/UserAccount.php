@@ -32,7 +32,7 @@ class UserAccount
             'login' => $login,
             'password' => $password,
             'email' => $email,
-            'validekey' => Account::generateRandomID()
+            'validekey' => self::generateRandomID()
         );
         $user = $userTable->insert($args);
         var_dump($user);
@@ -51,7 +51,7 @@ class UserAccount
             'login' => $login,
             'password' => $password,
             'email' => $email,
-            'validekey' => Account::generateRandomID()
+            'validekey' => self::generateRandomID()
         );
         $user = $userTable->insert($args);
         var_dump($user);
