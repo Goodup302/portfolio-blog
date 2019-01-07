@@ -4,6 +4,7 @@ namespace Core\Controller;
 
 use Core\Auth\Session;
 use Twig_Extension_Debug;
+use Twig_Function;
 
 class Controller
 {
@@ -28,6 +29,7 @@ class Controller
             ));
             $this->twig->addExtension(new Twig_Extension_Debug());
         }
+        //Args
         $args['title'] = "{$this->prefixTitle} | {$this->title}";
         $args['template'] = "templates/{$this->template}.twig";
         $args['logged'] = Session::isLogged();
@@ -35,6 +37,14 @@ class Controller
             $args['logged_user'] = $this->logged_user;
         }
         $args['component'] = $this->componentPath;
+        //Function
+        $this->twig->addFunction(
+            new Twig_Function('currentPage', function ($name) {
+                if ($_GET['p'] === $name) {
+                    echo 'current';
+                }
+            })
+        );
         echo $this->twig->render("$view.twig", $args);
     }
 
