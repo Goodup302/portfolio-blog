@@ -2,46 +2,37 @@
 
 namespace App\Controller\Admin;
 
-use \Core\Auth\DBAuth;
-use \App;
 use \Core\HTML\Alert;
 use \Core\HTML\BootstrapStyle;
 
 class PostController extends AppController
 {
-    public function __construct()
+
+    public function loop()
     {
-        parent::__construct();
-        $this->loadModel('Post');
-        $this->loadModel('Comment');
-        $this->loadModel('User');
-    }
-
-
-    public function loop() {
         $this->setTitle('Tous les articles');
-        $posts = $this->Post->getAll();
+        $posts = $this->postTable->getAll();
         $this->twigRender('admin/posts/index', compact('posts'));
     }
 
-    public function delete() {
-        $auth = new DBAuth(App::getInstance()->getDatabase());
-        $user = $this->User->getById($auth->getUserId());
+    public function delete()
+    {
         if (!empty($_POST['id'])) {
-            $postTable = $this->Post;
+            $postTable = $this->postTable;
             $post = $postTable->getById($_POST['id']);
-            if ($user->canEditPost($post)) {
-                $this->Comment->deleteByPostId($_POST['id']);
+            if ($this->user->canEditPost($post)) {
+                $this->commentTable->deleteByPostId($_POST['id']);
                 $postTable->delete($_POST['id']);
             }
         }
         $this->loop();
     }
 
-
-    public function add() {
+    public function add()
+    {
+        $this->setTitle('Ajouter un article');
         if (!empty($_POST)) {
-            $postTable = $this->Post;
+            $postTable = $this->postTable;
             $args = array(
                 "user_id" => $this->user->id,
                 "title" => $_POST['title'],
@@ -51,19 +42,21 @@ class PostController extends AppController
                 "lastdate" => date('Y-m-d H:i:s')
             );
             $postTable->insert($args);
-            header("location:index.php?p=admin_posts_edit&id=".$postTable->getLastId());
+            header("location:index.php?p=admin_posts_edit&id={$postTable->getLastId()}");
         }
         $this->twigRender('admin/posts/add');
     }
 
 
 
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
+        $this->setTitle('Editer un article');
         if (is_null($id)) {
             $id = $_GET['id'];
         }
         if (!empty($id)) {
-            $postTable = $this->Post;
+            $postTable = $this->postTable;
             if ($postTable->idExist($id)) {
                 $post = $postTable->getById($id);
                 if ($this->user->canEditPost($post)) {
@@ -78,7 +71,7 @@ class PostController extends AppController
                         $postTable->update($id, $args);
                     }
                     $post = $postTable->getById($id);
-                    $commentsnumber = $this->Comment->getComments($post->id, null, false);
+                    $commentsnumber = $this->commentTable->getComments($post->id, null, false);
                     $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();

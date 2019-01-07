@@ -1,37 +1,37 @@
 <?php
 
 namespace App\Controller\Admin;
-use \App;
-use Core\Auth\DBAuth;
-use Core\Config;
-use Core\HTML\Button;
+use Core\Auth\Session;
+use App\Entity\UserEntity;
 
+/**
+ * @property  UserEntity
+ */
 class AppController extends \App\Controller\AppController
 {
     protected $user;
 
+    /**
+     * AppController constructor.
+     */
     public function __construct()
     {
-        $this->loadModel('User');
         parent::__construct();
-        $auth = new DBAuth(App::getInstance()->getDatabase());
-        if (!$auth->isLogged()) {
-            $this->errorAuth();
-        } else {
-            $this->user = $this->User->getById($auth->getUserId());
+        $this->setPrefixTitle('Administration');
+        if (Session::isLogged() === true) {
+            $this->user = $this->userTable->getById(Session::getUserId());
+            if ($this->user->admin) {
+                return;
+            }
         }
-
+        $this->errorAuth();
     }
 
-    public function home() {
-        $this->setTitle('Accueil Administration');
-        $this->twigRender('admin/index');
-    }
-
-    public function errorAuth($message = null) {
-        if (is_null($message)) {
-            $message = Config::getInstance(CONFIG_FILE)->get('default_title');
-        }
+    /**
+     * Redirect to home page
+     */
+    public function errorAuth()
+    {
         header("HTTP/1.0 403 Forbidden");
         header("location:index.php");
     }

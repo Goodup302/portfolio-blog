@@ -7,12 +7,14 @@ class Alert
 {
     private $message;
     private $type;
-    public function __construct($message, $type = 'primary') {
+    public function __construct($message, $type = 'primary')
+    {
         $this->message = $message;
         $this->type = $type;
     }
 
-    public function show() {
+    public function show()
+    {
         echo "
         <div class='col-md-12'>
             <div class='d-flex justify-content-center'>
@@ -24,5 +26,3 @@ class Alert
         ";
     }
 }
-
-?>

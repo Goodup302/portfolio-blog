@@ -2,66 +2,95 @@
 
 namespace App\Controller;
 
-use App\Form\LoginForm;
-use App\Form\RegisterForm;
-use Core\Auth\DBAuth;
+use App\Entity\UserEntity;
+use App\Form\AuthForm\LoginForm;
+use App\Form\AuthForm\RegisterForm;
+use App\Table\UserTable;
+use Core\Auth\Session;
 use Core\HTML\Alert;
 use Core\HTML\BootstrapStyle;
 
 class UserController extends AppController
 {
-    public function auth() {
-        $auth = new DBAuth(\App::getInstance()->getDatabase());
-        $status = false;
+
+    const ACCOUNT_ALREADY_ACTIVATE = "Votre compte a déjà été activé";
+    const ACCCOUNT_ACTIVATION = "Votre compte vient d'ètre activé";
+
+    /**
+     * Authentication management
+     */
+    public function auth()
+    {
         if (!empty($_GET['action'])) {
             $action = $_GET['action'];
-            if ($action === 'logout' && $auth->isLogged()) {
-                $auth->signOut();
-                header("location: index.php?p=auth&action=login");
-
-
-            } else if ($action === 'register') {
+            if ($action === 'logout') {
+                Session::signOut();
+                $this->goToLogin();
+            } elseif ($action === 'register') {
+                $this->setTitle("S'enregistrer");
                 $form = new RegisterForm($_POST);
-                $alert = new Alert('Vous venez de vous register', BootstrapStyle::info);
-
-
-            } else if ($action === 'login'){
+                if ($form->isValid()) {
+                    $form->register();
+                }
+            } elseif ($action === 'login') {
+                $this->setTitle("Connection");
                 $form = new LoginForm($_POST);
-                if ($auth->isLogged()) {
-                    $status = true;
-                } else {
-                    $alert = new Alert('Veuillez entrer les informations suivantes pour vous connécter', BootstrapStyle::info);
-                    if (!empty($_POST)) {
-                        $status = $auth->login($_POST['login'], $_POST['password']);
-                        if ($status !== true) {
-                            $alert = new Alert($status, BootstrapStyle::warning);
-                        }
+                if ($form->isValid()) {
+                    $form->login();
+                    if (Session::isLogged()) {
+                        $this->logged_user = (new UserTable())->getById(Session::getUserId());
                     }
                 }
-                if ($status === true) {
-                    header("location: index.php?p=admin");
-                    return;
-                }
             } else {
-                header("location: index.php?p=auth&action=login");
+                $this->goToLogin();
             }
             $this->twigRender('users/auth', compact('alert', 'action', 'form'));
             return;
         }
-        header("location: index.php?p=auth&action=login");
+        $this->goToLogin();
     }
 
+    /**
+     * User account activation
+     */
+    public function activate()
+    {
+        if (!empty($_GET['key'])) {
+            $user = $this->userTable->getUserByKey($_GET['key']);
+            if ($user instanceof UserEntity && $user->validatekey === $_GET['key']) {
+                if ($user->validate == 0) {
+                    $this->userTable->update($user->id, array("validate" => 1));
+                    $alert = new Alert(self::ACCCOUNT_ACTIVATION, BootstrapStyle::success);
+                } else {
+                    $alert = new Alert(self::ACCOUNT_ALREADY_ACTIVATE, BootstrapStyle::secondary);
+                }
+            } else {
+                $this->goToLogin();
+            }
+        } else {
+            $this->goToLogin();
+        }
+        $this->twigRender('users/activate', compact('alert'));
+    }
 
-    public function activate() {
-        $auth = new DBAuth(\App::getInstance()->getDatabase());
-        $args = array(
-            "title" => $_POST['title'],
-            "excerpt" => $_POST['excerpt'],
-            "content" => $_POST['content'],
-            "image" => $_POST['image'],
-            "lastdate" => date('Y-m-d H:i:s')
-        );
-        $this->User->update($id, $args);
-        $this->twigRender('users/auth', compact('alert'));
+    /**
+     * User account page
+     */
+    public function account()
+    {
+        if (Session::isLogged()) {
+            $this->setTitle('Mon compte');
+            $this->twigRender('users/account', compact('alert'));
+        } else {
+            $this->goToLogin();
+        }
+    }
+
+    /**
+     * Login Page
+     */
+    private function goToLogin()
+    {
+        header("location: index.php?p=auth&action=login");
     }
 }

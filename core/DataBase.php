@@ -20,16 +20,18 @@ class DataBase
         $this->password = $password;
     }
 
-    private function getPDO() {
+    private function getPDO()
+    {
         if ($this->pdo == null) {
-            $pdo = new PDO('mysql:dbname='.$this->name.';host=' . $this->host, $this->user, $this->password);
+            $pdo = new PDO("mysql:dbname={$this->name};host={$this->host}", $this->user, $this->password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo = $pdo;
         }
         return $this->pdo;
     }
 
-    public function query($statement, $className = null, $args = null, $isSingle = false, $return = true) {
+    public function query($statement, $className = null, $args = null, $isSingle = false, $return = true)
+    {
         if (!is_null($args)) {
             $request = $this->getPDO()->prepare($statement);
             $request->execute($args);
@@ -54,7 +56,8 @@ class DataBase
         return $result;
     }
 
-    public function getLastId() {
+    public function getLastId()
+    {
         return $this->getPDO()->lastInsertId();
     }
 }

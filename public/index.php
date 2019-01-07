@@ -1,18 +1,22 @@
 <?php
+
 use \App\Controller\AppController;
 use \App\Controller\PostController;
 use \App\Controller\UserController;
 use \App\Controller\Admin;
+
 require_once '../app/App.php';
 
 switch (App::load()) {
     //Front Page
     case 'home':
         (new AppController())->home(); break;
-    case '404':
-        (new AppController())->error404(); break;
     case 'auth':
         (new UserController())->auth(); break;
+    case 'activate':
+        (new UserController())->activate(); break;
+    case 'account':
+        (new UserController())->account(); break;
 
     //Front Post Page
     case 'loop':
@@ -21,10 +25,6 @@ switch (App::load()) {
         (new PostController())->single(); break;
 
     //Admin
-    case 'activate':
-        (new UserController())->activate(); break;
-    case 'admin':
-        (new Admin\AppController())->home(); break;
     //Post CRUD
     case 'admin_posts':
         (new Admin\PostController())->loop(); break;
@@ -41,4 +41,6 @@ switch (App::load()) {
         (new Admin\CommentController())->valid(); break;
     case 'admin_comments_delete':
         (new Admin\CommentController())->delete(); break;
+    default:
+        (new AppController())->error404('Cette page n\'existe pas ou plus !'); break;
 }

@@ -1,59 +1,49 @@
 <?php
 
 namespace App\Controller\Admin;
-use \Core\Auth\DBAuth;
-use \Core\HTML\Form;
-use \Core\HTML\BootstrapStyle;
-use \Core\HTML\Popup;
-use \Core\HTML\Alert;
-use \App\Permission\PermissionMessage;
 
 class CommentController extends AppController
 {
-    public function __construct()
+    public function loop($filterid = null)
     {
-        parent::__construct();
-        $this->loadModel('Post');
-        $this->loadModel('Comment');
-        $this->loadModel('User');
-    }
-
-
-    public function loop($filterid = null) {
         if (is_null($filterid) && !empty($_GET['id'])) {
             $filterid = $_GET['id'];
         }
         if (!empty($filterid)) {
-            $comments = $this->Comment->getComments($filterid);
-            $returnurl = 'index.php?p=admin_posts_edit&id='.$filterid;
-            $post = $this->Post->getById($filterid);
+            $comments = $this->commentTable->getComments($filterid);
+            $returnurl = "index.php?p=admin_posts_edit&id=$filterid";
+            $post = $this->postTable->getById($filterid);
+            $this->setTitle("Commentaires de l'article $post->title");
         } else {
-            $comments = $this->Comment->getAll();
-            $returnurl = 'index.php?p=admin';
+            $comments = $this->commentTable->getAll();
+            $returnurl = 'index.php?p=admin_posts';
+            $this->setTitle('Tous les commentaires');
         }
         $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));
     }
 
-    public function valid() {
+    public function valid()
+    {
         if ($this->user->admin) {
             if (!empty($_POST['id'])) {
-                if ($this->Comment->idExist($_POST['id'])) {
-                    $this->Comment->update($_POST['id'], array("validate" => 1));
+                if ($this->commentTable->idExist($_POST['id'])) {
+                    $this->commentTable->update($_POST['id'], array("validate" => 1));
                 }
             }
         }
-        header("location:index.php?p=admin_comments&id=".$_POST['filterid']);
+        header("location:index.php?p=admin_comments&id={$_POST['filterid']}");
     }
 
-    public function delete() {
+    public function delete()
+    {
         if ($this->user->admin) {
             if (!empty($_POST['id'])) {
-                $commentTable = $this->Comment;
+                $commentTable = $this->commentTable;
                 if ($commentTable->idExist($_POST['id'])) {
                     $commentTable->delete($_POST['id']);
                 }
             }
         }
-        header("location:index.php?p=admin_comments&id=".$_POST['filterid']);
+        header("location:index.php?p=admin_comments&id={$_POST['filterid']}");
     }
 }

@@ -18,17 +18,20 @@ class Button
         $this->type = $type;
     }
 
-    public function setUrl($url){
+    public function setUrl($url)
+    {
         $this->url = $url;
         return $this;
     }
 
-    public function setArgs($args){
+    public function setArgs($args)
+    {
         $this->args = $args;
         return $this;
     }
 
-    public function show(){
+    public function show()
+    {
         if (empty($this->url)) {
             echo "<button class='$this->style' type='$this->type' $this->args>$this->name</button>";
         } else {

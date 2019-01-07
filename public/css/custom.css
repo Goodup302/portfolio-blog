@@ -1,0 +1,21 @@
+.avatar-account {
+    border-radius: 100%;
+    margin-bottom: 3em;
+}
+
+form {
+    margin-bottom: 3em !important;
+    margin-top: 3em !important;
+}
+
+.s-content {
+    padding-bottom: 3em !important;
+}
+
+.comment-connect {
+    font-style: italic;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: normal;
+}

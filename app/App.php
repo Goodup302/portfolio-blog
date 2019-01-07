@@ -1,56 +1,56 @@
 <?php
+
 use Core\Config;
 use Core\DataBase;
-
+use App\Table\UserTable;
+use App\Table\PostTable;
+use App\Table\CommentTable;
 
 class App
 {
+    const DEFAULT_PAGE = 'home';
     private $database;
     private $page;
 
-    private static $_instance;
-    public static function getInstance() {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
-
-    public function __construct()
+    private static $instance;
+    public static function getInstance()
     {
-        $this->title = Config::getInstance(CONFIG_FILE)->get('default_title');
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
-    public static function load() {
+    public static function load()
+    {
         define('ROOT', dirname(__DIR__));
         define('CONFIG_FILE', ROOT . '/config.php');
         session_start();
-        //
         require_once ROOT . '/vendor/autoload.php';
-        require_once ROOT . '/app/Autoloader.php';
-        App\Autoloader::register();
-        require_once ROOT . '/core/Autoloader.php';
-        Core\Autoloader::register();
-        //
         return self::getInstance()->getPageName();
     }
 
-
-    public function getPageName() {
-        $this->page = 'home';
+    public function getPageName()
+    {
+        $this->page = self::DEFAULT_PAGE;
         if (!empty($_GET['p'])) {
             $this->page = $_GET['p'];
         }
         return $this->page;
     }
 
-
-    public function getTable($name) {
-        $class_name = "App\\Table\\".ucfirst($name).'Table';
+    public function getTable($name) : ?Core\Table\Table
+    {
+        $class_name = "App\\Table\\" . ucfirst($name) . 'Table';
         return new $class_name($this->getDatabase());
     }
 
-    public function getDatabase() {
+    public function userTable() : App\Table\UserTable { return new UserTable(); }
+    public function postTable() : App\Table\PostTable { return new PostTable(); }
+    public function commentTable() : App\Table\CommentTable { return new CommentTable(); }
+
+    public function getDatabase()
+    {
         if (is_null($this->database)) {
             $config = Config::getInstance(CONFIG_FILE);
             $this->database = new DataBase(
@@ -63,11 +63,12 @@ class App
         return $this->database;
     }
 
-    public function error404($message = null) {
+    public function error404($message = null)
+    {
         if (is_null($message)) {
             $message = Config::getInstance(CONFIG_FILE)->get('default_title');
         }
         header("HTTP/1.0 404 Not Found");
-        header("location:index.php?p=404&errors=".$message);
+        header("location:index.php?p=404&errors=$message");
     }
 }

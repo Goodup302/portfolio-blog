@@ -5,7 +5,10 @@ use Core\Table\Table;
 
 class PostTable extends Table
 {
-    public function getByUserId($id){
+    use DBinjection;
+
+    public function getByUserId($id)
+    {
         return $this->db->query(
             "SELECT * FROM {$this->table} WHERE user_id = ? ORDER BY id DESC",
             $this->getEntityName(),
@@ -13,7 +16,8 @@ class PostTable extends Table
         );
     }
 
-    public function titleExist($title){
+    public function titleExist($title)
+    {
         return boolval($this->db->query(
             "SELECT * FROM {$this->table} WHERE title = ?",
             null,
