@@ -28,7 +28,7 @@ class PostController extends AppController
                         $args = array(
                             "post_id" => $post->id,
                             "user_id" => Session::getUserId(),
-                            "content" => $commentform->get('comment'),
+                            "content" => $commentform->get('message'),
                             "validate" => $this->logged_user->admin
                         );
                         if ($this->commentTable->insert($args)) {

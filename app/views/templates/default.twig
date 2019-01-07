@@ -41,7 +41,7 @@
 
     <header class="s-header header">
 
-        <div class="header__search">
+{#        <div class="header__search">
 
             <form role="search" method="get" class="header__search-form" action="#">
                 <label>
@@ -53,19 +53,19 @@
 
             <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
 
-        </div>  <!-- end header__search -->
+        </div>  <!-- end header__search -->#}
 
         <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
         <nav class="header__nav-wrap">
 
-            <h2 class="header__nav-heading h6">Navigate to</h2>
+            <h2 class="header__nav-heading h6">Navigation</h2>
 
             <ul class="header__nav">
                 <li class="{{ currentPage('home') }}"><a href="index.php?p=home" title="">Accueil</a></li>
                 <li class="{{ currentPage('loop') }}"><a href="index.php?p=loop" title="">Article</a></li>
                 {% if logged %}
                     {% if logged_user.admin %}
-                        <li class="{{ currentPage('admin') }}"><a href="index.php?p=admin" title="">Administration</a></li>
+                        <li class="{{ currentPagePrefix('admin_') }}"><a href="index.php?p=admin_posts" title="">Administration</a></li>
                     {% endif %}
                     <li class="{{ currentPage('account') }}"><a href="index.php?p=account" title="">Mon compte</a></li>
                     <li><a href="index.php?p=auth&action=logout" title="">Se déconnecter</a></li>

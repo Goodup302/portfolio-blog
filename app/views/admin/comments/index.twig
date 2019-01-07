@@ -14,48 +14,48 @@
                 </div>
 
                 <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Auteur</th>
-                            <th scope="col">Article</th>
-                            <th scope="col">Date de création</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {% for comment in comments %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ comment.author.username }}</td>
-                                <td>{{ comment.post.title }}</td>
-                                <td>{{ comment.date }}</td>
-                                <td>
-                                    {% if comment.validate == false %}
-                                        <form method="post" action="?p=admin_comments_valid" style="display: inline;">
+                                <th scope="col">Auteur</th>
+                                {% if not filterid %}
+                                    <th scope="col">Article</th>
+                                {% endif %}
+                                <th scope="col">Date de création</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for comment in comments %}
+                                <tr>
+                                    <td>{{ comment.author.username }}</td>
+                                    {% if not filterid %}
+                                    <td>{{ comment.post.title }}</td>
+                                    {% endif %}
+                                    <td>{{ comment.date }}</td>
+                                    <td>
+
+                                        <button class='btn btn-primary' role='button' onclick="alert('{{ comment.content }}')">Voire</button>
+                                        {% if comment.validate == false %}
+                                            <form method="post" action="?p=admin_comments_valid" style="display: inline;">
+                                                {{ form.value('id', comment.id) }}
+                                                {{ form.value('filterid', filterid) }}
+                                                {{ form.submit('Valider', 'success') }}
+                                            </form>
+                                        {% endif %}
+
+                                        <form method="post" action="?p=admin_comments_delete" style="display: inline;">
                                             {{ form.value('id', comment.id) }}
                                             {{ form.value('filterid', filterid) }}
-                                            {{ form.submit('Valider', 'success') }}
+                                            {{ form.submit('Supprimer', 'danger') }}
                                         </form>
-                                    {% endif %}
-
-                                    <form method="post" action="?p=admin_comments_delete" style="display: inline;">
-                                        {{ form.value('id', comment.id) }}
-                                        {{ form.value('filterid', filterid) }}
-                                        {{ form.submit('Supprimer', 'danger') }}
-                                    </form>
-
-                                    {#                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                                                Ouvrir
-                                                            </button>
-                                                            <?php
-                                                            (new Popup('comment-content-popup'.$comment->id, 'sdfsdfsd'))->showButton();
-                                                            ?>#}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
         </div>
     </section>

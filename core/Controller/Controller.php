@@ -41,7 +41,15 @@ class Controller
         $this->twig->addFunction(
             new Twig_Function('currentPage', function ($name) {
                 if ($_GET['p'] === $name) {
-                    echo 'current';
+                    echo ' current ';
+                }
+            })
+        );
+        $this->twig->addFunction(
+            new Twig_Function('currentPagePrefix', function ($prefix) {
+                echo substr($_GET['p'], 0, strlen($prefix));
+                if (substr($_GET['p'], 0, strlen($prefix)) === $prefix) {
+                    echo ' current ';
                 }
             })
         );

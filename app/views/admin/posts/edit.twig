@@ -21,7 +21,7 @@
                     {{ form.submit('Modifier') }}
 
                     {% if commentsnumber > 0 %}
-                        {{ Button.show('Commentaires liés à cet article ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
+                        {{ Button.show('Commentaires associés ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
                     {% endif %}
                 </form>
             </div>

@@ -16,7 +16,7 @@ class CommentController extends AppController
             $this->setTitle("Commentaires de l'article $post->title");
         } else {
             $comments = $this->commentTable->getAll();
-            $returnurl = 'index.php?p=admin';
+            $returnurl = 'index.php?p=admin_posts';
             $this->setTitle('Tous les commentaires');
         }
         $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));

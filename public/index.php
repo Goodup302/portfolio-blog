@@ -27,8 +27,6 @@ switch (App::load()) {
         (new PostController())->single(); break;
 
     //Admin
-    case 'admin':
-        (new Admin\AppController())->home(); break;
     //Post CRUD
     case 'admin_posts':
         (new Admin\PostController())->loop(); break;

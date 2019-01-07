@@ -28,15 +28,6 @@ class AppController extends \App\Controller\AppController
     }
 
     /**
-     * Go to admin home page
-     */
-    public function home()
-    {
-        $this->setTitle('Accueil');
-        $this->twigRender('admin/index');
-    }
-
-    /**
      * Redirect to home page
      */
     public function errorAuth()
