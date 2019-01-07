@@ -4,8 +4,8 @@ return array(
     'db_name' => 'blog',
     'db_user' => 'root',
     'db_pass' => 'root',
-    'excerpt_length' => 100,
-    'page_not_found' => 'Error 404 Page !',
+    'webroot' => 'http://www.domain.com/',
     'default_title' => 'Portfolio Blog',
-    'email' => 'localhost@localhost.com'
+    'contact_mail' => 'contact@blog.fr',
+    'validation_mail' => 'account@blog.fr'
 );

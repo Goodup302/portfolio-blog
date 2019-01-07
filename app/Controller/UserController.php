@@ -15,6 +15,7 @@ class UserController extends AppController
 
     const ACCOUNT_ALREADY_ACTIVATE = "Votre compte a déjà été activé";
     const ACCCOUNT_ACTIVATION = "Votre compte vient d'ètre activé";
+
     /**
      * Authentication management
      */

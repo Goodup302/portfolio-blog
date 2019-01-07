@@ -11,8 +11,6 @@ switch (App::load()) {
     //Front Page
     case 'home':
         (new AppController())->home(); break;
-    case '404':
-        (new AppController())->error404(); break;
     case 'auth':
         (new UserController())->auth(); break;
     case 'activate':

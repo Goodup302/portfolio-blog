@@ -5,6 +5,8 @@ use Core\Config;
 
 class PostEntity
 {
+    const EXCERPT_LENGTH = 100;
+
     use AuthorAble;
 
     public function getUrl()
@@ -22,7 +24,7 @@ class PostEntity
         if (strlen($this->excerpt) > 0 || $forceExcerpt == true) {
             return $this->excerpt;
         } else {
-            return substr($this->content, 0, Config::getInstance(CONFIG_FILE)->get('excerpt_length'));
+            return substr($this->content, 0, self::EXCERPT_LENGTH);
         }
     }
 
