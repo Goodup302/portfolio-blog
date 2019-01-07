@@ -42,6 +42,5 @@ class UserEntity extends Entity
             ->setHtmlContent($message)
         ;
         return $mail->send();
-        //"Le mail de confirmation n'a pas pu ètre envoyé, réessayer plus tard."
     }
 }

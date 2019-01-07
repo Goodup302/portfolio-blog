@@ -16,8 +16,6 @@ class AppController extends Controller
     protected $componentPath = 'component/';
     protected $tempFolder = 'temp';
 
-    //protected $User;
-
     protected $userTable;
     protected $commentTable;
     protected $postTable;

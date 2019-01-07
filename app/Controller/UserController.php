@@ -43,7 +43,6 @@ class UserController extends AppController
             } else {
                 $this->goToLogin();
             }
-            var_dump(Session::isLogged());
             $this->twigRender('users/auth', compact('alert', 'action', 'form'));
             return;
         }

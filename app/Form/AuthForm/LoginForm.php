@@ -27,19 +27,20 @@ class LoginForm extends PostForm
     public function login()
     {
         $userTable = new UserTable();
-        $user = $userTable->auth(
-            $this->get('login'),
-            $this->get('password')
-        );
+        $user = $userTable->auth($this->get('login'));
         if ($user instanceof UserEntity) {
-            if (boolval($user->validate) === true) {
-                Session::setSessionId($user->id);
-            } else {
-                $this->setError(self::ACTIVATION_ERROR);
-                //Mail de confirmation
-                if (!$user->sendConfirmMail()) {
-                    $this->setError(self::ACTIVATION_MAIL_ERROR);
+            if (password_verify($this->get('password'), $user->password)) {
+                if (boolval($user->validate) === true) {
+                    Session::setSessionId($user->id);
+                } else {
+                    $this->setError(self::ACTIVATION_ERROR);
+                    //Mail de confirmation
+                    if (!$user->sendConfirmMail()) {
+                        $this->setError(self::ACTIVATION_MAIL_ERROR);
+                    }
                 }
+            } else {
+                $this->setError(self::LOGIN_ERROR);
             }
         } else {
             $this->setError(self::LOGIN_ERROR);

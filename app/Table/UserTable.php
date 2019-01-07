@@ -17,14 +17,24 @@ class UserTable extends Table
         );
     }
 
-    public function auth($login, $password)
+    public function auth($login, $password = null)
     {
-        return $this->db->query(
-            "SELECT * FROM {$this->table} where binary login = ? and binary password = ?",
-            $this->getEntityName(),
-            array($login, $password),
-            true
-        );
+        if (is_null($password)) {
+            return $this->db->query(
+                "SELECT * FROM {$this->table} where binary login = ?",
+                $this->getEntityName(),
+                [$login],
+                true
+            );
+        } else {
+            return $this->db->query(
+                "SELECT * FROM {$this->table} where binary login = ? and binary password = ?",
+                $this->getEntityName(),
+                array($login, $password),
+                true
+            );
+        }
+
     }
 
     public function register($username, $login, $password, $email)
@@ -33,7 +43,7 @@ class UserTable extends Table
         $args = array(
             'username' => $username,
             'login' => $login,
-            'password' => $password,
+            'password' => $this->hashPassword($password),
             'email' => $email,
             'validatekey' => self::randomKey()
         );
@@ -87,5 +97,10 @@ class UserTable extends Table
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
     }
 }
