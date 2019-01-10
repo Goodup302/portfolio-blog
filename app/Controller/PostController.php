@@ -9,6 +9,9 @@ class PostController extends AppController
 {
     protected $viewPath;
 
+    /**
+     * Show all post on front side
+     */
     public function loop()
     {
         $this->setTitle('Tous les articles');
@@ -16,6 +19,9 @@ class PostController extends AppController
         $this->twigRender('posts/loop', compact('posts'));
     }
 
+    /**
+     * Show a post on front side
+     */
     public function single()
     {
         if (!empty($_GET['id'])) {

@@ -7,6 +7,12 @@ class Alert
 {
     private $message;
     private $type;
+
+    /**
+     * Alert constructor.
+     * @param $message
+     * @param string $type
+     */
     public function __construct($message, $type = 'primary')
     {
         $this->message = $message;

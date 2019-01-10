@@ -8,6 +8,9 @@ use \Core\HTML\BootstrapStyle;
 class PostController extends AppController
 {
 
+    /**
+     * Show all posts on admin panel
+     */
     public function loop()
     {
         $this->setTitle('Tous les articles');
@@ -15,6 +18,10 @@ class PostController extends AppController
         $this->twigRender('admin/posts/index', compact('posts'));
     }
 
+
+    /**
+     * Delete a post
+     */
     public function delete()
     {
         if (!empty($_POST['id'])) {
@@ -28,6 +35,9 @@ class PostController extends AppController
         $this->loop();
     }
 
+    /**
+     * Add a post
+     */
     public function add()
     {
         $this->setTitle('Ajouter un article');
@@ -46,9 +56,12 @@ class PostController extends AppController
         }
         $this->twigRender('admin/posts/add');
     }
-
-
-
+    
+    /**
+     * Edit a post
+     * 
+     * @param null $id
+     */
     public function edit($id = null)
     {
         $this->setTitle('Editer un article');

@@ -17,26 +17,45 @@ class PostForm
     protected $success_message;
     protected $hasLabel = false;
 
+    /**
+     * PostForm constructor.
+     * @param $post
+     */
     public function __construct($post)
     {
         $this->data = $post;
     }
 
+    /**
+     * @param $inputName
+     * @return mixed
+     */
     public function get($inputName)
     {
         return $_POST[$inputName];
     }
 
+    /**
+     * @param $message
+     */
     public function setError($message)
     {
         $this->error_message = $message;
     }
 
+    /**
+     * @param $message
+     */
     public function setSuccess($message)
     {
         $this->success_message = $message;
     }
 
+    /**
+     * Check all posted fields
+     *
+     * @return bool
+     */
     public function isPost()
     {
         foreach ($this->inputModel as $id => $item) {
@@ -47,6 +66,11 @@ class PostForm
         return true;
     }
 
+    /**
+     * Check general
+     *
+     * @return bool
+     */
     public function isValid()
     {
         if ($this->isPost() && $this->fieldsIsValid()) {
@@ -55,6 +79,11 @@ class PostForm
         return false;
     }
 
+    /**
+     * Check all fields
+     *
+     * @return bool
+     */
     public function fieldsIsValid()
     {
         foreach ($this->data as $index => $item) {
@@ -99,6 +128,9 @@ class PostForm
         }
     }
 
+    /**
+     * Show html form
+     */
     public function show()
     {
         /* Show result message */

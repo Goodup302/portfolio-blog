@@ -6,6 +6,11 @@ class CommentEntity
 {
     use AuthorAble;
 
+    /**
+     * Get post of comment
+     *
+     * @return array|int|mixed
+     */
     public function getPost()
     {
         if (empty($this->post)) {
@@ -14,6 +19,11 @@ class CommentEntity
         return $this->post;
     }
 
+    /**
+     * Get formated date of comment
+     *
+     * @return string
+     */
     public function getDate()
     {
         $date = date_create($this->date);
@@ -22,6 +32,11 @@ class CommentEntity
         return "Ajouté le {$day} à {$hours}";
     }
 
+    /**
+     * Get a random logo
+     *
+     * @return mixed
+     */
     public function getLogo()
     {
         $logo = array(

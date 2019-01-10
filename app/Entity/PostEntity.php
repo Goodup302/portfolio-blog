@@ -9,16 +9,28 @@ class PostEntity
 
     use AuthorAble;
 
+    /**
+     * Get formated url of post
+     *
+     * @return string
+     */
     public function getUrl()
     {
         return 'index.php?p=single&id=' . $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * @param bool $forceExcerpt
+     * @return bool|string
+     */
     public function getExcerpt($forceExcerpt = false)
     {
         if (strlen($this->excerpt) > 0 || $forceExcerpt == true) {
@@ -28,12 +40,20 @@ class PostEntity
         }
     }
 
+    /**
+     * Get formated last edit of post
+     *
+     * @return string
+     */
     public function getLastdate()
     {
         $date = date_create($this->lastdate);
         return 'Rédigé le ' . date_format($date, 'd/m/Y') . ' à ' . date_format($date, 'H:i');
     }
 
+    /**
+     * @return mixed
+     */
     public function getAuthorid()
     {
         return $this->user_id;

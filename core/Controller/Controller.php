@@ -19,6 +19,15 @@ class Controller
     private $loader;
     private $twig;
 
+    /**
+     * Render an html twig page
+     *
+     * @param $view
+     * @param array $args
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     protected function twigRender($view, $args = [])
     {
         if (empty($this->loader)) {
@@ -56,16 +65,28 @@ class Controller
         echo $this->twig->render("$view.twig", $args);
     }
 
+    /**
+     * @param $prefix
+     */
     protected function setPrefixTitle($prefix)
     {
         $this->prefixTitle = $prefix;
     }
 
+    /**
+     * @param $title
+     */
     protected function setTitle($title)
     {
         $this->title = $title;
     }
 
+    /**
+     * Get a twig view file
+     *
+     * @param $view
+     * @return string
+     */
     protected function getFile($view)
     {
         return $this->viewPath . $view . '.php';

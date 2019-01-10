@@ -4,6 +4,11 @@ namespace App\Controller\Admin;
 
 class CommentController extends AppController
 {
+    /**
+     * Show all comments on admin panel
+     *
+     * @param null $filterid
+     */
     public function loop($filterid = null)
     {
         if (is_null($filterid) && !empty($_GET['id'])) {
@@ -22,6 +27,9 @@ class CommentController extends AppController
         $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));
     }
 
+    /**
+     * Valid a comment
+     */
     public function valid()
     {
         if ($this->user->admin) {
@@ -34,6 +42,9 @@ class CommentController extends AppController
         header("location:index.php?p=admin_comments&id={$_POST['filterid']}");
     }
 
+    /**
+     * Delete a comment
+     */
     public function delete()
     {
         if ($this->user->admin) {

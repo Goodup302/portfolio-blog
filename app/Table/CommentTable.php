@@ -7,6 +7,12 @@ class CommentTable extends Table
 {
     use DBinjection;
 
+    /**
+     * @param $postId
+     * @param bool $validate
+     * @param bool $result
+     * @return array|int|mixed
+     */
     public function getComments($postId, $validate = false, $result = true)
     {
         $where = '';
@@ -31,6 +37,10 @@ class CommentTable extends Table
         }
     }
 
+    /**
+     * @param $id
+     * @return array|int|mixed
+     */
     public function deleteByPostId($id)
     {
         return $this->db->query(

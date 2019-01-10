@@ -7,6 +7,10 @@ class UserTable extends Table
 {
     use DBinjection;
 
+    /**
+     * @param $key
+     * @return array|int|mixed
+     */
     public function getUserByKey($key)
     {
         return $this->db->query(
@@ -17,6 +21,13 @@ class UserTable extends Table
         );
     }
 
+    /**
+     * Login function
+     *
+     * @param $login
+     * @param null $password
+     * @return array|int|mixed
+     */
     public function auth($login, $password = null)
     {
         if (is_null($password)) {
@@ -34,9 +45,15 @@ class UserTable extends Table
                 true
             );
         }
-
     }
 
+    /**
+     * @param $username
+     * @param $login
+     * @param $password
+     * @param $email
+     * @return array|bool|int|mixed
+     */
     public function register($username, $login, $password, $email)
     {
         $userTable = new self();
@@ -55,6 +72,10 @@ class UserTable extends Table
         }
     }
 
+    /**
+     * @param $username
+     * @return array|int|mixed
+     */
     public function usernameExist($username)
     {
         return $this->db->query(
@@ -66,6 +87,10 @@ class UserTable extends Table
         );
     }
 
+    /**
+     * @param $login
+     * @return array|int|mixed
+     */
     public function loginExist($login)
     {
         return $this->db->query(
@@ -77,6 +102,10 @@ class UserTable extends Table
         );
     }
 
+    /**
+     * @param $email
+     * @return array|int|mixed
+     */
     public function emailExist($email)
     {
         return $this->db->query(
@@ -88,6 +117,10 @@ class UserTable extends Table
         );
     }
 
+    /**
+     * @param int $length
+     * @return string
+     */
     public static function randomKey($length = 128)
     {
         $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$-_.+!*()";
@@ -99,6 +132,10 @@ class UserTable extends Table
         return $randomString;
     }
 
+    /**
+     * @param $password
+     * @return bool|string
+     */
     public function hashPassword($password)
     {
         return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);

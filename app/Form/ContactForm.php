@@ -18,6 +18,9 @@ class ContactForm extends PostForm
         'message' => ['Message', InputType::TEXTAREA]
     );
 
+    /**
+     * Send contact mail
+     */
     public function sendMail()
     {
         $receiver = Config::getInstance(CONFIG_FILE)->get('contact_mail');

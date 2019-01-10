@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form\AuthForm;
+
 use App\Entity\UserEntity;
 use App\Table\UserTable;
 use Core\Auth\Session;

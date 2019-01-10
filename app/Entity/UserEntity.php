@@ -8,11 +8,19 @@ use Core\Form\Email;
 
 class UserEntity extends Entity
 {
+    /**
+     * Return if user is admin
+     * @return bool
+     */
     public function getAdmin() : bool
     {
         return boolval($this->admin);
     }
 
+    /**
+     * @param PostEntity $post
+     * @return bool
+     */
     public function canEditPost(PostEntity $post)
     {
         if ($this->getAdmin()) {
@@ -23,6 +31,11 @@ class UserEntity extends Entity
         return false;
     }
 
+    /**
+     * Send validation mail
+     * 
+     * @return bool
+     */
     public function sendConfirmMail()
     {
         $receiver = $this->email;

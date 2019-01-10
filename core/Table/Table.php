@@ -8,6 +8,10 @@ class Table
     protected $table;
     protected $db;
 
+    /**
+     * Table constructor.
+     * @param DataBase|null $db
+     */
     public function __construct(DataBase $db = null)
     {
         if ($db != null) {
@@ -21,11 +25,17 @@ class Table
         }
     }
 
+    /**
+     * @return string
+     */
     public function getLastId()
     {
         return $this->db->getLastId();
     }
 
+    /**
+     * @return array|int|mixed
+     */
     public function getAll()
     {
         return $this->db->query(
@@ -33,6 +43,11 @@ class Table
             $this->getEntityName()
         );
     }
+
+    /**
+     * @param $id
+     * @return array|int|mixed
+     */
     public function getById($id)
     {
         return $this->db->query(
@@ -43,6 +58,10 @@ class Table
         );
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function idExist($id)
     {
         return boolval($this->db->query(
@@ -54,6 +73,10 @@ class Table
         ));
     }
 
+    /**
+     * @param $data
+     * @return array|int|mixed
+     */
     public function insert($data)
     {
         $sql_index = [];
@@ -76,6 +99,11 @@ class Table
         );
     }
 
+    /**
+     * @param $id
+     * @param $data
+     * @return array|int|mixed
+     */
     public function update($id, $data)
     {
         $sql_parts = [];
@@ -96,6 +124,10 @@ class Table
         );
     }
 
+    /**
+     * @param $id
+     * @return array|int|mixed
+     */
     public function delete($id)
     {
         return $this->db->query(
@@ -107,6 +139,9 @@ class Table
         );
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntityName()
     {
         return str_replace('Table', 'Entity', get_class($this));

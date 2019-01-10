@@ -5,6 +5,11 @@ use App\Table\UserTable;
 
 trait AuthorAble
 {
+    /**
+     * Get author of Entity instance
+     *
+     * @return array|int|mixed
+     */
     public function getAuthor()
     {
         if (empty($this->author)) {

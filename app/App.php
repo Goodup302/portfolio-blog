@@ -21,6 +21,11 @@ class App
         return self::$instance;
     }
 
+    /**
+     * Init blog
+     * 
+     * @return string
+     */
     public static function load()
     {
         define('ROOT', dirname(__DIR__));
@@ -30,6 +35,9 @@ class App
         return self::getInstance()->getPageName();
     }
 
+    /**
+     * @return string
+     */
     public function getPageName()
     {
         $this->page = self::DEFAULT_PAGE;
@@ -39,6 +47,10 @@ class App
         return $this->page;
     }
 
+    /**
+     * @param $name
+     * @return \Core\Table\Table|null
+     */
     public function getTable($name) : ?Core\Table\Table
     {
         $class_name = "App\\Table\\" . ucfirst($name) . 'Table';
@@ -49,6 +61,9 @@ class App
     public function postTable() : App\Table\PostTable { return new PostTable(); }
     public function commentTable() : App\Table\CommentTable { return new CommentTable(); }
 
+    /**
+     * @return DataBase
+     */
     public function getDatabase()
     {
         if (is_null($this->database)) {
@@ -63,6 +78,9 @@ class App
         return $this->database;
     }
 
+    /**
+     * @param null $message
+     */
     public function error404($message = null)
     {
         if (is_null($message)) {

@@ -7,6 +7,10 @@ class PostTable extends Table
 {
     use DBinjection;
 
+    /**
+     * @param $id
+     * @return array|int|mixed
+     */
     public function getByUserId($id)
     {
         return $this->db->query(
@@ -16,6 +20,10 @@ class PostTable extends Table
         );
     }
 
+    /**
+     * @param $title
+     * @return bool
+     */
     public function titleExist($title)
     {
         return boolval($this->db->query(

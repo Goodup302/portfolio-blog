@@ -14,6 +14,12 @@ class Email
     private $subject;
     private $htmlContent;
 
+    /**
+     * Email constructor.
+     * @param $email_title
+     * @param $email_sender
+     * @param $email_receiver
+     */
     public function __construct($email_title, $email_sender, $email_receiver)
     {
         $this->sender = $email_sender;
@@ -27,12 +33,22 @@ class Email
         );
     }
 
+    /**
+     * @param $subject
+     * @return $this
+     */
     public function setObjet($subject)
     {
         $this->subject = $subject;
         return $this;
     }
 
+    /**
+     * Set content of mail
+     *
+     * @param $content
+     * @return $this
+     */
     public function setHtmlContent($content)
     {
         $this->htmlContent = "
@@ -45,6 +61,9 @@ class Email
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function send()
     {
         return mail($this->receiver, $this->subject, $this->htmlContent, implode("\r\n", $this->header));

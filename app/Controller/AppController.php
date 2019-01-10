@@ -51,6 +51,7 @@ class AppController extends Controller
 
     /**
      * Error 404 controller
+     *
      * @param null $error
      */
     public function error404($error = null)

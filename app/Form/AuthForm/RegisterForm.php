@@ -22,6 +22,9 @@ class RegisterForm extends PostForm
         'password' => ['Mot de passe', InputType::PASSWORD]
     );
 
+    /**
+     * Register an new user
+     */
     public function register()
     {
         $userTable = new UserTable();

@@ -12,6 +12,13 @@ class DataBase
 
     private $pdo;
 
+    /**
+     * DataBase constructor.
+     * @param $name
+     * @param string $host
+     * @param string $user
+     * @param string $password
+     */
     public function __construct($name, $host = '127.0.0.1', $user = 'root', $password = 'root')
     {
         $this->host = $host;
@@ -20,6 +27,9 @@ class DataBase
         $this->password = $password;
     }
 
+    /**
+     * @return PDO
+     */
     private function getPDO()
     {
         if ($this->pdo == null) {
@@ -30,6 +40,14 @@ class DataBase
         return $this->pdo;
     }
 
+    /**
+     * @param $statement
+     * @param null $className
+     * @param null $args
+     * @param bool $isSingle
+     * @param bool $return
+     * @return array|int|mixed
+     */
     public function query($statement, $className = null, $args = null, $isSingle = false, $return = true)
     {
         if (!is_null($args)) {
@@ -56,6 +74,9 @@ class DataBase
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function getLastId()
     {
         return $this->getPDO()->lastInsertId();
