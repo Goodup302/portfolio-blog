@@ -5,7 +5,8 @@ Dependencies:
 - PHP 7.2 (Minimum)
 - MYSQL 8.0
 
-The admin account will be the first account created since the party login
+The admin account will be the first account created since the party register:
+index.php?p=auth&action=register
 
 #EN
 Installation:

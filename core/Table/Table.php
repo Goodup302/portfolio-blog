@@ -125,6 +125,19 @@ class Table
     }
 
     /**
+     * @return int|null
+     */
+    public function count()
+    {
+        return intval($this->db->query(
+            "SELECT COUNT(*) FROM {$this->table}",
+            false,
+            null,
+            true
+        )[0]);
+    }
+
+    /**
      * @param $id
      * @return array|int|mixed
      */

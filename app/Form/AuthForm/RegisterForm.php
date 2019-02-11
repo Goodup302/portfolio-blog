@@ -11,9 +11,10 @@ class RegisterForm extends PostForm
     const LOGIN_EXIST_ERROR = 'Le pseudo entré est déjà utilisé';
     const EMAIL_EXIST_ERROR = 'Le mail entré est déjà utilisé';
     const REGISTER_ERROR = 'Création du compte impossible, Réessayer plus tard.';
+    const SUCCESS_MESSAGE_ADMIN = "Le compte admin vient d'ètre créé";
 
     protected $submitName = "S'enregistrer";
-    protected $success_message = 'Votre compte vient d\'ètre créé (Un mail de confirmation vous a été envoyé)';
+    protected $success_message = "Votre compte vient d'ètre créé (Un mail de confirmation vous a été envoyé)";
     protected $hasLabel = true;
     protected $inputModel = array(
         'username' => ['Nom et Prenom', InputType::TEXT],
@@ -37,15 +38,32 @@ class RegisterForm extends PostForm
             $error = self::EMAIL_EXIST_ERROR;
         }
         if (is_null($error)) {
-            //Create Account
-            $user = $userTable->register(
-                $this->get('username'),
-                $this->get('login'),
-                $this->get('password'),
-                $this->get('email')
-            );
+            $usernumber = $userTable->count();
+            if ($usernumber == 0) {
+                //Create Account
+                $user = $userTable->register(
+                    $this->get('username'),
+                    $this->get('login'),
+                    $this->get('password'),
+                    $this->get('email'),
+                    true,
+                    true
+                );
+            } else {
+                //Create Account
+                $user = $userTable->register(
+                    $this->get('username'),
+                    $this->get('login'),
+                    $this->get('password'),
+                    $this->get('email')
+                );
+            }
             if ($user instanceof UserEntity) {
-                $user->sendConfirmMail();
+                if ($usernumber != 0) {
+                    $user->sendConfirmMail();
+                } else {
+                    $this->setSuccess(self::SUCCESS_MESSAGE_ADMIN);
+                }
             } else {
                 $this->setError(self::REGISTER_ERROR);
             }

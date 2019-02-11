@@ -61,7 +61,9 @@ class DataBase
         }
         //
         if (!is_null($className)) {
-            $request->setFetchMode(PDO::FETCH_CLASS, $className);
+            if ($className != false) {
+                $request->setFetchMode(PDO::FETCH_CLASS, $className);
+            }
         } else {
             $request->setFetchMode(PDO::FETCH_OBJ);
         }
