@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <form method="post">
                     {{ form.input('title', 'Titre', 'text', post.title) }}
-                    {{ form.input('image', 'Url image', 'url', post.image) }}
+                    {{ form.input('image', 'Url image', 'text', post.image) }}
                     {{ form.input('excerpt', 'Extrait', 'text', post.excerpt) }}
                     {{ form.textarea('content', 'Contenu', post.content) }}
                     {{ form.submit('Modifier') }}
