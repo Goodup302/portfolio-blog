@@ -42,5 +42,5 @@ switch (App::load()) {
     case 'admin_comments_delete':
         (new Admin\CommentController())->delete(); break;
     default:
-        (new AppController())->error404('Cette page n\'existe pas ou plus !'); break;
+        (new AppController())->error404("Cette page n'existe pas ou plus !"); break;
 }

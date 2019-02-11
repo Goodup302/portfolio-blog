@@ -52,9 +52,11 @@ class UserTable extends Table
      * @param $login
      * @param $password
      * @param $email
+     * @param bool $forceValidation
+     * @param bool $forceAdmin
      * @return array|bool|int|mixed
      */
-    public function register($username, $login, $password, $email)
+    public function register($username, $login, $password, $email, $forceValidation = false, $forceAdmin = false)
     {
         $userTable = new self();
         $args = array(
@@ -62,7 +64,9 @@ class UserTable extends Table
             'login' => $login,
             'password' => $this->hashPassword($password),
             'email' => $email,
-            'validatekey' => self::randomKey()
+            'validatekey' => self::randomKey(),
+            'validate' => intval($forceValidation),
+            'admin' => intval($forceAdmin)
         );
         $user = $userTable->insert($args);
         if ($user) {

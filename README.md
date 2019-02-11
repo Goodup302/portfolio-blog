@@ -5,6 +5,8 @@ Dependencies:
 - PHP 7.2 (Minimum)
 - MYSQL 8.0
 
+The admin account will be the first account created since the party login
+
 #EN
 Installation:
 - run the database.sql script on your database

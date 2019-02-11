@@ -40,86 +40,32 @@
     ================================================== -->
 
     <header class="s-header header">
-
-{#        <div class="header__search">
-
-            <form role="search" method="get" class="header__search-form" action="#">
-                <label>
-                    <span class="hide-content">Search for:</span>
-                    <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
-                </label>
-                <input type="submit" class="search-submit" value="Search">
-            </form>
-
-            <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
-
-        </div>  <!-- end header__search -->#}
-
         <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
         <nav class="header__nav-wrap">
-
             <h2 class="header__nav-heading h6">Navigation</h2>
-
             <ul class="header__nav">
                 <li class="{{ currentPage('home') }}"><a href="index.php?p=home" title="">Accueil</a></li>
                 <li class="{{ currentPage('loop') }}"><a href="index.php?p=loop" title="">Article</a></li>
                 {% if logged %}
-                    {% if logged_user.admin %}
-                        <li class="{{ currentPagePrefix('admin_') }}"><a href="index.php?p=admin_posts" title="">Administration</a></li>
-                    {% endif %}
                     <li class="{{ currentPage('account') }}"><a href="index.php?p=account" title="">Mon compte</a></li>
                     <li><a href="index.php?p=auth&action=logout" title="">Se déconnecter</a></li>
                 {% else %}
                     <li class="{{ currentPage('auth') }}"><a href="index.php?p=auth&action=login" title="">Connection</a></li>
                 {% endif %}
-            </ul> <!-- end header__nav -->
-
+            </ul>
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
-
-        </nav> <!-- end header__nav-wrap -->
-
-    </header> <!-- s-header -->
+        </nav>
+    </header>
 
     {% block content %}
     {% endblock %}
 
     <!-- s-footer
-================================================== -->
+    ================================================== -->
     <footer class="s-footer">
-{#        <div class="s-footer__main">
-            <div class="row">
-
-                <div class="col-six tab-full s-footer__about">
-                    <h4>About Wordsmith</h4>
-                    <p>Fugiat quas eveniet voluptatem natus. Placeat error temporibus magnam sunt optio aliquam. Ut ut occaecati placeat at.
-                        Fuga fugit ea autem. Dignissimos voluptate repellat occaecati minima dignissimos mollitia consequatur.
-                        Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa error
-                        temporibus magnam est voluptatem.</p>
-
-                </div> <!-- end s-footer__about -->
-
-                <div class="col-six tab-full s-footer__subscribe">
-
-                    <h4>Our Newsletter</h4>
-
-                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
-
-                    <div class="subscribe-form">
-                        <form id="mc-form" class="group" novalidate="true">
-                            <label for="mc-email" class="subscribe-message"></label>
-                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
-
-                            <input type="submit" name="subscribe" value="Send">
-                        </form>
-                    </div>
-
-                </div> <!-- end s-footer__subscribe -->
-
-            </div>
-        </div> <!-- end s-footer__main -->#}
         <div class="s-footer__bottom">
             <div class="row">
-                <div class="col-six">
+                <div class="col-four">
                     <ul class="footer-social">
                         <li>
                             <a target="_blank" href="https://www.facebook.com/julienfernendes"><i class="fab fa-facebook"></i></a>
@@ -135,32 +81,34 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="col-six">
+                <div class="col-four">
+                    <div class="text-center">
+                        {% if logged_user.admin %}
+                            <a href="index.php?p=admin_posts" title="">Administration</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-four">
                     <div class="s-footer__copyright">
                         <span>
                             Copyright &copy; <script>document.write(new Date().getFullYear());</script>
-                            Tous les droits sont réservés. <i class="fa fa-heart" aria-hidden="true"></i>
-                            By <a target="_blank" href="http://goodup302.fr/">GoodUp302</a>
+                            Tous les droits sont réservés.
+                            {#<i class="fa fa-heart" aria-hidden="true"></i>
+                            By <a target="_blank" href="http://goodup302.fr/">GoodUp302</a>#}
                         </span>
                     </div>
                 </div>
 
             </div>
-        </div> <!-- end s-footer__bottom -->
-
+        </div>
         <div class="go-top">
             <a class="smoothscroll" title="Back to Top" href="#top"></a>
         </div>
-
-    </footer> <!-- end s-footer -->
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    </footer>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 </body>

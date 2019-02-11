@@ -52,9 +52,6 @@ class AppController extends Controller
     /**
      * Error 404 controller
      * @param null $error
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function error404($error = null)
     {
