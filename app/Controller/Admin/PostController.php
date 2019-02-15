@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\UserEntity;
 use \Core\HTML\Alert;
 use \Core\HTML\BootstrapStyle;
 
@@ -76,6 +77,7 @@ class PostController extends AppController
                     if (!empty($_POST)) {
                         $args = array(
                             "title" => $_POST['title'],
+                            "user_id" => intval($_POST['user_id']),
                             "excerpt" => $_POST['excerpt'],
                             "content" => $_POST['content'],
                             "image" => $_POST['image'],
@@ -84,8 +86,12 @@ class PostController extends AppController
                         $postTable->update($id, $args);
                     }
                     $post = $postTable->getById($id);
-                    $commentsnumber = $this->commentTable->getComments($post->id, null, false);
-                    $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber'));
+                    foreach ($this->userTable->getAll() as $user) {
+                        /** @var UserEntity $user */
+                        $users[] = [$user->id, $user->username];
+                    }
+                    $commentsnumber = $this->commentTable->getByPostId($post->id, null, false);
+                    $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber', 'users'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
                 }

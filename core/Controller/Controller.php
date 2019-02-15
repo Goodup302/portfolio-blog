@@ -2,6 +2,7 @@
 
 namespace Core\Controller;
 
+use App\Entity\UserEntity;
 use Core\Auth\Session;
 use Twig_Extension_Debug;
 use Twig_Function;
@@ -14,6 +15,9 @@ class Controller
     protected $tempFolder;
     private $title;
     private $prefixTitle;
+    /**
+     * @var UserEntity
+     */
     protected $logged_user;
 
     private $loader;
@@ -24,9 +28,6 @@ class Controller
      *
      * @param $view
      * @param array $args
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     protected function twigRender($view, $args = [])
     {

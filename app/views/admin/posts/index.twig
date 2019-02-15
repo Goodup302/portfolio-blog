@@ -30,11 +30,12 @@
                                 <td>{{ post.author.username }}</td>
                                 <td>{{ post.lastdate }}</td>
                                 <td>
-                                    {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
+                                    {{ Button.show('Voir l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
                                     {{ Button.show('Modifier', null, '?p=admin_posts_edit&id='~post.id) }}
-                                    <form method="post" action="?p=admin_posts_delete" style="display: inline;">
+                                    <form method="post" action="?p=admin_posts_delete" style="display: inline;"
+                                          swa-title="Etes vous sur ?" swa-type="question" swa-color="#d33">
                                         {{ form.value('id', post.id) }}
-                                        {{ form.submit('Supprimer', 'danger') }}
+                                        <button class='btn btn-danger swa-confirm' type='submit'>Supprimer</button>
                                     </form>
                                 </td>
                             </tr>

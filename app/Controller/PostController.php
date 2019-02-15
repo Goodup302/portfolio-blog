@@ -52,8 +52,8 @@ class PostController extends AppController
                 }
                 //
                 $this->setTitle("Article - $post->title");
-                $comments = $this->commentTable->getComments($_GET['id'], true);
-                $commentsnumber = $this->commentTable->getComments($_GET['id'], true, false);
+                $comments = $this->commentTable->getByPostId($_GET['id'], true);
+                $commentsnumber = $this->commentTable->getByPostId($_GET['id'], true, false);
                 $this->twigRender('posts/single', compact('post', 'comments', 'commentsnumber', 'commentform'));
             } else {
                 $this->error404("Cette article n'existe pas ou plus !");

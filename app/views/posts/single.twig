@@ -20,7 +20,7 @@
                             <span>{{ post.getAuthor().username }}</span>
                         </li>
                     </ul>
-                    {% if logged %}
+                    {% if logged and logged_user.admin %}
                         <a href="index.php?p=admin_posts_edit&id={{ post.id }}">Editer</a>
                     {% endif %}
 

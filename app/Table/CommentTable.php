@@ -13,11 +13,13 @@ class CommentTable extends Table
      * @param bool $result
      * @return array|int|mixed
      */
-    public function getComments($postId, $validate = false, $result = true)
+    public function getByPostId($postId, $validate = null, $result = true)
     {
         $where = '';
-        if ($validate) {
+        if ($validate == true) {
             $where = ' AND validate = true';
+        } elseif ($validate == false) {
+            $where = ' AND validate = false';
         }
         $query = "SELECT * FROM {$this->table} WHERE post_id = ? {$where} ORDER BY id DESC";
         if ($result) {
@@ -31,6 +33,33 @@ class CommentTable extends Table
                 $query,
                 null,
                 [$postId],
+                null,
+                false
+            );
+        }
+    }
+
+    /**
+     * Get all comments by validity
+     *
+     * @param bool $validate
+     * @param bool $result
+     * @return array|int|mixed
+     */
+    public function getByValidity($validate = true, $result = true)
+    {
+        $query = "SELECT * FROM {$this->table} WHERE validate = ? ORDER BY id DESC";
+        if ($result) {
+            return $this->db->query(
+                $query,
+                $this->getEntityName(),
+                [$validate]
+            );
+        } else {
+            return $this->db->query(
+                $query,
+                null,
+                [$validate],
                 null,
                 false
             );

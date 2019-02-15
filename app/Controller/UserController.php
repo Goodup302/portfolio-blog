@@ -39,6 +39,11 @@ class UserController extends AppController
                     $form->login();
                     if (Session::isLogged()) {
                         $this->logged_user = (new UserTable())->getById(Session::getUserId());
+                        if ($this->logged_user->getAdmin()) {
+                            $this->goToAdmin();
+                        } else {
+                            $this->goToHome();
+                        }
                     }
                 }
             } else {
@@ -92,5 +97,21 @@ class UserController extends AppController
     private function goToLogin()
     {
         header("location: index.php?p=auth&action=login");
+    }
+
+    /**
+     * Admin Page
+     */
+    public function goToAdmin()
+    {
+        header("location:index.php?p=admin_posts");
+    }
+
+    /**
+     * Home Page
+     */
+    public function goToHome()
+    {
+        header("location:index.php");
     }
 }
