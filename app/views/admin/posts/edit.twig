@@ -8,7 +8,15 @@
         <div class="row entries-wrap wide">
             <div class="col-md-12">
                 <a href="index.php?p=admin_posts">Retour</a><br>
-                {{ Button.show('Voire l\'article', 'secondary', 'index.php?p=single&id='~post.id) }}
+                {{ Button.show("Voir l'article", 'secondary', 'index.php?p=single&id='~post.id) }}
+                {% if commentsnumber > 0 %}
+                    {{ Button.show('Commentaires ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
+                {% endif %}
+                <form method="post" action="?p=admin_posts_delete" style="display: inline;"
+                    swa-title="Etes vous sur ?" swa-type="question" swa-color="#d33">
+                    {{ form.value('id', post.id) }}
+                    <button class='btn btn-danger swa-confirm' type='submit'>Supprimer</button>
+                </form>
                 <h2>Editer l'article</h2>
             </div>
 
@@ -21,9 +29,7 @@
                     {{ form.textarea('content', 'Contenu', post.content) }}
                     {{ form.submit('Modifier') }}
 
-                    {% if commentsnumber > 0 %}
-                        {{ Button.show('Commentaires associés ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
-                    {% endif %}
+
                 </form>
             </div>
         </div>

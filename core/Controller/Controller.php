@@ -28,9 +28,6 @@ class Controller
      *
      * @param $view
      * @param array $args
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     protected function twigRender($view, $args = [])
     {

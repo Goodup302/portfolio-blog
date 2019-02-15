@@ -15,16 +15,24 @@ class CommentController extends AppController
             $filterid = $_GET['id'];
         }
         if (!empty($filterid)) {
-            $comments = $this->commentTable->getComments($filterid);
+            $commentsValid = $this->commentTable->getByPostId($filterid, true);
+            $commentsWaiting = $this->commentTable->getByPostId($filterid, false);
             $returnurl = "index.php?p=admin_posts_edit&id=$filterid";
             $post = $this->postTable->getById($filterid);
             $this->setTitle("Commentaires de l'article $post->title");
         } else {
-            $comments = $this->commentTable->getAll();
+            $commentsValid = $this->commentTable->getByValidity(true);
+            $commentsWaiting = $this->commentTable->getByValidity(false);
             $returnurl = 'index.php?p=admin_posts';
             $this->setTitle('Tous les commentaires');
         }
-        $this->twigRender('admin/comments/index', compact('comments', 'returnurl', 'post', 'filterid'));
+        $this->twigRender('admin/comments/index', compact(
+            'commentsValid',
+            'commentsWaiting',
+            'returnurl',
+            'post',
+            'filterid'
+        ));
     }
 
     /**

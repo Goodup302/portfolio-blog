@@ -1,8 +1,7 @@
 {% extends template %}
 
 {% block content %}
-    {% import component~'button.twig' as Button %}
-    {% import component~'form.twig' as form %}
+    {% import _self as table %}
     <section class="s-content s-content--top-padding s-content--narrow">
         <div class="row entries-wrap wide">
                 <div class="col-md-12">
@@ -13,51 +12,76 @@
                     <p></p>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Auteur</th>
-                                {% if not filterid %}
-                                    <th scope="col">Article</th>
-                                {% endif %}
-                                <th scope="col">Date de création</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for comment in comments %}
-                                <tr>
-                                    <td>{{ comment.author.username }}</td>
-                                    {% if not filterid %}
-                                    <td>{{ comment.post.title }}</td>
-                                    {% endif %}
-                                    <td>{{ comment.date }}</td>
-                                    <td>
-
-                                        <button class='btn btn-primary' role='button' onclick="alert('{{ comment.content }}')">Voire</button>
-                                        {% if comment.validate == false %}
-                                            <form method="post" action="?p=admin_comments_valid" style="display: inline;">
-                                                {{ form.value('id', comment.id) }}
-                                                {{ form.value('filterid', filterid) }}
-                                                {{ form.submit('Valider', 'success') }}
-                                            </form>
-                                        {% endif %}
-
-                                        <form method="post" action="?p=admin_comments_delete" style="display: inline;">
-                                            {{ form.value('id', comment.id) }}
-                                            {{ form.value('filterid', filterid) }}
-                                            {{ form.submit('Supprimer', 'danger') }}
-                                        </form>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+            <nav class="col-12">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    {% if commentsWaiting|length > 0 %}
+                        <a class="nav-item nav-link active" id="nav-home-tab"
+                           data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                            En attente de validation
+                        </a>
+                    {% endif %}
+                    <a class="nav-item nav-link" id="nav-profile-tab"
+                       data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+                        Validé
+                    </a>
+                </div>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        {{ table.comments(commentsWaiting, component) }}
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        {{ table.comments(commentsValid, component) }}
                     </div>
                 </div>
+            </nav>
         </div>
     </section>
-
 {% endblock %}
+
+
+{% macro comments(comments, component) %}
+    {% import component~'button.twig' as Button %}
+    {% import component~'form.twig' as form %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Auteur</th>
+                    {% if not filterid %}
+                        <th scope="col">Article</th>
+                    {% endif %}
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>{{ comment.author.username }}</td>
+                        {% if not filterid %}
+                            <td>{{ comment.post.title }}</td>
+                        {% endif %}
+                        <td>{{ comment.date }}</td>
+                        <td>
+                            {% if comment.validate == false %}
+                                <form method="post" action="?p=admin_comments_valid" style="display: inline;"
+                                    swa-title="{{ comment.content }}" swa-type="success" swa-color="#1e7e34">
+                                    {{ form.value('id', comment.id) }}
+                                    {{ form.value('filterid', filterid) }}
+                                    <button class='btn btn-success swa-confirm' type='submit'>Valider</button>
+                                </form>
+                            {% endif %}
+
+                            <form method="post" action="?p=admin_comments_delete" style="display: inline;"
+                                swa-title="{{ comment.content }}" swa-type="question" swa-color="#d33">
+                                {{ form.value('id', comment.id) }}
+                                {{ form.value('filterid', filterid) }}
+                                <button class='btn btn-danger swa-confirm' type='submit'>Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endmacro %}

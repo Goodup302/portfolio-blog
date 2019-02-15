@@ -90,7 +90,7 @@ class PostController extends AppController
                         /** @var UserEntity $user */
                         $users[] = [$user->id, $user->username];
                     }
-                    $commentsnumber = $this->commentTable->getComments($post->id, null, false);
+                    $commentsnumber = $this->commentTable->getByPostId($post->id, null, false);
                     $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber', 'users'));
                 } else {
                     (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
