@@ -13,6 +13,20 @@
     </div>
 {% endmacro %}
 
+{% macro select(name, label, items, currentItem) %}
+    <div class="form-group">
+        <label>{{ label }}</label>
+        <select name="{{ name }}" class="form-control" >
+            {% for item in items %}
+                {% if item[0] == currentItem %}
+                    <option style="font-weight: bold;" value="{{ item[0] }}" selected="selected">{{ item[1] }}</option>
+                {% else %}
+                    <option value="{{ item[0] }}">{{ item[1] }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+{% endmacro %}
 
 {% macro value(id, value) %}
     <input  type='hidden' name='{{ id }}' value='{{ value }}'>

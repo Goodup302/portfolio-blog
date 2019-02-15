@@ -15,6 +15,7 @@
             <div class="col-md-12">
                 <form method="post">
                     {{ form.input('title', 'Titre', 'text', post.title) }}
+                    {{ form.select('user_id', 'Auteur', users, post.user_id) }}
                     {{ form.input('image', 'Url image', 'text', post.image) }}
                     {{ form.input('excerpt', 'Extrait', 'text', post.excerpt) }}
                     {{ form.textarea('content', 'Contenu', post.content) }}
