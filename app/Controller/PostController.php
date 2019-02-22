@@ -42,7 +42,7 @@ class PostController extends AppController
                                 $commentform->setSuccess('Votre commentaire a été envoyé');
                             } else {
                                 $commentform->setSuccess(
-                                    'Votre commentaire a été envoyé, il vas ètre soumis à une vérification'
+                                    'Votre commentaire a été envoyé, il va être soumis à une vérification'
                                 );
                             }
                         } else {

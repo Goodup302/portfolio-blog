@@ -7,7 +7,7 @@ use Core\Form\Email;
 
 class ContactForm extends PostForm
 {
-    const ERROR_CONTACT = "Le mail n'a pas pu ètre envoyé, réessayer plus tard.";
+    const ERROR_CONTACT = "Le mail n'a pas pu être envoyé, réessayer plus tard.";
 
     protected $submitName = 'Contacter';
     protected $success_message = 'Votre demande a été envoyée';
@@ -35,7 +35,7 @@ class ContactForm extends PostForm
             <p>$content</p>
         ";
         //
-        $mail = (new Email("$name vous contact", $sender, $receiver))
+        $mail = (new Email("$name vous contacte", $sender, $receiver))
             ->setObjet($objet)
             ->setHtmlContent($message)
         ;

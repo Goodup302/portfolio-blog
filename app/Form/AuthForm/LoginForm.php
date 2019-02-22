@@ -10,12 +10,12 @@ use Core\Form\InputType;
 
 class LoginForm extends PostForm
 {
-    const LOGIN_ERROR = "Les identifiants rentré ne sont pas correctes";
+    const LOGIN_ERROR = "Les identifiants rentrés ne sont pas corrects";
     const ACTIVATION_ERROR = "Votre compte n'est pas validé (Le mail de confirmation vous à été renvoyé)";
     const ACTIVATION_MAIL_ERROR = "Votre compte n'est pas validé, l'envoi du mail de confirmation a échoué";
 
     protected $submitName = "Se connecter";
-    protected $success_message = 'Connection effectuée avec success';
+    protected $success_message = 'Connection effectuée avec succes';
     protected $hasLabel = true;
     protected $inputModel = array(
         'login' => ['Pseudo', InputType::TEXT],

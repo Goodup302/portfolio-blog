@@ -93,7 +93,7 @@ class PostForm
 
             if ($type == InputType::TEXT) {
                 if ($value != strip_tags($value)) {
-                    $this->error_message = "Certain des caractères ne sont pas accepté";
+                    $this->error_message = "Certains caractères ne sont pas acceptés";
                     break;
                 }
                 if (strlen($value) > InputType::TEXT_MAX_SIZE) {
@@ -102,7 +102,7 @@ class PostForm
                 }
             } elseif ($type == InputType::TEXTAREA) {
                 if ($value != strip_tags($value)) {
-                    $this->error_message = "Certain des caractères ne sont pas accepté";
+                    $this->error_message = "Certains caractères ne sont pas acceptés";
                     break;
                 }
                 if (strlen($value) > InputType::TEXTAREA_MAX_SIZE) {

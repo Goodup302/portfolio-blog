@@ -93,10 +93,10 @@ class PostController extends AppController
                     $commentsnumber = $this->commentTable->getByPostId($post->id, null, false);
                     $this->twigRender('admin/posts/edit', compact('post', 'commentsnumber', 'users'));
                 } else {
-                    (new Alert("Cette article ne vous appartient pas", BootstrapStyle::danger))->show();
+                    (new Alert("Cet article ne vous appartient pas", BootstrapStyle::danger))->show();
                 }
             } else {
-                (new Alert("Cette article n'existe pas ou plus", BootstrapStyle::warning))->show();
+                (new Alert("Cet article n'existe pas ou plus", BootstrapStyle::warning))->show();
             }
         } else {
             $this->loop();

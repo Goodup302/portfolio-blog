@@ -13,7 +13,7 @@
                     {{ Button.show('Commentaires ('~commentsnumber~')', 'secondary', '?p=admin_comments&id='~post.id) }}
                 {% endif %}
                 <form method="post" action="?p=admin_posts_delete" style="display: inline;"
-                    swa-title="Etes vous sur ?" swa-type="question" swa-color="#d33">
+                    swa-title="Etes-vous sur ?" swa-type="question" swa-color="#d33">
                     {{ form.value('id', post.id) }}
                     <button class='btn btn-danger swa-confirm' type='submit'>Supprimer</button>
                 </form>
