@@ -1,0 +1,203 @@
+A faire:
+	- fix All mail and mail sender, tester le mail sur un serveur
+	- Réactiver le cache twig et désactiver le debug en mode production
+
+
+
+Contexte / Description du besoin
+Le projet est donc de développer votre blog professionnel.
+
+
+Page Front / back
+Voici la liste des pages qui devront être accessibles depuis votre site web :
+	- Page d'accueil
+	- Page Loop Post
+	- Page Single Post
+	- les pages permettant de modifier/supprimer un blog post
+	- Page Login/Register for user
+	Vous développerez une partie administration qui devra être accessible uniquement aux utilisateurs inscrits et validés.
+	Les pages d’administration seront donc accessible sur conditions et vous veillerez à la sécurité de la partie administration.
+
+
+
+
+
+Liste des pages Front pour les user:
+
+	Page Home:
+		- Votre nom et prénom ;
+		- Une photo et/ou un logo ;
+		- Une phrase d’accroche qui vous ressemble ( exemple : “Martin Durand, le développeur qu’il vous faut !”) ;
+		- Un menu permettant de naviguer parmi l’ensemble des pages de votre site web ;
+		- Un formulaire de contact (à la soumission de ce formulaire, un email avec toutes ces informations vous serons envoyé) avec les champs suivants :
+		- nom/prénom
+		- email de contact
+		- message
+		- un lien vers votre CV au format pdf ;
+		- et l’ensemble des liens vers les réseaux sociaux où l’on peut vous suivre (Github, LinkedIn, Twitter…).
+
+	Page Loop Post:
+		- le titre
+		- la date de dernière modification
+		- le châpo
+		- lien vers le blog post
+
+	Page Single Post:
+		- le titre
+		- le chapô (extrait)
+		- le contenu
+		- l’auteur
+		- la date de dernière mise à jour
+		- le formulaire permettant d’ajouter un commentaire (soumis pour validation)
+		- les listes des commentaires validés et publiés
+		- Sur la page permettant de modifier un blog post, l’utilisateur à la possibilité de modifier les champs titre, chapô, auteur et contenu
+
+	Footer menu:
+		lien pour accéder à l’administration du blog.
+
+
+
+
+Contraintes:
+	- Thème Bootstrap (Avec super design) 100% RESPONSIVE !
+	- Ajout des composant autorisé uniquement avec Composer
+	- Patch failles de sécurité (XSS, CRSF, SQL injection, session hijacking, upload possible de script php…)
+	- Analyse SensioLabsInsight (médaille d'argent minimum)
+	- Le respect des PSR est recommandé afin de proposer un code compréhensible et facilement évolutif.
+	- Sur la partie administration, vous veillerez à ce que seul les personnes ayant le droit “administrateur” aient l’accès, les autres utilisateurs pourront uniquement commenter les articles (avec validation avant publication).
+
+	GITHUB:
+		Votre projet doit être poussé et disponible sur Github.
+		Je vous conseille de travailler avec des pull requests.
+		Dans la mesure où la majorité des communications concernant les projets sur Github se font en anglais, il faut que vos commits soient en anglais.
+
+		Vous devrez créer l’ensemble des issues (tickets) correspondant aux tâches que vous aurez à effectuer pour mener à bien le projet.
+
+		Veillez à bien valider vos tickets pour vous assurer que ceux-ci couvrent bien toutes les demandes du projet. Donnez une estimation indicative en temps ou en points d’efforts (si la méthodologie agile vous est familière) et tentez de tenir cette estimation.
+
+		L’écriture de ces tickets vous permettront de vous accorder sur un vocabulaire commun et Il est fortement apprécié qu’ils soient écrits en anglais !
+
+
+
+Liste des étapes a réaliser dans l'ordre :
+	Étape 1 - Prendre connaissance entièrement de l’énoncé  et des spécifications détaillées.
+	Étape 2 - Créer les diagrammes UML.
+	Étape 3 - Créer le repository Github pour le projet.
+	Étape 4 - Créer l’ensemble des issues sur le repository Github (https://github.com/username/nom_du_repo/issues/new).
+	Étape 5 - Faites vos estimations de l’ensemble de vos issues.
+	Étape 6 - Entamez le développement de l’application et proposez des pull requests pour chacune des fonctionnalités/issue. (L’estimation se fera au fur et à mesure de votre développement et sera discutée avec votre mentor.)
+	Étape 7 - Faites relire votre code à votre mentor (code proposé dans la ou les pull requests), et une fois validée(s) mergez la ou les pull requests dans la branche principale. (Cette relecture servira à valider que vous implémentez les bonnes pratiques et que votre code est cohérent, la validation se fera en continue durant les sessions.)
+	Étape 8 - Validez la qualité du code via SensioLabsInsight.
+	Étape 9 - Démo Golobal (Tout doit ètre 100% opérationnel).
+	Étape 10 - Upload livrables vérifiées/corigée.
+
+Chaque étape doit ètre validée par le mentor
+
+
+
+
+
+Livrables:
+	- Lien repository Github (fichiers PHP/HTML/JS/CSS…)
+	- Les instructions pour installer le projet (README GITHUB)
+	- Les schémas UML (format png/jpg dans un dossier diagrammes à la racine du projet)
+		diagrammes de cas d’utilisation
+		diagramme de classes
+		diagrammes de séquence
+	- Les issues sur le repository Github que vous aurez créé
+	- Lien vers la dernière analyse SensioLabsInsight
+
+
+
+
+Soutenance:
+Total: 30 minutes maximum
+Tenue professionnel
+Role du mentor: potentiel employeur qui vous aurait contacté pour un poste, il vous demande de détailler votre travail
+
+Étapes:
+
+	Étape 1 : Présentation du contexte du projet, analyse du besoin & organisation du projet ~ 10 minutes
+		- Rappeler le contexte du projet dans le cadre du parcours que vous suivez.
+		- Choisir l'une des fonctionnalités développée et il vous faudra présenter les schémas UML correspondant (diagrammes d’utilisation, de classe et de séquence).
+		- expliquer la méthodologie adoptée, l'organisation de votre travail (découpage en tâches, priorisation, les estimations…).
+
+	Étape 2 : Démonstration total de l'application ~ 5 minutes
+
+	Étape 3 : Exécution ~ 5 minutes
+		- montrer comment vous avez versionné votre projet
+		- présenter l'architecture technique que vous avez mis en place
+		- lister les librairies que vous avez choisis et comment vous les avez intégré 
+		- prendre une pull request sur Github correspondant à une tâche et vous présenter une analyse SensioLabsInsight et expliquer les correctifs apportés
+		- détaillerez comment vous avez mené à bien cette tâche
+		- comment vous avez procédé pour garantir la mise en place des bonnes pratiques en vigueur.
+
+	Étape 4 : Questions / Réponses ~ 10 minutes
+
+
+
+
+
+
+Ressources‌:
+	Thèmes Bootstrap gratuits : startbootstrap.com
+
+	Moteur de templating Twig : twig.sensiolabs.org
+
+	Qu’est-ce qu’une pull request : help.github.com/articles/about-pull-requests
+
+	Créer une pull request : help.github.com/articles/creating-a-pull-request
+
+	Comment travailler avec le gestionnaire de paquet PHP Composer : getcomposer.org
+
+	SensioLabsInsight : https://insight.sensiolabs.com 
+
+	PSR 1 et 2 : http://www.php-fig.org/psr/ 
+
+
+
+
+Compétences à valider:
+	- Analyser un cahier des charges
+	- Gérer ses données avec une base de données
+	- Rédiger les spécifications détaillées du projet
+	- Proposer un code propre et facilement évolutif
+	- Choisir une solution technique adaptée parmi les solutions existantes si cela est pertinent
+	- Assurer le suivi qualité d’un projet
+	- Créer et maintenir l’architecture technique du site
+	- Conceptualiser l'ensemble de son application en décrivant sa structure (Entités / Domain Objects)
+	- Créer une page web permettant de recueillir les informations saisies par un internaute
+	- Estimer une tâche et tenir les délais
+
+
+
+
+Convention:
+	- Comenter toutes les class (Attributs/Functions)
+	- Mettre toutes ces classes dans son Namespace
+
+
+
+Mes issues:
+Temps maximum du projet : 2 mois
+
+Dépendances:
+ BackOffice:
+	- SwiftMailer
+	- Twig Templater
+	- Composeur AutoLoader
+	- NameSpace
+
+ FrontOffice:
+ 	- npm nodeJs
+	- Bootstrap
+	- jQuery
+
+- Création du paterne MVC (1 mois)
+	- routeur ()
+	- model
+	- controleur
+	- vue
+		- header
+		- content template
+		- footer

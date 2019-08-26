@@ -1,5 +1,8 @@
 # Portfolio-blog
-Php blog to introduce yourself and present your project
+[![Maintainability](https://api.codeclimate.com/v1/badges/91eb099b8f6da60a8dce/maintainability)](https://codeclimate.com/github/Goodup302/portfolio-blog/maintainability)  
+Php blog to introduce yourself and present your project  
+Projet 5 Openclassrooms - Créez votre premier blog en PHP
+Theme use wordsmith
 
 Dependencies:
 - PHP 7.2 (Minimum)
